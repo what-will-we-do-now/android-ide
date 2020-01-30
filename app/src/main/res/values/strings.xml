@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">My First App</string>
+    <string name="username">Input password</string>
+    <string name="edit_password">Input password</string>
+    <string name="button_login">Log In</string>
+    <string name="google">Search</string>
+</resources>
