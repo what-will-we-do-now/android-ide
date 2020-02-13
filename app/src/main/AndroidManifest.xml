@@ -9,17 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".core.IdeScreen"></activity>
+        <activity android:name=".IdeScreen"></activity>
         <activity
-            android:name=".core.HomeScreenActivity"
-            android:parentActivityName=".core.MainActivity">
+            android:name=".HomeScreenActivity"
+            android:parentActivityName=".LoginActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.MainActivity" />
+                android:value=".LoginActivity" />
         </activity>
-        <activity android:name=".core.MainActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
