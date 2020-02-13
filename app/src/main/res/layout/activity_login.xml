@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0D1F2D"
-    tools:context=".MainActivity"
+    tools:context=".LoginActivity"
     tools:layout_editor_absoluteY="81dp">
 
     <EditText

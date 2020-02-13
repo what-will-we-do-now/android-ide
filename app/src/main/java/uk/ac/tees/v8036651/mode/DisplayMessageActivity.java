@@ -27,7 +27,7 @@ public class DisplayMessageActivity extends AppCompatActivity {
          * Then Gets message to be broken down.
          */
         Intent intent = getIntent();
-        String message= intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        String message= intent.getStringExtra(LoginActivity.EXTRA_MESSAGE);
 
         /**
          * Makes username
