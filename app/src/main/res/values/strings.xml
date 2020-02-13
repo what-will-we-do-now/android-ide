@@ -6,4 +6,10 @@
     <string name="google">Search</string>
 
     <string name="title_activity_ide_screen">IdeScreen</string>
+
+    <string name="project_new">New project</string>
+    <string name="project_open">Open project</string>
+    <string name="project_from_qr">Project from QR code</string>
+    <string name="git">Git</string>
+    <string name="code_return">Return to code</string>
 </resources>
