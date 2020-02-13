@@ -8,14 +8,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "uk.ac.tees.v8036651.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
     }
 
     //test
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     public void logIn (View view)
     {
         //Intent intent = new Intent(this, HomeScreenActivity.class);
-        Intent intent = new Intent(this, IdeScreen.class);
+        Intent intent = new Intent(this, HomeScreenActivity.class);
         EditText Username = (EditText) findViewById(R.id.Username);
         String message = Username.getText().toString();
         EditText Password = (EditText) findViewById(R.id.Password);
