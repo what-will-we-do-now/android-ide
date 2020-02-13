@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
      */
     public void logIn (View view)
     {
-        Intent intent = new Intent(this, HomeScreenActivity.class);
+        //Intent intent = new Intent(this, HomeScreenActivity.class);
+        Intent intent = new Intent(this, IdeScreen.class);
         EditText Username = (EditText) findViewById(R.id.Username);
         String message = Username.getText().toString();
         EditText Password = (EditText) findViewById(R.id.Password);
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("Worked");
         }
         else {
-            AlertDialog.Builder dlg Alert = new AlertDialog.Builder(this);
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
 
             dlgAlert.setMessage("Wrong Password or Username");
             dlgAlert.setTitle("Error!");
