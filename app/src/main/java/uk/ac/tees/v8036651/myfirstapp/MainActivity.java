@@ -2,6 +2,9 @@ package uk.ac.tees.v8036651.myfirstapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    //test
     /**
      * Called when the user hits log in.
      */
@@ -27,9 +31,23 @@ public class MainActivity extends AppCompatActivity {
         String message = Username.getText().toString();
         EditText Password = (EditText) findViewById(R.id.Password);
         message = message + "|" + Password.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
 
-        startActivity(intent);
-        System.out.println("Worked");
+        if ((Username.getText().toString().equals("Admin")) && (Password.getText().toString().equals("Admin")))
+        {
+            intent.putExtra(EXTRA_MESSAGE, message);
+            startActivity(intent);
+            System.out.println("Worked");
+        }
+        else {
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+
+            dlgAlert.setMessage("Wrong Password or Username");
+            dlgAlert.setTitle("Error!");
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+
+            System.out.println("Error occured!");
+        }
     }
 }
