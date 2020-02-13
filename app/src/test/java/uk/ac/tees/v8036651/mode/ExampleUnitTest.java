@@ -1,4 +1,4 @@
-package uk.ac.tees.v8036651.myfirstapp;
+package uk.ac.tees.v8036651.mode;
 
 import org.junit.Test;
 

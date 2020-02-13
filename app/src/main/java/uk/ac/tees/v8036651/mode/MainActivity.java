@@ -1,10 +1,8 @@
-package uk.ac.tees.v8036651.myfirstapp;
+package uk.ac.tees.v8036651.mode;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
