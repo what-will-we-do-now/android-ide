@@ -1,8 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0D1F2D"
-    android:orientation="vertical">
+    android:background="#0D1F2D">
 
-</LinearLayout>
+    <Button
+        android:id="@+id/btnNewProject"
+        android:layout_width="377dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="#0D1F2D"
+        android:baselineAligned="false"
+        android:text="New Project 1"
+        android:textColor="#E8CA82"
+        app:layout_constraintBottom_toTopOf="@+id/btnOpenProject"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnOpenProject"
+        android:layout_width="377dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="#0D1F2D"
+        android:baselineAligned="false"
+        android:text="Open Project"
+        android:textColor="#E8CA82"
+        app:layout_constraintBottom_toTopOf="@+id/btnCreateQRCode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnNewProject" />
+
+    <Button
+        android:id="@+id/btnCreateQRCode"
+        android:layout_width="377dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="#0D1F2D"
+        android:baselineAligned="false"
+        android:text="Create QR Code"
+        android:textColor="#E8CA82"
+        app:layout_constraintBottom_toTopOf="@+id/btnGitHub"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnOpenProject" />
+
+    <Button
+        android:id="@+id/btnGitHub"
+        android:layout_width="377dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="#0D1F2D"
+        android:baselineAligned="false"
+        android:text="GitHub"
+        android:textColor="#E8CA82"
+        app:layout_constraintBottom_toTopOf="@+id/btnGotoCode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCreateQRCode" />
+
+    <Button
+        android:id="@+id/btnGotoCode"
+        android:layout_width="377dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="#0D1F2D"
+        android:baselineAligned="false"
+        android:text="Return to Code"
+        android:textColor="#E8CA82"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnGitHub" />
+</androidx.constraintlayout.widget.ConstraintLayout>
