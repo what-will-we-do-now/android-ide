@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         EditText Password = (EditText) findViewById(R.id.Password);
         message = message + "|" + Password.getText().toString();
 
-        if ((Username.getText().toString().equals("Admin")) && (Password.getText().toString().equals("Admin")))
+        if ((Username.getText().toString().equals("")) && (Password.getText().toString().equals("")))
         {
             startActivity(intent);
             System.out.println("Worked");
