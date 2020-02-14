@@ -24,4 +24,9 @@ public class HomeScreenActivity extends AppCompatActivity {
         Intent qrIntent = new Intent(this, QRScreen.class);
         startActivity(qrIntent);
     }
+
+    public void openSettings(View view){
+        Intent settingsIntent = new Intent(this, SettingsScreen.class);
+        startActivity(settingsIntent);
+    }
 }
