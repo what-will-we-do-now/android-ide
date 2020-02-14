@@ -22,7 +22,7 @@ public class NumberedTextView extends AppCompatEditText {
     }
 
     public NumberedTextView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        super(context, attrs, android.R.attr.editTextStyle);
         paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.WHITE);
@@ -31,7 +31,7 @@ public class NumberedTextView extends AppCompatEditText {
     }
 
     public NumberedTextView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+        super(context, attrs, android.R.attr.editTextStyle);
         paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.WHITE);
