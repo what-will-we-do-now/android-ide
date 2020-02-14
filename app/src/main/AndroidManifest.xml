@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".IdeScreen"></activity>
+        <activity android:name=".QRScreen"></activity>
         <activity
             android:name=".HomeScreenActivity"
             android:parentActivityName=".LoginActivity">

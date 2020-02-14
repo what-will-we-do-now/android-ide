@@ -19,4 +19,9 @@ public class HomeScreenActivity extends AppCompatActivity {
         Intent intent = new Intent(this, IdeScreen.class);
         startActivity(intent);
     }
+
+    public void openQRScreen(View view){
+        Intent qrIntent = new Intent(this, QRScreen.class);
+        startActivity(qrIntent);
+    }
 }
