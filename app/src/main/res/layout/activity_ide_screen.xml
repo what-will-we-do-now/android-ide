@@ -6,20 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".IdeScreen">
 
-    <EditText
+    <uk.ac.tees.v8036651.mode.GUI.NumberedTextView
         android:id="@+id/txtCode"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/default_background"
-        android:ellipsize="end"
-        android:ems="10"
+        android:bufferType="spannable"
+        android:focusable="true"
         android:gravity="start|top"
+        android:imeOptions="flagNoFullscreen"
         android:inputType="textMultiLine"
         android:scrollbars="horizontal|vertical"
         android:scrollHorizontally="true"
-        android:singleLine="true"
         android:textColor="#FFFFFF"
-        android:textIsSelectable="true"
-        tools:layout_editor_absoluteX="168dp"
-        tools:layout_editor_absoluteY="94dp" />
+        android:textIsSelectable="true" />
 </androidx.constraintlayout.widget.ConstraintLayout>

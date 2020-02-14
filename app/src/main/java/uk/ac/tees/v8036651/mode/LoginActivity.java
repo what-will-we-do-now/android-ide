@@ -1,21 +1,21 @@
 package uk.ac.tees.v8036651.mode;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity {
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class LoginActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "uk.ac.tees.v8036651.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
     }
 
     //test
@@ -25,13 +25,13 @@ public class MainActivity extends AppCompatActivity {
     public void logIn (View view)
     {
         //Intent intent = new Intent(this, HomeScreenActivity.class);
-        Intent intent = new Intent(this, IdeScreen.class);
+        Intent intent = new Intent(this, HomeScreenActivity.class);
         EditText Username = (EditText) findViewById(R.id.Username);
         String message = Username.getText().toString();
         EditText Password = (EditText) findViewById(R.id.Password);
         message = message + "|" + Password.getText().toString();
 
-        if ((Username.getText().toString().equals("Admin")) && (Password.getText().toString().equals("Admin")))
+        if ((Username.getText().toString().equals("")) && (Password.getText().toString().equals("")))
         {
             startActivity(intent);
             System.out.println("Worked");

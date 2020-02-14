@@ -4,7 +4,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "uk.ac.tees.v8036651.myfirstapp"
+        applicationId "uk.ac.tees.v8036651.mode"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
