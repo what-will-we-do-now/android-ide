@@ -29,4 +29,9 @@ public class HomeScreenActivity extends AppCompatActivity {
         Intent settingsIntent = new Intent(this, SettingsScreen.class);
         startActivity(settingsIntent);
     }
+
+    public void openGitHub(View view){
+        Intent gitIntent = new Intent(this, GitHubScreen.class);
+        startActivity(gitIntent);
+    }
 }
