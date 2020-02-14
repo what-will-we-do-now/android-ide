@@ -1,6 +1,8 @@
-package uk.ac.tees.v8036651.myfirstapp;
+package uk.ac.tees.v8036651.mode;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,5 +11,12 @@ public class HomeScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
+        //Test
+        //Commit
+    }
+
+    public void openIDE(View view){
+        Intent intent = new Intent(this, IdeScreen.class);
+        startActivity(intent);
     }
 }

@@ -1,7 +1,20 @@
 <resources>
-    <string name="app_name">My First App</string>
+    <string name="app_name">MoDE</string>
     <string name="username">Input password</string>
     <string name="edit_password">Input password</string>
     <string name="button_login">Log In</string>
     <string name="google">Search</string>
+
+    <string name="title_activity_ide_screen">IdeScreen</string>
+
+    <string name="login_username_text">Login:</string>
+    <string name="login_password_text">Password:</string>
+    <string name="login_username_placeholder">Enter username</string>
+    <string name="login_password_placeholder">Enter password</string>
+
+    <string name="project_new">New project</string>
+    <string name="project_open">Open project</string>
+    <string name="project_from_qr">Project from QR code</string>
+    <string name="git">Git</string>
+    <string name="code_return">Return to code</string>
 </resources>
