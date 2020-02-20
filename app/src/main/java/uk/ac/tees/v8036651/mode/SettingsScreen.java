@@ -18,4 +18,9 @@ public class SettingsScreen extends AppCompatActivity {
         Intent NPintent = new Intent(this, ChangePassword.class);
         startActivity(NPintent);
     }
+
+    public void openChangeUsername(View view){
+        Intent NUintent = new Intent(this, ChangeUsername.class);
+        startActivity(NUintent);
+    }
 }

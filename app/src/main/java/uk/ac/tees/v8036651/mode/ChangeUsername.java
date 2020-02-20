@@ -1,5 +1,7 @@
 package uk.ac.tees.v8036651.mode;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -11,35 +13,43 @@ public class ChangeUsername extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.change_password);
+        setContentView(R.layout.change_username);
     }
 
-    public void updatePassword (View view)
+    public void updateUsername (View view)
     {
+
+
+        SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
+
+        String actualUsername = pref.getString("username", "");
+        String actualPassword = pref.getString("username", "");
+
+
         EditText Username = (EditText) findViewById(R.id.username);
         EditText Password = (EditText) findViewById(R.id.password);
         EditText NewUsername = (EditText) findViewById(R.id.username3);
         EditText ConfirmNewUsername = (EditText) findViewById(R.id.username4);
 
 //This is to be completley overhauled therefore commented out
- /*       if ((Username.getText() == LoginActivity.username) && (Password.getText() == LoginActivity.password) && (NewUsername == ConfirmNewUsername))
+        if ((Username.getText().equals(actualUsername)) && (Password.getText().equals(actualPassword) && (NewUsername == ConfirmNewUsername)))
         {
-            LoginActivity.password = NewPassword;
+            SharedPreferences.Editor prefedit = pref.edit();
+            prefedit.putString("username", NewUsername.getText().toString());
+            prefedit.commit();
         }
         else
         {
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
 
-  */
-        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+            dlgAlert.setMessage("Wrong Password or Username Or New Usernames Do Not Match");
+            dlgAlert.setTitle("Error!");
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
 
-        dlgAlert.setMessage("Wrong Password or Username Or New Usernames Do Not Match");
-        dlgAlert.setTitle("Error!");
-        dlgAlert.setPositiveButton("OK", null);
-        dlgAlert.setCancelable(true);
-        dlgAlert.create().show();
-
-        System.out.println("Error occured!");
-        //}
+            System.out.println("Error occured!");
+        }
     }
 }
 

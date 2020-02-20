@@ -14,6 +14,8 @@
         <activity android:name=".SettingsScreen"></activity>
         <activity android:name=".GitHubScreen"></activity>
         <activity android:name="ChangePassword"></activity>
+        <activity android:name="ChangeUsername"></activity>
+
         <activity
             android:name=".HomeScreenActivity"
             android:parentActivityName=".LoginActivity">
