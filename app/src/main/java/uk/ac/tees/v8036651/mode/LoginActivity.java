@@ -1,5 +1,6 @@
 package uk.ac.tees.v8036651.mode;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,8 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 public class LoginActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "uk.ac.tees.v8036651.MESSAGE";
-    public static String password = "";
-    public static String username = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +26,11 @@ public class LoginActivity extends AppCompatActivity {
      */
     public void logIn (View view)
     {
+        SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
+
+        String actualUsername = pref.getString("username", "");
+        String actualPassword = pref.getString("username", "");
+
         //Intent intent = new Intent(this, HomeScreenActivity.class);
         Intent intent = new Intent(this, HomeScreenActivity.class);
         EditText Username = (EditText) findViewById(R.id.Username);
@@ -34,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         EditText Password = (EditText) findViewById(R.id.Password);
         message = message + "|" + Password.getText().toString();
 
-        if ((Username.getText().toString().equals(username)) && (Password.getText().toString().equals(password)))
+        if ((Username.getText().toString().equals(actualUsername)) && (Password.getText().toString().equals(actualPassword)))
         {
             startActivity(intent);
             System.out.println("Worked");
@@ -50,21 +54,5 @@ public class LoginActivity extends AppCompatActivity {
 
             System.out.println("Error occured!");
         }
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
     }
 }

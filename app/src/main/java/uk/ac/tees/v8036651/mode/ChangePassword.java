@@ -1,5 +1,7 @@
 package uk.ac.tees.v8036651.mode;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -14,22 +16,27 @@ public class ChangePassword extends AppCompatActivity {
         setContentView(R.layout.change_password);
     }
 
-    public void updatePassword (View view)
-    {
+    public void updatePassword(View view) {
+        SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
+
+        String actualUsername = pref.getString("username", "");
+        String actualPassword = pref.getString("username", "");
+
         EditText Username = (EditText) findViewById(R.id.username);
         EditText Password = (EditText) findViewById(R.id.password);
         EditText NewPassword = (EditText) findViewById(R.id.password2);
         EditText ConfirmNewPassword = (EditText) findViewById(R.id.password3);
 
 //This is to be completley overhauled therefore commented out
- /*       if ((Username.getText() == LoginActivity.username) && (Password.getText() == LoginActivity.password) && (NewPassword == ConfirmNewPassword))
-        {
-            LoginActivity.password = NewPassword;
+        if ((Username.getText().toString().equals(actualUsername)) && (NewPassword.getText().toString().equals(ConfirmNewPassword.getText().toString())) && (Password.getText().toString().equals(actualPassword)) ) {
+            SharedPreferences.Editor prefedit = pref.edit();
+            prefedit.putString("username", NewPassword.getText().toString());
+            prefedit.commit();
+            System.out.println("Update");
         }
-        else
-        {
+        else {
 
-  */
+
             AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
 
             dlgAlert.setMessage("Wrong Password or Username Or New Passwords Do Not Match");
@@ -39,6 +46,7 @@ public class ChangePassword extends AppCompatActivity {
             dlgAlert.create().show();
 
             System.out.println("Error occured!");
-        //}
+            //}
+        }
     }
 }

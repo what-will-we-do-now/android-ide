@@ -32,11 +32,12 @@ public class ChangeUsername extends AppCompatActivity {
         EditText ConfirmNewUsername = (EditText) findViewById(R.id.username4);
 
 //This is to be completley overhauled therefore commented out
-        if ((Username.getText().equals(actualUsername)) && (Password.getText().equals(actualPassword) && (NewUsername == ConfirmNewUsername)))
+        if ((Username.getText().toString().equals(actualUsername)) && (Password.getText().toString().equals(actualPassword) && (NewUsername.getText().toString().equals(ConfirmNewUsername.getText().toString()))))
         {
             SharedPreferences.Editor prefedit = pref.edit();
             prefedit.putString("username", NewUsername.getText().toString());
             prefedit.commit();
+            System.out.println("Updated");
         }
         else
         {
