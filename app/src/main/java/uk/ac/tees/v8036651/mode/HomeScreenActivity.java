@@ -19,4 +19,19 @@ public class HomeScreenActivity extends AppCompatActivity {
         Intent intent = new Intent(this, IdeScreen.class);
         startActivity(intent);
     }
+
+    public void openQRScreen(View view){
+        Intent qrIntent = new Intent(this, QRScreen.class);
+        startActivity(qrIntent);
+    }
+
+    public void openSettings(View view){
+        Intent settingsIntent = new Intent(this, SettingsScreen.class);
+        startActivity(settingsIntent);
+    }
+
+    public void openGitHub(View view){
+        Intent gitIntent = new Intent(this, GitHubScreen.class);
+        startActivity(gitIntent);
+    }
 }
