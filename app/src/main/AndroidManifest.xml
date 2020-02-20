@@ -13,6 +13,7 @@
         <activity android:name=".QRScreen"></activity>
         <activity android:name=".SettingsScreen"></activity>
         <activity android:name=".GitHubScreen"></activity>
+        <activity android:name=".SaveActivity"></activity>
         <activity
             android:name=".HomeScreenActivity"
             android:parentActivityName=".LoginActivity">
@@ -30,5 +31,8 @@
             </intent-filter>
         </activity>
     </application>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>
