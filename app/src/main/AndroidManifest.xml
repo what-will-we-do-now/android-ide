@@ -11,8 +11,11 @@
         android:theme="@style/AppTheme">
         <activity android:name=".IdeScreen"></activity>
         <activity android:name=".QRScreen"></activity>
-        <activity android:name=".SettingsScreen"></activity>
+        <activity android:name=".Screen_Settings"></activity>
         <activity android:name=".GitHubScreen"></activity>
+        <activity android:name=".Screen_ChangePassword"></activity>
+        <activity android:name=".Screen_ChangeUsername"></activity>
+
         <activity
             android:name=".HomeScreenActivity"
             android:parentActivityName=".LoginActivity">

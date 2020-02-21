@@ -11,6 +11,10 @@
     <string name="login_password_text">Password:</string>
     <string name="login_username_placeholder">Enter username</string>
     <string name="login_password_placeholder">Enter password</string>
+    <string name="new_password_placeholder">Enter New Password</string>
+    <string name="confirm_password_placeholder">Confirm New Password</string>
+    <string name="new_username_placeholder">Enter New Username</string>
+    <string name="confirm_username_placeholder">Confirm New Username</string>
 
     <string name="project_new">New project</string>
     <string name="project_open">Open project</string>
