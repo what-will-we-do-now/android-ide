@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,12 +44,11 @@ public class Screen_ChangeUsername extends AppCompatActivity {
             Intent intent = new Intent(this, HomeScreenActivity.class);
             startActivity(intent);
 
-            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
-            dlgAlert.setMessage("Username Updated");
-            dlgAlert.setTitle("Updated!");
-            dlgAlert.setPositiveButton("OK", null);
-            dlgAlert.setCancelable(true);
-            dlgAlert.create().show();
+            Context context = getApplicationContext();
+            CharSequence text = "Username Updated";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
         }
         else
         {
