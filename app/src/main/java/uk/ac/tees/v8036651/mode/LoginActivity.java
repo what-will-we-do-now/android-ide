@@ -33,7 +33,18 @@ public class LoginActivity extends AppCompatActivity {
             System.out.println("Creating GIT file");
             try {
 
-                InputStream gitIn = getResources().openRawResource(getResources().getIdentifier("git", "raw", getPackageName()));
+                InputStream gitIn;
+                if(System.getProperty("os.arch").startsWith("arm")) {
+                    //the current phone is an ARM phone
+                    gitIn = getResources().openRawResource(getResources().getIdentifier("git-arm", "raw", getPackageName()));
+                }else if(System.getProperty("os.arch").equals("i686")){
+                    //the current phone is an x86 phone
+
+                    return;
+                }else{
+
+                    return;
+                }
                 byte[] buffer = new byte[gitIn.available()];
                 gitIn.read(buffer);
                 gitIn.close();
