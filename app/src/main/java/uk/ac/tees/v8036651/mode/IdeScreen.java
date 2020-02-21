@@ -6,6 +6,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
@@ -49,5 +51,17 @@ public class IdeScreen extends AppCompatActivity {
         });
 
         txtCode.setHorizontallyScrolling(true);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.ide_toolbar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch
+        return super.onOptionsItemSelected(item);
     }
 }

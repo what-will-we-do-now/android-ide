@@ -9,4 +9,16 @@
         android:title="@string/save_code"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:title="Submenu"
+        app:showAsAction="always"
+        >
+
+        <menu>
+            <item
+                android:title="Settings"
+
+        </menu>
+    </item>
+
 </menu>
