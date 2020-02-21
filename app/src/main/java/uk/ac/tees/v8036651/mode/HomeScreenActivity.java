@@ -26,7 +26,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     }
 
     public void openSettings(View view){
-        Intent settingsIntent = new Intent(this, SettingsScreen.class);
+        Intent settingsIntent = new Intent(this, Screen_Settings.class);
         startActivity(settingsIntent);
     }
 

@@ -6,7 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SettingsScreen extends AppCompatActivity {
+public class Screen_Settings extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -15,12 +15,12 @@ public class SettingsScreen extends AppCompatActivity {
     }
 
     public void openChangePassword(View view){
-        Intent NPintent = new Intent(this, ChangePassword.class);
+        Intent NPintent = new Intent(this, Screen_ChangePassword.class);
         startActivity(NPintent);
     }
 
     public void openChangeUsername(View view){
-        Intent NUintent = new Intent(this, ChangeUsername.class);
+        Intent NUintent = new Intent(this, Screen_ChangeUsername.class);
         startActivity(NUintent);
     }
 }

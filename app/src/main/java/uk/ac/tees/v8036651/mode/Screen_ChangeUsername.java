@@ -10,7 +10,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ChangeUsername extends AppCompatActivity {
+public class Screen_ChangeUsername extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +42,13 @@ public class ChangeUsername extends AppCompatActivity {
 
             Intent intent = new Intent(this, HomeScreenActivity.class);
             startActivity(intent);
+
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+            dlgAlert.setMessage("Username Updated");
+            dlgAlert.setTitle("Updated!");
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
         }
         else
         {

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0D1F2D"
-    tools:context=".SettingsScreen">
+    tools:context=".Screen_Settings">
 
     <TextView
         android:id="@+id/textView4"
