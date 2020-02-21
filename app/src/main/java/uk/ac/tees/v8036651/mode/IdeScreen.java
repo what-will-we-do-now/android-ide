@@ -9,6 +9,8 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.widget.Toolbar;
 
 import uk.ac.tees.v8036651.mode.plugins.PluginManager;
@@ -59,9 +61,19 @@ public class IdeScreen extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    //To be extended when more functionality is added
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()){
+            case R.id.save_code:
+                Toast.makeText(this, "Saving", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.settings_nav:
+                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
 }
