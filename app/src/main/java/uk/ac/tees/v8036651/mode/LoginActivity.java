@@ -14,10 +14,27 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "uk.ac.tees.v8036651.MESSAGE";
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+
+        SharedPreferences pref = getSharedPreferences("mode", Context.MODE_PRIVATE);
+        String actualUsername = pref.getString("username", "");
+        String actualPassword = pref.getString("password", "");
+        System.out.println("username: " + actualUsername);
+        System.out.println("password: " + actualPassword);
+        if ((actualUsername.equals("")) && (actualPassword.equals("")))
+        {
+            Intent intent = new Intent(this, HomeScreenActivity.class);
+            startActivity(intent);
+        }else {
+            setContentView(R.layout.activity_login);
+        }
     }
 
     //test
@@ -26,17 +43,13 @@ public class LoginActivity extends AppCompatActivity {
      */
     public void logIn (View view)
     {
-        SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
-
+        SharedPreferences pref = getSharedPreferences("mode", Context.MODE_PRIVATE);
         String actualUsername = pref.getString("username", "");
-        String actualPassword = pref.getString("username", "");
-
-        //Intent intent = new Intent(this, HomeScreenActivity.class);
+        String actualPassword = pref.getString("password", "");
         Intent intent = new Intent(this, HomeScreenActivity.class);
+        //Intent intent = new Intent(this, HomeScreenActivity.class);
         EditText Username = (EditText) findViewById(R.id.Username);
-        String message = Username.getText().toString();
         EditText Password = (EditText) findViewById(R.id.Password);
-        message = message + "|" + Password.getText().toString();
 
         if ((Username.getText().toString().equals(actualUsername)) && (Password.getText().toString().equals(actualPassword)))
         {

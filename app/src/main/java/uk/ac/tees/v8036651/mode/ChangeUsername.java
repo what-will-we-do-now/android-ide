@@ -1,6 +1,7 @@
 package uk.ac.tees.v8036651.mode;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -20,10 +21,10 @@ public class ChangeUsername extends AppCompatActivity {
     {
 
 
-        SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences pref = getSharedPreferences("mode", Context.MODE_PRIVATE);
 
         String actualUsername = pref.getString("username", "");
-        String actualPassword = pref.getString("username", "");
+        String actualPassword = pref.getString("password", "");
 
 
         EditText Username = (EditText) findViewById(R.id.username);
@@ -38,6 +39,9 @@ public class ChangeUsername extends AppCompatActivity {
             prefedit.putString("username", NewUsername.getText().toString());
             prefedit.commit();
             System.out.println("Updated");
+
+            Intent intent = new Intent(this, HomeScreenActivity.class);
+            startActivity(intent);
         }
         else
         {
