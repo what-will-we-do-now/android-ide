@@ -28,8 +28,25 @@ public class LoginActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-      
-      //TODO: temporary move later to spalsh screen
+        initGit();
+
+        SharedPreferences pref = getSharedPreferences("mode", Context.MODE_PRIVATE);
+        String actualUsername = pref.getString("username", "");
+        String actualPassword = pref.getString("password", "");
+        System.out.println("username: " + actualUsername);
+        System.out.println("password: " + actualPassword);
+        if ((actualUsername.equals("")) && (actualPassword.equals("")))
+        {
+            Intent intent = new Intent(this, HomeScreenActivity.class);
+            startActivity(intent);
+        }else {
+            setContentView(R.layout.activity_login);
+        }
+    }
+
+    private void initGit(){
+
+        //TODO: temporary move later to spalsh screen
 
         File gitFile = getFileStreamPath("git");
 
@@ -41,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                 InputStream gitIn;
                 if(System.getProperty("os.arch").startsWith("arm")) {
                     //the current phone is an ARM phone
-                    gitIn = getResources().openRawResource(getResources().getIdentifier("git-arm", "raw", getPackageName()));
+                    gitIn = getResources().openRawResource(getResources().getIdentifier("git_arm", "raw", getPackageName()));
                 }else if(System.getProperty("os.arch").equals("i686")){
                     //the current phone is an x86 phone
 
@@ -64,19 +81,6 @@ public class LoginActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-      
-        SharedPreferences pref = getSharedPreferences("mode", Context.MODE_PRIVATE);
-        String actualUsername = pref.getString("username", "");
-        String actualPassword = pref.getString("password", "");
-        System.out.println("username: " + actualUsername);
-        System.out.println("password: " + actualPassword);
-        if ((actualUsername.equals("")) && (actualPassword.equals("")))
-        {
-            Intent intent = new Intent(this, HomeScreenActivity.class);
-            startActivity(intent);
-        }else {
-            setContentView(R.layout.activity_login);
         }
     }
 
