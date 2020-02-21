@@ -17,5 +17,8 @@
     <string name="project_from_qr">Project from QR code</string>
     <string name="git">Git</string>
     <string name="code_return">Return to code</string>
+
+    <string name="save_code">Save</string>
     <string name="settings">Settings</string>
+  
 </resources>
