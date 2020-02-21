@@ -10,6 +10,11 @@ import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 public class LoginActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "uk.ac.tees.v8036651.MESSAGE";
@@ -23,6 +28,44 @@ public class LoginActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
+      
+      //TODO: temporary move later to spalsh screen
+
+        File gitFile = getFileStreamPath("git");
+
+        if(!gitFile.exists()) {
+
+            System.out.println("Creating GIT file");
+            try {
+
+                InputStream gitIn;
+                if(System.getProperty("os.arch").startsWith("arm")) {
+                    //the current phone is an ARM phone
+                    gitIn = getResources().openRawResource(getResources().getIdentifier("git-arm", "raw", getPackageName()));
+                }else if(System.getProperty("os.arch").equals("i686")){
+                    //the current phone is an x86 phone
+
+                    return;
+                }else{
+
+                    return;
+                }
+                byte[] buffer = new byte[gitIn.available()];
+                gitIn.read(buffer);
+                gitIn.close();
+
+                FileOutputStream gitOut = openFileOutput("git", Context.MODE_PRIVATE);
+                gitOut.write(buffer);
+                gitOut.close();
+
+                File file = getFileStreamPath("git");
+                file.setExecutable(true);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+      
         SharedPreferences pref = getSharedPreferences("mode", Context.MODE_PRIVATE);
         String actualUsername = pref.getString("username", "");
         String actualPassword = pref.getString("password", "");

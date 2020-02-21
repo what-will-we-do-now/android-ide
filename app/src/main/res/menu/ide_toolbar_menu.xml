@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:title="@string/save_code"
+        android:id="@+id/save_code"
+        android:icon="@drawable/ic_save_black_24dp"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:title="Submenu"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_more_vert_black_24dp"
+        >
+
+        <menu>
+            <item
+                android:title="Settings"
+                android:icon="@drawable/ic_settings_black_24dp"
+                android:id="@+id/settings_nav"
+                app:showAsAction="never"/>
+
+            <!-- To extend with further navigation options like Git -->
+        </menu>
+    </item>
+
+</menu>
