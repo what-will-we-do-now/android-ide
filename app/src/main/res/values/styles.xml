@@ -20,4 +20,10 @@
         <item name="background">@color/black_overlay</item>
     </style>
 
+    <style name="FullscreenWindowNoTitle" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+
 </resources>

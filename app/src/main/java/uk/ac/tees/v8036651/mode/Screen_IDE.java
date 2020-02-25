@@ -15,7 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import uk.ac.tees.v8036651.mode.plugins.PluginManager;
 
-public class IdeScreen extends AppCompatActivity {
+public class Screen_IDE extends AppCompatActivity {
 
     @androidx.annotation.RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override

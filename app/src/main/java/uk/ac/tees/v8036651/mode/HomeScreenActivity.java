@@ -16,7 +16,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     }
 
     public void openIDE(View view){
-        Intent intent = new Intent(this, IdeScreen.class);
+        Intent intent = new Intent(this, Screen_IDE.class);
         startActivity(intent);
     }
 
