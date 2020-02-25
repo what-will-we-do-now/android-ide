@@ -15,7 +15,7 @@ public class Screen_ChangePassword extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.change_password);
+        setContentView(R.layout.screen_change_password);
     }
 
     public void updatePassword(View view) {
@@ -36,7 +36,7 @@ public class Screen_ChangePassword extends AppCompatActivity {
             prefedit.commit();
             System.out.println("Update");
 
-            Intent intent = new Intent(this, HomeScreenActivity.class);
+            Intent intent = new Intent(this, Screen_Home.class);
             startActivity(intent);
 
             Context context = getApplicationContext();

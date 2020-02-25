@@ -15,7 +15,7 @@ public class Screen_ChangeUsername extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.change_username);
+        setContentView(R.layout.screen_change_username);
     }
 
     public void updateUsername (View view)
@@ -41,7 +41,7 @@ public class Screen_ChangeUsername extends AppCompatActivity {
             prefedit.commit();
             System.out.println("Updated");
 
-            Intent intent = new Intent(this, HomeScreenActivity.class);
+            Intent intent = new Intent(this, Screen_Home.class);
             startActivity(intent);
 
             Context context = getApplicationContext();

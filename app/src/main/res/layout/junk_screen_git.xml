@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#0D1F2D"
     android:orientation="vertical"
-    tools:context=".GitHubScreen">
+    tools:context=".Junk_Screen_Git">
 
     <Button
         android:id="@+id/btnSave"

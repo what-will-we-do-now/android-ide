@@ -11,7 +11,7 @@ public class Screen_Settings extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings_screen);
+        setContentView(R.layout.screen_settings);
     }
 
     public void openChangePassword(View view){
