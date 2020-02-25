@@ -1,21 +1,19 @@
 package uk.ac.tees.v8036651.mode;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.DocumentsContract;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class GitHubScreen extends AppCompatActivity {
+public class Junk_Screen_Git extends AppCompatActivity {
 
     private static final int CREATE_FILE = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_git_screen);
+        setContentView(R.layout.junk_screen_git);
     }
 
     public void doSaveActivity(View view){

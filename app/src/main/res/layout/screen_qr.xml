@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#0D1F2D"
     android:orientation="vertical"
-    tools:context=".QRScreen">
+    tools:context=".Screen_QR">
 
     <TextView
         android:id="@+id/textView3"

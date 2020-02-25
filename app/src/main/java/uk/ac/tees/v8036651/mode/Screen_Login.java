@@ -15,7 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class LoginActivity extends AppCompatActivity {
+public class Screen_Login extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "uk.ac.tees.v8036651.MESSAGE";
 
@@ -37,10 +37,10 @@ public class LoginActivity extends AppCompatActivity {
         System.out.println("password: " + actualPassword);
         if ((actualUsername.equals("")) && (actualPassword.equals("")))
         {
-            Intent intent = new Intent(this, HomeScreenActivity.class);
+            Intent intent = new Intent(this, Screen_Home.class);
             startActivity(intent);
         }else {
-            setContentView(R.layout.activity_login);
+            setContentView(R.layout.screen_login);
         }
     }
 
@@ -93,8 +93,8 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("mode", Context.MODE_PRIVATE);
         String actualUsername = pref.getString("username", "");
         String actualPassword = pref.getString("password", "");
-        Intent intent = new Intent(this, HomeScreenActivity.class);
-        //Intent intent = new Intent(this, HomeScreenActivity.class);
+        Intent intent = new Intent(this, Screen_Home.class);
+        //Intent intent = new Intent(this, Screen_Home.class);
         EditText Username = (EditText) findViewById(R.id.Username);
         EditText Password = (EditText) findViewById(R.id.Password);
 
