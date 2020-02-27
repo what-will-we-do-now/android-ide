@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
+
+import java.io.File;
 
 import uk.ac.tees.v8036651.mode.plugins.PluginManager;
 
@@ -26,13 +29,21 @@ public class IdeScreen extends AppCompatActivity {
 
         TextView txtCode = (TextView) findViewById(R.id.txtCode);
 
+        //txtCode.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+
         txtCode.addTextChangedListener(new TextWatcher() {
 
             boolean ignore = false;
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                if(!ignore) {
+                    if (s.toString().contains("\n")) {
+                        ignore = true;
+                        PluginManager.formatText((TextView) findViewById(R.id.txtCode), new File("code.java"));
+                        ignore = false;
+                    }
+                }
             }
 
             @Override
@@ -42,13 +53,6 @@ public class IdeScreen extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(ignore) {
-                    return;
-                }
-
-                ignore = true;
-                PluginManager.formatText((TextView) findViewById(R.id.txtCode), null);
-                ignore = false;
             }
         });
 

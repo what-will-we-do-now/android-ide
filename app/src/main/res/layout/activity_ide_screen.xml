@@ -17,7 +17,7 @@
         android:focusable="true"
         android:gravity="start|top"
         android:imeOptions="flagNoFullscreen"
-        android:inputType="textMultiLine"
+        android:inputType="textVisiblePassword|textMultiLine|textNoSuggestions"
         android:scrollbars="horizontal|vertical"
         android:scrollHorizontally="true"
         android:textColor="#FFFFFF"
