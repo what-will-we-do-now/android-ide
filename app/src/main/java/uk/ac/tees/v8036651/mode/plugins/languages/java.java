@@ -5,16 +5,10 @@
  */
 package uk.ac.tees.v8036651.mode.plugins.languages;
 
-import android.graphics.Color;
-
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import uk.ac.tees.v8036651.mode.plugins.CodeSnippet;
-import uk.ac.tees.v8036651.mode.plugins.CodeSnippetColor;
-import uk.ac.tees.v8036651.mode.plugins.CodeSnippetString;
 import uk.ac.tees.v8036651.mode.plugins.ColorInfo;
 import uk.ac.tees.v8036651.mode.plugins.Plugin;
 
@@ -117,9 +111,11 @@ public class java extends Plugin{
          * for more info see https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html
          */
 
-        Matcher matcher = Pattern.compile("\n|\r\n|.|;|\b").matcher(code);
 
-        while(matcher.find()){
+        //https://stackoverflow.com/questions/14735171/regex-to-tokenize-string-in-java-with-space-and-double-quotes
+        Matcher matcher = Pattern.compile("\\S").matcher(code);
+
+         while(matcher.find()){
             int offset = matcher.start();
             String token = matcher.group();
             if(TOKENS.contains(token)){
