@@ -22,6 +22,11 @@
                 android:icon="@drawable/ic_settings_black_24dp"
                 android:id="@+id/settings_nav"
                 app:showAsAction="never"/>
+            <item
+                android:title="FileViewer"
+                android:icon="@drawable/ic_description_black_24dp"
+                android:id="@+id/fileview_nav"
+                app:showAsAction="never"/>
 
             <!-- To extend with further navigation options like Git -->
         </menu>

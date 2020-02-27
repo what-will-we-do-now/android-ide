@@ -17,6 +17,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:text="Back"
             android:id="@+id/back"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -24,6 +25,7 @@
         </Button>
 
         <Button
+            android:text="Choose File"
             android:id="@+id/choose"
             android:layout_width="0dp"
             android:layout_height="match_parent"
