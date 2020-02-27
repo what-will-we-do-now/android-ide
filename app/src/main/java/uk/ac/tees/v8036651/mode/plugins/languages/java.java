@@ -154,7 +154,7 @@ public class java extends Plugin{
         return codeFinal;
     }
 
-    private ArrayList<Integer> getOffsetsFor(String code, String find){
+    /*private ArrayList<Integer> getOffsetsFor(String code, String find){
         ArrayList<Integer> offsets = new ArrayList();
         int grandoffset = 0;
         String subcode = code;
@@ -168,10 +168,9 @@ public class java extends Plugin{
                 subcode = subcode.substring(offset + find.length());
             }
         }
-    }
-    /*
+    }*/
     private ArrayList<Integer> getOffsetsFor(String code, String find){
-        Matcher matcher = Pattern.compile("\b" + find + "\b").matcher(code);
+        Matcher matcher = Pattern.compile("\\b" + find + "\\b").matcher(code);
         ArrayList<Integer> offsets = new ArrayList();
         while(matcher.find()){
             int offset = matcher.start();
@@ -180,5 +179,4 @@ public class java extends Plugin{
         }
         return offsets;
     }
-     */
 }

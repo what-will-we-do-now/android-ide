@@ -31,8 +31,6 @@ public class IdeScreen extends AppCompatActivity {
 
         NumberedTextView txtCode = (NumberedTextView) findViewById(R.id.txtCode);
 
-        //txtCode.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-
         txtCode.addTextChangedListener(new TextWatcher() {
 
             boolean ignore = false;
@@ -43,6 +41,26 @@ public class IdeScreen extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!ignore) {
+                    ignore = true;
+                    if (count == 1 && s.charAt(start) == '(') {
+                        ((NumberedTextView) findViewById(R.id.txtCode)).getText().insert(start+count, ")");
+                        ((NumberedTextView) findViewById(R.id.txtCode)).setSelection(start+count);
+                    }else if (count == 1 && s.charAt(start) == '{') {
+                        ((NumberedTextView) findViewById(R.id.txtCode)).getText().insert(start+count, "}");
+                        ((NumberedTextView) findViewById(R.id.txtCode)).setSelection(start+count);
+                    }else if (count == 1 && s.charAt(start) == '[') {
+                        ((NumberedTextView) findViewById(R.id.txtCode)).getText().insert(start+count, "]");
+                        ((NumberedTextView) findViewById(R.id.txtCode)).setSelection(start+count);
+                    }else if (count == 1 && s.charAt(start) == '"') {
+                        ((NumberedTextView) findViewById(R.id.txtCode)).getText().insert(start+count, "\"");
+                        ((NumberedTextView) findViewById(R.id.txtCode)).setSelection(start+count);
+                    }else if (count == 1 && s.charAt(start) == '\'') {
+                        ((NumberedTextView) findViewById(R.id.txtCode)).getText().insert(start+count, "\'");
+                        ((NumberedTextView) findViewById(R.id.txtCode)).setSelection(start+count);
+                    }
+                    ignore = false;
+                }
             }
 
             @Override
