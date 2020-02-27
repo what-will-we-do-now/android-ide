@@ -10,6 +10,7 @@ import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -52,20 +53,6 @@ public class Screen_FileViewer extends AppCompatActivity {
 
             }
         }));
-
-
-        final ListView fileList = findViewById(R.id.fileList);
-        final TextAdapter textAdapter = new TextAdapter();
-        fileList.setAdapter(textAdapter);
-
-        List<String> example = new ArrayList<>();
-
-        //TODO DELETE only used for testing purposes
-        for(int i=0; i < 100; i++){
-            example.add(String.valueOf(i));
-        }
-
-        textAdapter.setData(example);
     }
 
     //Arbitrary token
@@ -111,6 +98,34 @@ public class Screen_FileViewer extends AppCompatActivity {
             final String rootPath = getCodeDirectory();
             final File dir = new File(rootPath);
             final File[] projectFiles = dir.listFiles();
+            final TextView pathOutput = findViewById(R.id.pathOutput);
+            pathOutput.setText(rootPath);
+
+            final int filesFoundCount;
+
+            if (projectFiles != null){
+               filesFoundCount = projectFiles.length;
+            }
+            else {
+                filesFoundCount = 0;
+            }
+
+
+
+            final ListView fileList = findViewById(R.id.fileList);
+            final TextAdapter textAdapter = new TextAdapter();
+            fileList.setAdapter(textAdapter);
+
+            List<String> filesList = new ArrayList<>();
+
+            //TODO DELETE only used for testing purposes
+            for(int i=0; i < filesFoundCount; i++){
+                filesList.add(String.valueOf(projectFiles[i].getAbsolutePath()));
+            }
+
+            textAdapter.setData(filesList);
+
+            isFileManagerInitialized = true;
         }
     }
 
@@ -138,6 +153,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                 directory.mkdir();
                 return directory.getPath();
             }
+            return directory.getPath();
         }
         else{
             directory = new File(Environment.getExternalStorageDirectory() + "/MoDE_Code_Directory/");
@@ -145,8 +161,8 @@ public class Screen_FileViewer extends AppCompatActivity {
                 directory.mkdir();
                 return directory.getPath();
             }
+            return directory.getPath();
         }
-    return null;
     }
 }
 

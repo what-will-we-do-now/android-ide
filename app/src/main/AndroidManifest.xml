@@ -15,6 +15,7 @@
         <activity android:name=".GitHubScreen"></activity>
         <activity android:name=".Screen_ChangePassword"></activity>
         <activity android:name=".Screen_ChangeUsername"></activity>
+        <activity android:name=".FileViewer.Screen_FileViewer"></activity>
 
         <activity
             android:name=".HomeScreenActivity"
@@ -32,9 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FileViewer.Screen_FileViewer"
-            android:theme="@style/FullscreenWindowNoTitle">
-        </activity>
+
     </application>
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
