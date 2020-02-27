@@ -43,21 +43,32 @@ public class IdeScreen extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(!ignore) {
                     ignore = true;
+                    NumberedTextView txtCode = findViewById(R.id.txtCode);
                     if (count == 1 && s.charAt(start) == '(') {
-                        ((NumberedTextView) findViewById(R.id.txtCode)).getText().insert(start+count, ")");
-                        ((NumberedTextView) findViewById(R.id.txtCode)).setSelection(start+count);
+                        if(txtCode.getText().toString().replaceAll("([^(|^)])", "").length() % 2 != 0) {
+                            txtCode.getText().insert(start + count, ")");
+                            txtCode.setSelection(start + count);
+                        }
                     }else if (count == 1 && s.charAt(start) == '{') {
-                        ((NumberedTextView) findViewById(R.id.txtCode)).getText().insert(start+count, "}");
-                        ((NumberedTextView) findViewById(R.id.txtCode)).setSelection(start+count);
+                        if(txtCode.getText().toString().replaceAll("([^{|^}])", "").length() % 2 != 0) {
+                            txtCode.getText().insert(start + count, "}");
+                            txtCode.setSelection(start + count);
+                        }
                     }else if (count == 1 && s.charAt(start) == '[') {
-                        ((NumberedTextView) findViewById(R.id.txtCode)).getText().insert(start+count, "]");
-                        ((NumberedTextView) findViewById(R.id.txtCode)).setSelection(start+count);
+                        if(txtCode.getText().toString().replaceAll("([^\\[|^\\]])", "").length() % 2 != 0) {
+                            txtCode.getText().insert(start + count, "]");
+                            txtCode.setSelection(start + count);
+                        }
                     }else if (count == 1 && s.charAt(start) == '"') {
-                        ((NumberedTextView) findViewById(R.id.txtCode)).getText().insert(start+count, "\"");
-                        ((NumberedTextView) findViewById(R.id.txtCode)).setSelection(start+count);
+                        if(txtCode.getText().toString().replaceAll("[^\"]", "").length() % 2 != 0) {
+                            txtCode.getText().insert(start + count, "\"");
+                            txtCode.setSelection(start + count);
+                        }
                     }else if (count == 1 && s.charAt(start) == '\'') {
-                        ((NumberedTextView) findViewById(R.id.txtCode)).getText().insert(start+count, "\'");
-                        ((NumberedTextView) findViewById(R.id.txtCode)).setSelection(start+count);
+                        if(txtCode.getText().toString().replaceAll("[^\']", "").length() % 2 != 0) {
+                            txtCode.getText().insert(start + count, "\'");
+                            txtCode.setSelection(start + count);
+                        }
                     }
                     ignore = false;
                 }
