@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
-import uk.ac.tees.v8036651.mode.plugins.PluginManager;
+//import uk.ac.tees.v8036651.mode.plugins.PluginManager;
 
 public class IdeScreen extends AppCompatActivity {
 
@@ -47,7 +47,7 @@ public class IdeScreen extends AppCompatActivity {
                 }
 
                 ignore = true;
-                PluginManager.formatText((TextView) findViewById(R.id.txtCode), null);
+                //PluginManager.formatText((TextView) findViewById(R.id.txtCode), null);
                 ignore = false;
             }
         });
