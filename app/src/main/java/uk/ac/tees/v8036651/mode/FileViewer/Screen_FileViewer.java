@@ -32,8 +32,6 @@ import uk.ac.tees.v8036651.mode.R;
 
 public class Screen_FileViewer extends AppCompatActivity {
 
-    private Object ArrayList;
-
     @Override
     protected void onCreate(Bundle savedInsanceState) {
         super.onCreate(savedInsanceState);
@@ -98,6 +96,10 @@ public class Screen_FileViewer extends AppCompatActivity {
         return false;
     }
 
+    private File[] projectFiles;
+    private List<String> filesList;
+    private int filesFoundCount;
+
     private boolean isFileManagerInitialized = false;
 
     private boolean[] selection;
@@ -119,12 +121,10 @@ public class Screen_FileViewer extends AppCompatActivity {
             }
 
             final File dir = new File(rootPath);
-            final File[] projectFiles = dir.listFiles();
+            projectFiles = dir.listFiles();
 
             final TextView pathOutput = findViewById(R.id.pathOutput);
             pathOutput.setText(rootPath.substring(rootPath.lastIndexOf('/') + 1));
-
-            final int filesFoundCount;
 
             if (projectFiles != null){
                filesFoundCount = projectFiles.length;
@@ -137,17 +137,14 @@ public class Screen_FileViewer extends AppCompatActivity {
             final TextAdapter textAdapter = new TextAdapter();
             fileList.setAdapter(textAdapter);
 
-            final List<String> filesList = new ArrayList<>();
-
+            filesList = new ArrayList<>();
             //Lists all of the files in the specified directory
             for(int i=0; i < filesFoundCount; i++){
                 filesList.add(String.valueOf(projectFiles[i].getAbsolutePath()));
             }
-
             textAdapter.setData(filesList);
 
             selection = new boolean[projectFiles.length];
-
 
             fileList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
@@ -185,40 +182,89 @@ public class Screen_FileViewer extends AppCompatActivity {
             final Button backBtt = findViewById(R.id.back);
             final Button deleteBtt = findViewById(R.id.delete);
 
+            //TODO for going up in file directory
             backBtt.setOnClickListener(new View.OnClickListener() {
-                //TODO for going up in file directory
                 @Override
                 public void onClick(View v) {
 
                 }
             });
 
+            //Delete Button
             deleteBtt.setOnClickListener((new View.OnClickListener(){
-                //TODO for choosing a file
-                //TODO move the trigger to when file manager item is clicked
                 @Override
                 public void onClick(View v) {
                     final AlertDialog.Builder deteteDialog = new AlertDialog.Builder(Screen_FileViewer.this);
                     deteteDialog.setTitle("Confirm");
                     deteteDialog.setMessage("Do you want to delete this file?");
+
                     deteteDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             for (int i = 0; i < projectFiles.length; i++){
-                                
+                                if(selection[i]){
+                                    deleteFileOrFolder(projectFiles[i]);
+                                    selection[i] = false;
+
+                                    boolean isAnySelected = false;
+                                    for (boolean aSelection : selection) {
+                                        if (aSelection) {
+                                            isAnySelected = true;
+                                            break;
+                                        }
+                                    }
+
+                                    if (isAnySelected) {
+                                        findViewById(R.id.delete).setEnabled(true);
+                                    } else {
+                                        findViewById(R.id.delete).setEnabled(false);
+                                    }
+                                }
                             }
+
+                            projectFiles = dir.listFiles();
+                            filesFoundCount = projectFiles.length;
+                            filesList.clear();
+                            for(int i=0; i < filesFoundCount; i++){
+                                filesList.add(String.valueOf(projectFiles[i].getAbsolutePath()));
+                            }
+                            textAdapter.setData(filesList);
                         }
                     });
+
                     deteteDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            dialog.cancel();
                         }
                     });
+
+                    deteteDialog.show();
                 }
             }));
 
             isFileManagerInitialized = true;
+        }
+    }
+
+    private void deleteFileOrFolder (File fileOrFolder){
+        if (fileOrFolder.isDirectory()){
+            if (fileOrFolder.list().length == 0){
+                fileOrFolder.delete();
+            }
+            else{
+                String files[] = fileOrFolder.list();
+                for (String temp:files) {
+                    File fileToDelete = new File(fileOrFolder, temp);
+                    deleteFileOrFolder(fileToDelete);
+                }
+                if (fileOrFolder.list().length ==0){
+                    fileOrFolder.delete();
+                }
+            }
+        }
+        else {
+            fileOrFolder.delete();
         }
     }
 
