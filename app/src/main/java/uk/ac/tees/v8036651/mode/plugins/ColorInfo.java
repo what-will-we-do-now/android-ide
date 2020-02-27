@@ -3,9 +3,9 @@ package uk.ac.tees.v8036651.mode.plugins;
 public class ColorInfo {
     private int offset;
     private int length;
-    private int color;
+    private String color;
 
-    public ColorInfo(int offset, int length, int color) {
+    public ColorInfo(int offset, int length, String color) {
         this.offset = offset;
         this.length = length;
         this.color = color;
@@ -19,7 +19,7 @@ public class ColorInfo {
         return length;
     }
 
-    public int getColor() {
+    public String getColor() {
         return color;
     }
 }

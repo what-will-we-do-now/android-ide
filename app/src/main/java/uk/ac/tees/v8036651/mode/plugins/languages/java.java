@@ -107,12 +107,19 @@ public class java extends Plugin{
 
         ArrayList<ColorInfo> formattedCode = new ArrayList();
 
+        for(String token : TOKENS) {
+            ArrayList<Integer> offsets = getOffsetsFor(code, token);
+            for(int off : offsets){
+                formattedCode.add(new ColorInfo(off, token.length(), "#dbaa21"));
+            }
+        }
+
         /* pattern for detecting new linux line (\n), windows new line (\r\n), code separator (.) and line end (;) and word boundry
          * for more info see https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html
          */
 
 
-        //https://stackoverflow.com/questions/14735171/regex-to-tokenize-string-in-java-with-space-and-double-quotes
+        /*//https://stackoverflow.com/questions/14735171/regex-to-tokenize-string-in-java-with-space-and-double-quotes
         Matcher matcher = Pattern.compile("\\S").matcher(code);
 
          while(matcher.find()){
@@ -121,7 +128,7 @@ public class java extends Plugin{
             if(TOKENS.contains(token)){
                 formattedCode.add(new ColorInfo(offset, token.length(), 0x665E48));
             }
-        }
+        }*/
 
         /*
         StringTokenizer tokenized = new StringTokenizer(code);
@@ -146,4 +153,32 @@ public class java extends Plugin{
 
         return codeFinal;
     }
+
+    private ArrayList<Integer> getOffsetsFor(String code, String find){
+        ArrayList<Integer> offsets = new ArrayList();
+        int grandoffset = 0;
+        String subcode = code;
+        while(true){
+            int offset = subcode.indexOf(find);
+            if(offset == -1){
+                return offsets;
+            }else{
+                offsets.add(grandoffset + offset);
+                grandoffset = offset + find.length();
+                subcode = subcode.substring(offset + find.length());
+            }
+        }
+    }
+    /*
+    private ArrayList<Integer> getOffsetsFor(String code, String find){
+        Matcher matcher = Pattern.compile("\b" + find + "\b").matcher(code);
+        ArrayList<Integer> offsets = new ArrayList();
+        while(matcher.find()){
+            int offset = matcher.start();
+
+            offsets.add(offset);
+        }
+        return offsets;
+    }
+     */
 }

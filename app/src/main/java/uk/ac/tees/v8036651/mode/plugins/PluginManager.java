@@ -18,6 +18,7 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.ac.tees.v8036651.mode.GUI.NumberedTextView;
 import uk.ac.tees.v8036651.mode.plugins.languages.java;
 
 public class PluginManager {
@@ -113,13 +114,13 @@ public class PluginManager {
             }
         }
         //format the text
-        ColorInfo[] formattedCode = cachedPlugin.formatText(((TextView) view).getText().toString(), file.getName().substring(file.getName().lastIndexOf('.') + 1).toLowerCase());
+        ColorInfo[] formattedCode = cachedPlugin.formatText(((NumberedTextView) view).getText().toString(), file.getName().substring(file.getName().lastIndexOf('.') + 1).toLowerCase());
 
-        Spannable span = new SpannableString(((TextView) view).getText().toString());
+        Spannable span = new SpannableString(((NumberedTextView) view).getText().toString());
 
         for(ColorInfo color : formattedCode){
             System.out.println("creating span with color " + color.getColor() + " at offset " + color.getOffset() + " with length " + color.getLength());
-            span.setSpan(new ForegroundColorSpan(Color.parseColor(Integer.toHexString(color.getColor()))), color.getOffset(), color.getLength(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            span.setSpan(new ForegroundColorSpan(Color.parseColor(color.getColor())), color.getOffset(), color.getOffset() + color.getLength(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         /*
         for(CodeSnippet cs : formattedCode){
@@ -134,7 +135,9 @@ public class PluginManager {
                 System.out.println("ERROR UNKNOWN CODE SNIPPPET TYPE");
             }
         }*/
-
-        ((TextView) view).setText(span);
+        //get cursor position to prevent resetting it to from
+        int curpos = ((NumberedTextView) view).getSelectionStart();
+        ((NumberedTextView) view).setText(span);
+        ((NumberedTextView) view).setSelection(curpos);
     }
 }

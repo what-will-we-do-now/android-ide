@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.io.File;
 
+import uk.ac.tees.v8036651.mode.GUI.NumberedTextView;
 import uk.ac.tees.v8036651.mode.plugins.PluginManager;
 
 public class IdeScreen extends AppCompatActivity {
@@ -27,7 +29,7 @@ public class IdeScreen extends AppCompatActivity {
         setContentView(R.layout.activity_ide_screen);
 
 
-        TextView txtCode = (TextView) findViewById(R.id.txtCode);
+        NumberedTextView txtCode = (NumberedTextView) findViewById(R.id.txtCode);
 
         //txtCode.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
 
@@ -37,22 +39,21 @@ public class IdeScreen extends AppCompatActivity {
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if(!ignore) {
-                    if (s.toString().contains("\n")) {
-                        ignore = true;
-                        PluginManager.formatText((TextView) findViewById(R.id.txtCode), new File("code.java"));
-                        ignore = false;
-                    }
-                }
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                if(!ignore) {
+                    if (s.toString().contains("\n")) {
+                        ignore = true;
+                        PluginManager.formatText((NumberedTextView) findViewById(R.id.txtCode), new File("code.java"));
+                        ignore = false;
+                    }
+                }
             }
         });
 
