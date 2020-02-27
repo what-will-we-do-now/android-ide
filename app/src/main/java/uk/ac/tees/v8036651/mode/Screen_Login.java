@@ -15,6 +15,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import uk.ac.tees.v8036651.mode.plugins.PluginManager;
+
 public class Screen_Login extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "uk.ac.tees.v8036651.MESSAGE";
@@ -29,6 +31,8 @@ public class Screen_Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         initGit();
+
+        PluginManager.load(this);
 
         SharedPreferences pref = getSharedPreferences("mode", Context.MODE_PRIVATE);
         String actualUsername = pref.getString("username", "");
