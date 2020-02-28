@@ -24,6 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/btnOpenProject"
         android:layout_width="377dp"
         android:layout_height="42dp"
@@ -40,6 +41,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btnNewProject" />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/btnCreateQRCode"
         android:layout_width="377dp"
         android:layout_height="42dp"
@@ -72,6 +74,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btnCreateQRCode" />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/btnGotoCode"
         android:layout_width="377dp"
         android:layout_height="42dp"

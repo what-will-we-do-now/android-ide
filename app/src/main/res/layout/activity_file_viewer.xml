@@ -42,6 +42,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:visibility="gone"
             android:text="Back"
             android:id="@+id/back"
             android:layout_width="0dp"
