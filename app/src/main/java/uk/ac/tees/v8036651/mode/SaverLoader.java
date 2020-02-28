@@ -28,7 +28,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 
-public class Junk_Screen_Git extends AppCompatActivity {
+public class SaverLoader extends AppCompatActivity {
 
     private static final int CREATE_FILE = 988;
     private static final int WRITE_REQUEST_CODE = 45;
@@ -41,57 +41,18 @@ public class Junk_Screen_Git extends AppCompatActivity {
         setContentView(R.layout.junk_screen_git);
     }
 
-    // Current method of saving - not working.
+    /* Current method of saving - not working.
     public void doSaveActivity(View view) throws Exception {
 
         saveActivity("Test", "data.txt");
     }
 
-    public void saveActivity(String data, String fileName) throws Exception{
-
-        FileOutputStream output = openFileOutput(fileName, MODE_PRIVATE);
-        OutputStreamWriter out = new OutputStreamWriter(output);
-        out.write(data);
-        out.flush();
-        out.close();
-        output.flush();
-        output.close();
-    }
 
     public void doLoadActivity(View view){
         loadActivity("data.txt");
-    }
-
-    public void loadActivity(String fileName){
-        String ret = "Did not save";
-
-        try{
-            InputStream input = openFileInput(fileName);
-
-            if(input != null){
-                InputStreamReader inp = new InputStreamReader(input);
-                BufferedReader reader = new BufferedReader(inp);
-                String receiveString = "";
-                StringBuilder str = new StringBuilder();
-
-                while( (receiveString = reader.readLine()) != null){
-                    str.append(receiveString);
-                }
-
-                ret = str.toString();
+    }*/
 
 
-                input.close();
-                inp.close();
-                reader.close();
-            }
-        }
-        catch(Exception e){
-
-        }
-
-        System.out.println(ret);
-    }
     /* Second version of saving
     public void saveActivity(ContextWrapper con) throws Exception {
         System.out.println("Entered");

@@ -31,7 +31,7 @@ public class Screen_Home extends AppCompatActivity {
     }
 
     public void openGitHub(View view){
-        Intent gitIntent = new Intent(this, Junk_Screen_Git.class);
+        Intent gitIntent = new Intent(this, SaverLoader.class);
         startActivity(gitIntent);
     }
 }
