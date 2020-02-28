@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="uk.ac.tees.v8036651.mode">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,13 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".IdeScreen"></activity>
-        <activity android:name=".Screen_QR"></activity>
-        <activity android:name=".Screen_Settings"></activity>
-        <activity android:name=".Junk_Screen_Git"></activity>
-        <activity android:name=".Screen_ChangePassword"></activity>
-        <activity android:name=".Screen_ChangeUsername"></activity>
-
+        <activity android:name=".Screen_IDE"></activity>
+        <activity android:name=".FileViewer.Screen_FileViewer"></activity>
+        <activity android:name=".Screen_QR" />
+        <activity android:name=".Screen_Settings" />
+        <activity android:name=".Junk_Screen_Git" />
+        <activity android:name=".Screen_ChangePassword" />
+        <activity android:name=".Screen_ChangeUsername" />
+        <activity android:name=".Screen_Login" />
         <activity
             android:name=".Screen_Home"
             android:parentActivityName=".Screen_Login">
@@ -25,16 +29,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Screen_Login" />
         </activity>
-        <activity android:name=".Screen_Login">
+        <activity android:name=".Screen_Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    </application>
 
 </manifest>

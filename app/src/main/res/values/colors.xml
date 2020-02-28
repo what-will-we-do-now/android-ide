@@ -4,10 +4,11 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#E9105F</color>
 
-    <color name="black_overlay">#66000000</color>
-
-
+    <color name="black_overlay">#66EB0B0B</color>
 
     <color name="default_background">#0D1F2D</color>
     <color name="default_text">#E8CA82</color>
+
+    <color name="lightText">#EEEEEE</color>
+    <color name="black">#000000</color>
 </resources>

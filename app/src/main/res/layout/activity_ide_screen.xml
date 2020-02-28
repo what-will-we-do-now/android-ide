@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".IdeScreen">
+    tools:context=".Screen_IDE">
 
     <uk.ac.tees.v8036651.mode.GUI.NumberedTextView
         android:id="@+id/txtCode"
@@ -17,7 +17,7 @@
         android:focusable="true"
         android:gravity="start|top"
         android:imeOptions="flagNoFullscreen"
-        android:inputType="textMultiLine"
+        android:inputType="textVisiblePassword|textMultiLine|textNoSuggestions"
         android:scrollbars="horizontal|vertical"
         android:scrollHorizontally="true"
         android:textColor="#FFFFFF"

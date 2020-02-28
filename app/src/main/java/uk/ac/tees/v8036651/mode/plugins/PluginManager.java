@@ -1,9 +1,15 @@
 package uk.ac.tees.v8036651.mode.plugins;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.TextView;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
@@ -12,6 +18,9 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.ac.tees.v8036651.mode.GUI.NumberedTextView;
+import uk.ac.tees.v8036651.mode.plugins.languages.java;
+
 public class PluginManager {
     private static List<Plugin> plugins;
 
@@ -19,10 +28,39 @@ public class PluginManager {
 
     static{
         plugins = new ArrayList<>();
-        load();
     }
 
-    public static void load(){
+    public static void load(Context context){
+
+        /* PLAN C */
+
+        Plugin pluginJava = new java("java");
+
+        plugins.add(pluginJava);
+
+
+        /* PLAN B
+        try{
+            File file = context.getFileStreamPath("plugin-java.jar");
+            ClassLoader loader = URLClassLoader.newInstance(new URL[] {file.toURI().toURL()});
+            Plugin plugin = (Plugin) loader.loadClass("mode.main").getDeclaredConstructor(String.class).newInstance(file.getName());
+            plugins.add(plugin);
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+         */
+
+        /* PLAN A
         if((new File("plugins")).exists()){
             //the plugins folder exists load all included plugins
 
@@ -30,7 +68,7 @@ public class PluginManager {
                 new FilenameFilter (){
                     @Override
                     public boolean accept(File dir, String name) {
-                        return name.toLowerCase().endsWith(".jar");
+                        return  name.startsWith("plugin") && name.toLowerCase().endsWith(".jar");
                     }
                 }
             )){
@@ -55,17 +93,16 @@ public class PluginManager {
             }
         }else{
             //the plugins folder doesnt exist, we should create it
-        }
+        }*/
     }
 
     public static void formatText(View view, File file){
         //check if cached plugin is not defined or if its not matching the file extension
-        if(cachedPlugin == null || !cachedPlugin.getSupportedFiletypes().contains(file.getName().substring(file.getName().lastIndexOf('.')))){
-
+        if(cachedPlugin == null || !cachedPlugin.getSupportedFiletypes().contains(file.getName().substring(file.getName().lastIndexOf('.') + 1).toLowerCase())){
             cachedPlugin = null;
             //find the correct plugin to deal with the file
             for(Plugin plugin : plugins){
-                if(plugin.getSupportedFiletypes().contains(file.getName().substring(file.getName().lastIndexOf('.')))){
+                if(plugin.getSupportedFiletypes().contains(file.getName().substring(file.getName().lastIndexOf('.') + 1).toLowerCase())){
                     cachedPlugin = plugin;
                     break;
                 }
@@ -76,8 +113,31 @@ public class PluginManager {
                 return;
             }
         }
-
         //format the text
-        cachedPlugin.formatText(view, ((TextView) view).getText().toString());
+        ColorInfo[] formattedCode = cachedPlugin.formatText(((NumberedTextView) view).getText().toString(), file.getName().substring(file.getName().lastIndexOf('.') + 1).toLowerCase());
+
+        Spannable span = new SpannableString(((NumberedTextView) view).getText().toString());
+
+        for(ColorInfo color : formattedCode){
+            System.out.println("creating span with color " + color.getColor() + " at offset " + color.getOffset() + " with length " + color.getLength());
+            span.setSpan(new ForegroundColorSpan(Color.parseColor(color.getColor())), color.getOffset(), color.getOffset() + color.getLength(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        /*
+        for(CodeSnippet cs : formattedCode){
+            if(cs instanceof CodeSnippetString){
+                System.out.println("Code format: text: " + cs.toString());
+                ((TextView) view).append(cs.toString());
+            }else if(cs instanceof  CodeSnippetColor){
+                System.out.println("Code format: color: " + cs.toString());
+                ((TextView) view).setTextColor(0xFF0000);
+                //((TextView) view).setTextColor(Integer.parseInt(cs.toString(), 16));
+            }else{
+                System.out.println("ERROR UNKNOWN CODE SNIPPPET TYPE");
+            }
+        }*/
+        //get cursor position to prevent resetting it to from
+        int curpos = ((NumberedTextView) view).getSelectionStart();
+        ((NumberedTextView) view).setText(span);
+        ((NumberedTextView) view).setSelection(curpos);
     }
 }
