@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#0D1F2D"
     tools:context=".Screen_Splash">
 
     <TextView
@@ -11,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Welcome to MoDE"
+        android:textColor="#E8CA82"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +31,7 @@
         android:indeterminate="true"
         android:indeterminateDuration="4000"
         android:progressBackgroundTint="@color/black_overlay"
-        android:progressTint="@color/design_default_color_primary"
+        android:progressTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +41,15 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add @Copyright etc"
-        tools:layout_editor_absoluteX="143dp"
-        tools:layout_editor_absoluteY="546dp" />
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="219dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="38dp"
+        android:text="COPYRIGHT (C) 2020 MoDE. All rights reserved."
+        android:textColor="#E8CA82"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
