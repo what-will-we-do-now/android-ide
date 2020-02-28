@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="uk.ac.tees.v8036651.mode">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,23 +13,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Screen_IDE"></activity>
-        <activity android:name=".QRScreen"></activity>
-        <activity android:name=".Screen_Settings"></activity>
-        <activity android:name=".GitHubScreen"></activity>
-        <activity android:name=".Screen_ChangePassword"></activity>
-        <activity android:name=".Screen_ChangeUsername"></activity>
         <activity android:name=".FileViewer.Screen_FileViewer"></activity>
-
+        <activity android:name=".Screen_QR" />
+        <activity android:name=".Screen_Settings" />
+        <activity android:name=".Junk_Screen_Git" />
+        <activity android:name=".Screen_ChangePassword" />
+        <activity android:name=".Screen_ChangeUsername" />
+        <activity android:name=".Screen_Login" />
         <activity
-            android:name=".HomeScreenActivity"
-            android:parentActivityName=".LoginActivity">
+            android:name=".Screen_Home"
+            android:parentActivityName=".Screen_Login">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LoginActivity" />
+                android:value=".Screen_Login" />
         </activity>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".Screen_Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,8 +38,5 @@
         </activity>
 
     </application>
-
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>

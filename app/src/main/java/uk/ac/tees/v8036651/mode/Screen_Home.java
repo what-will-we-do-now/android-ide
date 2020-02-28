@@ -6,11 +6,11 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class HomeScreenActivity extends AppCompatActivity {
+public class Screen_Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_screen);
+        setContentView(R.layout.screen_home);
         //Test
         //Commit
     }
@@ -21,7 +21,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     }
 
     public void openQRScreen(View view){
-        Intent qrIntent = new Intent(this, QRScreen.class);
+        Intent qrIntent = new Intent(this, Screen_QR.class);
         startActivity(qrIntent);
     }
 
@@ -31,7 +31,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     }
 
     public void openGitHub(View view){
-        Intent gitIntent = new Intent(this, GitHubScreen.class);
+        Intent gitIntent = new Intent(this, Junk_Screen_Git.class);
         startActivity(gitIntent);
     }
 }

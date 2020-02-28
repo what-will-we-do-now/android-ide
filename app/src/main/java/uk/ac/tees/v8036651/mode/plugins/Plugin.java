@@ -1,7 +1,5 @@
 package uk.ac.tees.v8036651.mode.plugins;
 
-import android.view.View;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,7 +21,7 @@ public abstract class Plugin {
 
 
 
-    public abstract void formatText(View codeView, String text);
+    public abstract ColorInfo[] formatText(String code, String type);
 
 
 
@@ -32,7 +30,7 @@ public abstract class Plugin {
         return name;
     }
 
-    public final void registerSupportedFiletype(String filetype){
+    protected final void registerSupportedFiletype(String filetype){
         supportedFiletypes.add(filetype);
     }
 

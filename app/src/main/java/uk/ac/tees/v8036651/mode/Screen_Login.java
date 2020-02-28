@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 
@@ -15,34 +16,33 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class LoginActivity extends AppCompatActivity {
+import uk.ac.tees.v8036651.mode.plugins.PluginManager;
 
-    public static final String EXTRA_MESSAGE = "uk.ac.tees.v8036651.MESSAGE";
-
-
-
-
+public class Screen_Login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
 
         initGit();
+
+        PluginManager.load(this);
 
         SharedPreferences pref = getSharedPreferences("mode", Context.MODE_PRIVATE);
         String actualUsername = pref.getString("username", "");
         String actualPassword = pref.getString("password", "");
         System.out.println("username: " + actualUsername);
         System.out.println("password: " + actualPassword);
+
         if ((actualUsername.equals("")) && (actualPassword.equals("")))
         {
-            Intent intent = new Intent(this, HomeScreenActivity.class);
+            Intent intent = new Intent(this, Screen_Home.class);
             startActivity(intent);
         }else {
-            setContentView(R.layout.activity_login);
+            setContentView(R.layout.screen_login);
         }
-    }
+        }
+
 
     private void initGit(){
 
@@ -93,8 +93,8 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("mode", Context.MODE_PRIVATE);
         String actualUsername = pref.getString("username", "");
         String actualPassword = pref.getString("password", "");
-        Intent intent = new Intent(this, HomeScreenActivity.class);
-        //Intent intent = new Intent(this, HomeScreenActivity.class);
+        Intent intent = new Intent(this, Screen_Home.class);
+        //Intent intent = new Intent(this, Screen_Home.class);
         EditText Username = (EditText) findViewById(R.id.Username);
         EditText Password = (EditText) findViewById(R.id.Password);
 
