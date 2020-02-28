@@ -2,6 +2,7 @@ package uk.ac.tees.v8036651.mode;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,12 +16,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
+import uk.ac.tees.v8036651.mode.FileViewer.Screen_FileViewer;
 import java.io.File;
-
 import uk.ac.tees.v8036651.mode.GUI.NumberedTextView;
 import uk.ac.tees.v8036651.mode.plugins.PluginManager;
 
-public class IdeScreen extends AppCompatActivity {
+public class Screen_IDE extends AppCompatActivity {
 
     @androidx.annotation.RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -103,8 +104,10 @@ public class IdeScreen extends AppCompatActivity {
                 Toast.makeText(this, "Saving", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.settings_nav:
-                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Screen_IDE.this, Screen_Settings.class));
                 return true;
+            case R.id.fileview_nav:
+                startActivity(new Intent(Screen_IDE.this, Screen_FileViewer.class));
             default:
                 return super.onOptionsItemSelected(item);
         }

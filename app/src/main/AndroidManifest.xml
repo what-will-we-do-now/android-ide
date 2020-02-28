@@ -12,8 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".IdeScreen" />
+        <activity android:name=".Screen_IDE"></activity>
+        <activity android:name=".FileViewer.Screen_FileViewer"></activity>
         <activity android:name=".Screen_QR" />
         <activity android:name=".Screen_Settings" />
         <activity android:name=".Junk_Screen_Git" />
@@ -36,6 +36,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
