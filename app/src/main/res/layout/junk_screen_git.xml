@@ -29,20 +29,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:background="#0D1F2D"
+        android:onClick="doLoadActivity"
         android:text="Load"
         android:textColor="#E8CA82"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnSave" />
 
-    <TextView
-        android:id="@+id/tvTestSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Placeholder"
-        android:textColor="#E8CA82"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

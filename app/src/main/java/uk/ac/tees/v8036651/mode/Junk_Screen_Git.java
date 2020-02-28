@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.renderscript.ScriptGroup;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
@@ -31,6 +32,7 @@ public class Junk_Screen_Git extends AppCompatActivity {
 
     private static final int CREATE_FILE = 988;
     private static final int WRITE_REQUEST_CODE = 45;
+    private EditText EditText;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -39,45 +41,58 @@ public class Junk_Screen_Git extends AppCompatActivity {
         setContentView(R.layout.junk_screen_git);
     }
 
+    // Current method of saving - not working.
     public void doSaveActivity(View view) throws Exception {
-        /*
-        System.out.println("It Entered");
-        FileInputStream ins = new FileInputStream(getApplicationContext().getFilesDir()+"/file.txt");
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        int size;
-        byte[] buffer = new byte[1024];
-        System.out.println("Buffer created");
-        try{
-            while ((size = ins.read(buffer, 0, 1024)) >= 0){
-                output.write(buffer, 0, size);
-            }
-            ins.close();
-            buffer = output.toByteArray();
-            String fileName = "Test";
-            FileOutputStream fos = getApplicationContext().openFileOutput(fileName, Context.MODE_PRIVATE);
-            fos.write(buffer);
-            fos.close();
-        }
-        catch(Exception fu){
-            fu.printStackTrace();
-        }
-        System.out.println("Check Storage");
-        */
 
-        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-        File file = new File(dir, "example.txt");
-
-        try (FileWriter fileWriter = new FileWriter(file)) {
-            fileWriter.append("Writing to file!");
-        } catch (IOException e) {
-            //Handle exception
-        }
-
-        //OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getApplicationContext().openFileOutput("config.txt", Context.MODE_PRIVATE));
-        //outputStreamWriter.write("Hello!!");
-        //outputStreamWriter.close();
+        saveActivity("Test", "data.txt");
     }
 
+    public void saveActivity(String data, String fileName) throws Exception{
+
+        FileOutputStream output = openFileOutput(fileName, MODE_PRIVATE);
+        OutputStreamWriter out = new OutputStreamWriter(output);
+        out.write(data);
+        out.flush();
+        out.close();
+        output.flush();
+        output.close();
+    }
+
+    public void doLoadActivity(View view){
+        loadActivity("data.txt");
+    }
+
+    public void loadActivity(String fileName){
+        String ret = "Did not save";
+
+        try{
+            InputStream input = openFileInput(fileName);
+
+            if(input != null){
+                InputStreamReader inp = new InputStreamReader(input);
+                BufferedReader reader = new BufferedReader(inp);
+                String receiveString = "";
+                StringBuilder str = new StringBuilder();
+
+                while( (receiveString = reader.readLine()) != null){
+                    str.append(receiveString);
+                }
+
+                ret = str.toString();
+
+
+                input.close();
+                inp.close();
+                reader.close();
+            }
+        }
+        catch(Exception e){
+
+        }
+
+        System.out.println(ret);
+    }
+    /* Second version of saving
     public void saveActivity(ContextWrapper con) throws Exception {
         System.out.println("Entered");
         File file = new File(con.getFilesDir(), "Test");
@@ -111,8 +126,10 @@ public class Junk_Screen_Git extends AppCompatActivity {
         }
 
     }
+    */
 
-    public void oldeSaveActivity(){
+    /* Older version of saving using intents.
+    public void oldSaveActivity(){
         System.out.println("It entered");
 
         Intent saveIntent = new Intent();
@@ -131,8 +148,6 @@ public class Junk_Screen_Git extends AppCompatActivity {
         System.out.println(saveIntent.describeContents());
         System.out.println("Check storage");
 
-        /*
-
         Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
 
@@ -143,9 +158,11 @@ public class Junk_Screen_Git extends AppCompatActivity {
 
         startActivityForResult(intent, CREATE_FILE);
         System.out.println("Check storage");
-        */
-    }
 
+    }
+    */
+
+    /* Created to be used with the second version of saving.
     public byte[] toByteArray(InputStream is) throws IOException {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         int i;
@@ -156,4 +173,5 @@ public class Junk_Screen_Git extends AppCompatActivity {
         buffer.flush();
         return buffer.toByteArray();
     }
+     */
 }
