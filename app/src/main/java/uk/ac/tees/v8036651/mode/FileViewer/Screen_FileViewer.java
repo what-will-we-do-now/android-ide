@@ -318,7 +318,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                 StringBuilder str = new StringBuilder();
 
                 while( (receiveString = reader.readLine()) != null){
-                    str.append(receiveString);
+                    str.append(receiveString + "\n");
                 }
 
                 ret = str.toString();
