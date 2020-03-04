@@ -1,20 +1,22 @@
 package uk.ac.tees.v8036651.mode;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewStub;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.widget.Toolbar;
 
 import uk.ac.tees.v8036651.mode.FileViewer.Screen_FileViewer;
 
@@ -30,11 +32,17 @@ import uk.ac.tees.v8036651.mode.plugins.PluginManager;
 
 public class Screen_IDE extends AppCompatActivity {
 
+    public static String projectsDirectory = "";
+    public static String fileName = null;
+    public static String editTextContent = "";
+
     @androidx.annotation.RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ide_screen);
+        ((NumberedTextView)findViewById(R.id.txtCode)).setText(editTextContent);
+        projectsDirectory = getExternalFilesDir(null).getAbsolutePath() + "/MoDE_Code_Directory";
 
         NumberedTextView txtCode = (NumberedTextView) findViewById(R.id.txtCode);
 
@@ -109,6 +117,34 @@ public class Screen_IDE extends AppCompatActivity {
             case R.id.save_code:
                 Toast.makeText(this, "Saving", Toast.LENGTH_SHORT).show();
 
+                if (fileName == null){
+                    final AlertDialog.Builder setFileNameDialog = new AlertDialog.Builder(Screen_IDE.this);
+                    View inflater = LayoutInflater.from(this).inflate(R.layout.set_file_name_alert_dialog, null);
+
+                    final EditText input = (EditText) inflater.findViewById(R.id.fileNameEditText);
+
+                    setFileNameDialog.setView(inflater);
+                    setFileNameDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            fileName = input.getText().toString();
+
+                            try {
+                                saveActivity(((NumberedTextView) findViewById(R.id.txtCode)).getText().toString(), fileName);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    setFileNameDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    setFileNameDialog.show();
+                }
+
 
                 return true;
             case R.id.settings_nav:
@@ -122,45 +158,17 @@ public class Screen_IDE extends AppCompatActivity {
 
     }
 
+
     public void saveActivity(String data, String fileName) throws Exception{
 
-        FileOutputStream output = openFileOutput(fileName, MODE_PRIVATE);
+        File file = new File(projectsDirectory, fileName);
+
+        FileOutputStream output = new FileOutputStream(file);
         OutputStreamWriter out = new OutputStreamWriter(output);
         out.write(data);
         out.flush();
         out.close();
         output.flush();
         output.close();
-    }
-
-    public String loadActivity(String fileName){
-        String ret = "Did not save";
-
-        try{
-            InputStream input = openFileInput(fileName);
-
-            if(input != null){
-                InputStreamReader inp = new InputStreamReader(input);
-                BufferedReader reader = new BufferedReader(inp);
-                String receiveString = "";
-                StringBuilder str = new StringBuilder();
-
-                while( (receiveString = reader.readLine()) != null){
-                    str.append(receiveString);
-                }
-
-                ret = str.toString();
-
-
-                input.close();
-                inp.close();
-                reader.close();
-            }
-        }
-        catch(Exception e){
-            ret = null;
-        }
-
-        return ret;
     }
 }

@@ -22,7 +22,10 @@
     <string name="git">Git</string>
     <string name="code_return">Return to code</string>
 
-    <string name="save_code">Save</string>
+    <string name="save">Save</string>
     <string name="settings">Settings</string>
+    <string name="cancel">Cancel</string>
 
+    <string name="file_name">File Name</string>
+    <string name="enterFileName">Enter File Name:</string>
 </resources>

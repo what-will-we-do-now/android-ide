@@ -6,6 +6,7 @@ import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,15 +21,21 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import uk.ac.tees.v8036651.mode.GUI.NumberedTextView;
 import uk.ac.tees.v8036651.mode.R;
+import uk.ac.tees.v8036651.mode.Screen_IDE;
 
 public class Screen_FileViewer extends AppCompatActivity {
 
@@ -140,7 +147,7 @@ public class Screen_FileViewer extends AppCompatActivity {
             filesList = new ArrayList<>();
             //Lists all of the files in the specified directory
             for(int i=0; i < filesFoundCount; i++){
-                filesList.add(String.valueOf(projectFiles[i].getAbsolutePath()));
+                filesList.add(String.valueOf(projectFiles[i].getName()));
             }
             textAdapter.setData(filesList);
 
@@ -170,11 +177,13 @@ public class Screen_FileViewer extends AppCompatActivity {
                 }
             });
 
-            //TODO get
+
+            final Intent intent = new Intent(this, Screen_IDE.class);
             fileList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                    Screen_IDE.editTextContent =(loadActivity("MoDE_Code_Directory/" + filesList.get(position)));
+                    startActivity(intent);
                 }
             });
 
@@ -195,7 +204,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     final AlertDialog.Builder deteteDialog = new AlertDialog.Builder(Screen_FileViewer.this);
-                    deteteDialog.setTitle("Confirm");
+                    deteteDialog.setTitle("Confirmation");
                     deteteDialog.setMessage("Do you want to delete this file?");
 
                     deteteDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -289,10 +298,43 @@ public class Screen_FileViewer extends AppCompatActivity {
         File directory;
             directory = new File(getExternalFilesDir(null).getAbsolutePath() + "/MoDE_Code_Directory");
             if (!directory.exists()){
-                System.out.println(directory.mkdir());
                 return directory.getAbsolutePath();
             }
             return directory.getAbsolutePath();
+    }
+
+    public String loadActivity(String fileName){
+        String ret = "Did not save";
+
+        File file = new File(getExternalFilesDir(null), fileName);
+
+        try{
+            InputStream input = new FileInputStream(file);
+
+            if(input != null){
+                InputStreamReader inp = new InputStreamReader(input);
+                BufferedReader reader = new BufferedReader(inp);
+                String receiveString = "";
+                StringBuilder str = new StringBuilder();
+
+                while( (receiveString = reader.readLine()) != null){
+                    str.append(receiveString);
+                }
+
+                ret = str.toString();
+
+
+                input.close();
+                inp.close();
+                reader.close();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            ret = null;
+        }
+
+        return ret;
     }
 }
 
