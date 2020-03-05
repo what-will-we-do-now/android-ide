@@ -46,6 +46,7 @@ public class NumberedTextView extends AppCompatEditText {
 
     @Override
     protected void onDraw(Canvas canvas){
+        super.onDraw(canvas);
         int top = getBaseline();
 
         for(int x = 0; x < getLineCount(); x++){
@@ -54,7 +55,6 @@ public class NumberedTextView extends AppCompatEditText {
         }
         //set padding to always adjust to the length of line count
         setPadding((int) (getTextSize() * (String.valueOf(getLineCount()).length())), 0, 0, 0);
-        super.onDraw(canvas);
     }
 
     public void setLanguage(String language) {
@@ -79,7 +79,7 @@ public class NumberedTextView extends AppCompatEditText {
      * Kind Regards
      * Dominik Sysojew - Osinski @ MoDE
      *
-     */
+     * /
     private class KeyboardConnection extends InputConnectionWrapper {
 
         /**
@@ -92,7 +92,7 @@ public class NumberedTextView extends AppCompatEditText {
          * @param target  the {@link InputConnection} to be proxied.
          * @param mutable set {@code true} to protect this object from being reconfigured to target
          *                another {@link InputConnection}.  Note that this is ignored while the target is {@code null}.
-         */
+         * /
         public KeyboardConnection(InputConnection target, boolean mutable) {
             super(target, mutable);
         }
@@ -104,5 +104,5 @@ public class NumberedTextView extends AppCompatEditText {
 
             return super.sendKeyEvent(event);
         }
-    }
+    }*/
 }

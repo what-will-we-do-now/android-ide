@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 
 import uk.ac.tees.v8036651.mode.plugins.ColorInfo;
 import uk.ac.tees.v8036651.mode.plugins.Plugin;
+import uk.ac.tees.v8036651.mode.plugins.PluginManager;
 
 /**
  *
@@ -94,7 +95,6 @@ public class java extends Plugin{
 
     @Override
     public ColorInfo[] formatText(String code, String type) {
-        System.out.println("JAVA-PLUGIN: formatting text");
         /*
         ArrayList<Integer> breakPoints = new ArrayList();
 
@@ -109,13 +109,52 @@ public class java extends Plugin{
 
         */
 
-        ArrayList<ColorInfo> formattedCode = new ArrayList();
+        ArrayList<ColorInfo> formattedCode = new ArrayList<>();
 
         for(String token : TOKENS) {
-            ArrayList<Integer> offsets = getOffsetsFor(code, token);
+            ArrayList<Integer> offsets = getOffsetsFor(code, "\\b" + token + "\\b");
             for(int off : offsets){
-                formattedCode.add(new ColorInfo(off, token.length(), "#dbaa21"));
+                formattedCode.add(new ColorInfo(off, token.length(), PluginManager.COLOR_KEYWORD, 5));
             }
+        }
+
+        /**
+         * matches multiline comments starting with slash star and ending with star slash
+         */
+        Matcher matchMultilineComments = Pattern.compile("\\/\\*(?s)(.*?)\\*\\/").matcher(code);
+        while(matchMultilineComments.find()) {
+            int offset = matchMultilineComments.start();
+            formattedCode.add(new ColorInfo(offset, matchMultilineComments.end() - offset, PluginManager.COLOR_COMMENT, 0));
+        }
+
+        /**
+         * Matches singleline comments starting with //
+         */
+        Matcher matcherSinglelineComments = Pattern.compile("\\/\\/.*").matcher(code);
+
+        while(matcherSinglelineComments.find()){
+            int offset = matcherSinglelineComments.start();
+            formattedCode.add(new ColorInfo(offset, matcherSinglelineComments.end() - offset, PluginManager.COLOR_COMMENT, 0));
+        }
+
+        /**
+         * Matches all digits
+         */
+        Matcher matcherDigits = Pattern.compile("[0-9]+").matcher(code);
+
+        while(matcherDigits.find()){
+            int offset = matcherDigits.start();
+            formattedCode.add(new ColorInfo(offset, matcherDigits.end() - offset, PluginManager.COLOR_NUMBER, 10));
+        }
+
+        /**
+         * Matches all strings
+         */
+
+        Matcher matcherStrings = Pattern.compile("(\"(.*?)\")|(\'(.*?)\')").matcher(code);
+        while(matcherStrings.find()){
+            int offset = matcherStrings.start();
+            formattedCode.add(new ColorInfo(offset, matcherStrings.end() - offset, PluginManager.COLOR_STRING, 1));
         }
 
         /* pattern for detecting new linux line (\n), windows new line (\r\n), code separator (.) and line end (;) and word boundry
@@ -209,12 +248,6 @@ public class java extends Plugin{
         }
         return "";
     }
-
-    /*@Override
-    public String getDefaultTemplate(String pckg, String filename) {
-        return "package " + pckg + ";\n\n\npublic class " + filename + "{\n\n    public static void main(String[] args){\n//TODO implement main code\n\n}\n}";
-    }*/
-
     /*private ArrayList<Integer> getOffsetsFor(String code, String find){
         ArrayList<Integer> offsets = new ArrayList();
         int grandoffset = 0;
@@ -230,9 +263,9 @@ public class java extends Plugin{
             }
         }
     }*/
-    private ArrayList<Integer> getOffsetsFor(String code, String find){
-        Matcher matcher = Pattern.compile("\\b" + find + "\\b").matcher(code);
-        ArrayList<Integer> offsets = new ArrayList();
+    private ArrayList<Integer> getOffsetsFor(String code, String findRegex){
+        Matcher matcher = Pattern.compile(findRegex).matcher(code);
+        ArrayList<Integer> offsets = new ArrayList<>();
         while(matcher.find()){
             int offset = matcher.start();
 
