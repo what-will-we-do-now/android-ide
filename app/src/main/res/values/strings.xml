@@ -29,4 +29,7 @@
 
     <string name="file_name">File Name</string>
     <string name="enterFileName">Enter File Name:</string>
+    <string name="directory_name">Directory Name</string>
+    <string name="enterDirectoryName">Enter Directory Name:</string>
+
 </resources>
