@@ -4,22 +4,21 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,7 +27,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -39,39 +38,14 @@ import uk.ac.tees.v8036651.mode.Screen_IDE;
 
 public class Screen_FileViewer extends AppCompatActivity {
 
+    private static String fileName = "";
+    public static String projectsDirectory = "";
+
     @Override
     protected void onCreate(Bundle savedInsanceState) {
         super.onCreate(savedInsanceState);
 
-        //TODO delete - testing
-        try {
-            String rootPath = getExternalFilesDir(null).getAbsolutePath() + "/MoDE_Code_Directory";
-            File root = new File(rootPath);
-            if (!root.exists()) {
-                root.mkdir();
-            }
-            File f = new File(rootPath + "/mttext.txt");
-            if (f.exists()) {
-                f.delete();
-            }
-            f.createNewFile();
-
-            FileOutputStream out = new FileOutputStream(f);
-
-            out.flush();
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-
-
-        setContentView(R.layout.activity_file_viewer);
-
-        final String rootPath;
-
-
+        projectsDirectory = getExternalFilesDir(null).getAbsolutePath() + "/MoDE_Code_Directory";
     }
 
     //Arbitrary token
@@ -130,7 +104,7 @@ public class Screen_FileViewer extends AppCompatActivity {
             final File dir = new File(rootPath);
             projectFiles = dir.listFiles();
 
-            final TextView pathOutput = findViewById(R.id.pathOutput);
+            final TextView pathOutput = findViewById(R.id.dir_name);
             pathOutput.setText(rootPath.substring(rootPath.lastIndexOf('/') + 1));
 
             if (projectFiles != null){
@@ -140,7 +114,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                 filesFoundCount = 0;
             }
 
-            final ListView fileList = findViewById(R.id.fileList);
+            final ListView fileList = findViewById(R.id.file_list);
             final TextAdapter textAdapter = new TextAdapter();
             fileList.setAdapter(textAdapter);
 
@@ -168,9 +142,9 @@ public class Screen_FileViewer extends AppCompatActivity {
                     }
 
                     if (isAnySelected) {
-                        findViewById(R.id.delete).setEnabled(true);
+                        findViewById(R.id.delete_btt).setEnabled(true);
                     } else {
-                        findViewById(R.id.delete).setEnabled(false);
+                        findViewById(R.id.delete_btt).setEnabled(false);
                     }
 
                     return false;
@@ -188,8 +162,8 @@ public class Screen_FileViewer extends AppCompatActivity {
             });
 
             //Buttons management and actions
-            final Button backBtt = findViewById(R.id.back);
-            final Button deleteBtt = findViewById(R.id.delete);
+            final Button backBtt = findViewById(R.id.back_btt);
+            final Button deleteBtt = findViewById(R.id.delete_btt);
 
             //TODO for going up in file directory
             backBtt.setOnClickListener(new View.OnClickListener() {
@@ -224,9 +198,9 @@ public class Screen_FileViewer extends AppCompatActivity {
                                     }
 
                                     if (isAnySelected) {
-                                        findViewById(R.id.delete).setEnabled(true);
+                                        findViewById(R.id.delete_btt).setEnabled(true);
                                     } else {
-                                        findViewById(R.id.delete).setEnabled(false);
+                                        findViewById(R.id.delete_btt).setEnabled(false);
                                     }
                                 }
                             }
@@ -253,6 +227,42 @@ public class Screen_FileViewer extends AppCompatActivity {
             }));
 
             isFileManagerInitialized = true;
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.create_file:
+
+                final AlertDialog.Builder newFileDialog = new AlertDialog.Builder(this);
+                View inflater = LayoutInflater.from(this).inflate(R.layout.set_file_name_alert_dialog, null);
+                final EditText input = (EditText) inflater.findViewById(R.id.fileNameEditText);
+
+                newFileDialog.setView(inflater);
+                newFileDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        fileName = input.getText().toString();
+
+                        try {
+                            saveActivity(((NumberedTextView) findViewById(R.id.txtCode)).getText().toString(), fileName);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                newFileDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                newFileDialog.show();
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -336,7 +346,22 @@ public class Screen_FileViewer extends AppCompatActivity {
 
         return ret;
     }
+
+    //Saves files to specified directory
+    public void saveActivity(String data, String fileName) throws Exception{
+
+        File file = new File(projectsDirectory, fileName);
+
+        FileOutputStream output = new FileOutputStream(file);
+        OutputStreamWriter out = new OutputStreamWriter(output);
+        out.write(data);
+        out.flush();
+        out.close();
+        output.flush();
+        output.close();
+    }
 }
+
 
 
 

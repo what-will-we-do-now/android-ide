@@ -1,8 +1,5 @@
 package uk.ac.tees.v8036651.mode;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -13,34 +10,31 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import uk.ac.tees.v8036651.mode.FileViewer.Screen_FileViewer;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
+import uk.ac.tees.v8036651.mode.FileViewer.Screen_FileViewer;
 import uk.ac.tees.v8036651.mode.GUI.NumberedTextView;
 import uk.ac.tees.v8036651.mode.plugins.PluginManager;
 
 public class Screen_IDE extends AppCompatActivity {
 
     public static String projectsDirectory = "";
-    public static String fileName = null;
+    private static String fileName = null;
     public static String editTextContent = "";
 
     @androidx.annotation.RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ide_screen);
+        setContentView(R.layout.screen_ide_screen);
         ((NumberedTextView)findViewById(R.id.txtCode)).setText(editTextContent);
         projectsDirectory = getExternalFilesDir(null).getAbsolutePath() + "/MoDE_Code_Directory";
 
@@ -110,7 +104,7 @@ public class Screen_IDE extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    //To be extended when more functionality is added
+    //TODO To be extended when more functionality is added
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -159,6 +153,7 @@ public class Screen_IDE extends AppCompatActivity {
     }
 
 
+    //Saves files to specified directory
     public void saveActivity(String data, String fileName) throws Exception{
 
         File file = new File(projectsDirectory, fileName);
