@@ -51,4 +51,6 @@ dependencies {
 
     // Testing Navigation
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+
+    implementation "androidx.preference:preference:1.1.0"
 }

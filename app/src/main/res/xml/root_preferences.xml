@@ -1,0 +1,30 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/default_background">
+
+
+    <PreferenceCategory app:title="@string/pattern_header">
+        <SwitchPreferenceCompat
+            android:id="@+id/pcPattern"
+            android:theme="@style/PreferenceScreen"
+            app:key="pattern"
+            app:summaryOff="@string/pattern_disabled"
+
+            app:summaryOn="@string/pattern_enabled"
+            app:title="@string/pattern_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/preferences_header">
+
+        <SwitchPreferenceCompat
+            android:id="@+id/pcDarkMode"
+            android:theme="@style/PreferenceScreen"
+            app:key="dark_mode"
+            app:summaryOff="@string/dark_mode_disabled"
+            app:summaryOn="@string/dark_mode_enabled"
+            app:title="@string/dark_mode_title" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

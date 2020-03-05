@@ -8,59 +8,46 @@
     android:background="#0D1F2D"
     tools:context=".Screen_Settings">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Temporary Settings Screen"
-        android:textColor="#E8CA82"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnChangeUsername" />
-
     <Button
         android:id="@+id/btnChangePassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:onClick="openChangePassword"
-        android:text="Change Password"
+        android:text="@string/change_password"
+        app:layout_constraintBottom_toTopOf="@+id/btnChangeUsername"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPrefernences" />
-
-    <Button
-        android:visibility="gone"
-        android:id="@+id/btnPrefernences"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
-        android:text="Prefernences"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:visibility="gone"
-        android:id="@+id/btnTwoFactorAuthentication"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
-        android:text="Two Factor Authentication"
+        android:id="@+id/btnChangeUsername"
+        android:layout_width="375dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="openChangeUsername"
+        android:text="@string/change_username"
+        android:textColor="@color/default_text"
+        android:textColorHighlight="@color/default_text"
+        app:layout_constraintBottom_toTopOf="@+id/btnUserPreferences"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnChangePassword" />
 
     <Button
-        android:id="@+id/btnChangeUsername"
+        android:id="@+id/btnUserPreferences"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
-        android:onClick="openChangeUsername"
-        android:text="Change Username"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/user_preferences"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnTwoFactorAuthentication" />
+        app:layout_constraintTop_toBottomOf="@+id/btnChangeUsername" />
 </androidx.constraintlayout.widget.ConstraintLayout>

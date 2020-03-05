@@ -13,14 +13,4 @@ public class Screen_Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_settings);
     }
-
-    public void openChangePassword(View view){
-        Intent NPintent = new Intent(this, Screen_ChangePassword.class);
-        startActivity(NPintent);
-    }
-
-    public void openChangeUsername(View view){
-        Intent NUintent = new Intent(this, Screen_ChangeUsername.class);
-        startActivity(NUintent);
-    }
 }

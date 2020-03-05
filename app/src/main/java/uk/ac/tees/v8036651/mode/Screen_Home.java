@@ -26,12 +26,7 @@ public class Screen_Home extends AppCompatActivity {
     }
 
     public void openSettings(View view){
-        Intent settingsIntent = new Intent(this, Screen_Settings.class);
+        Intent settingsIntent = new Intent(this, settings_main.class);
         startActivity(settingsIntent);
-    }
-
-    public void openGitHub(View view){
-        Intent gitIntent = new Intent(this, Junk_Screen_Git.class);
-        startActivity(gitIntent);
     }
 }

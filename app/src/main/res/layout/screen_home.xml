@@ -16,7 +16,7 @@
         android:background="#0D1F2D"
         android:baselineAligned="false"
         android:onClick="openIDE"
-        android:text="@string/project_new"
+        android:text="@string/home_new_project"
         android:textColor="#E8CA82"
         app:layout_constraintBottom_toTopOf="@+id/btnOpenProject"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +33,7 @@
         android:background="#0D1F2D"
         android:baselineAligned="false"
         android:onClick="openIDE"
-        android:text="@string/project_open"
+        android:text="@string/home_open_project"
         android:textColor="#E8CA82"
         app:layout_constraintBottom_toTopOf="@+id/btnCreateQRCode"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,28 +50,13 @@
         android:background="#0D1F2D"
         android:baselineAligned="false"
         android:onClick="openQRScreen"
-        android:text="@string/project_from_qr"
-        android:textColor="#E8CA82"
-        app:layout_constraintBottom_toTopOf="@+id/btnGitHub"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnOpenProject" />
-
-    <Button
-        android:id="@+id/btnGitHub"
-        android:layout_width="377dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="#0D1F2D"
-        android:baselineAligned="false"
-        android:onClick="openGitHub"
-        android:text="@string/git"
+        android:text="@string/home_project_qr"
         android:textColor="#E8CA82"
         app:layout_constraintBottom_toTopOf="@+id/btnGotoCode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCreateQRCode" />
+        app:layout_constraintTop_toBottomOf="@+id/btnOpenProject" />
+
 
     <Button
         android:visibility="gone"
@@ -83,12 +68,12 @@
         android:background="#0D1F2D"
         android:baselineAligned="false"
         android:onClick="openIDE"
-        android:text="@string/code_return"
+        android:text="@string/home_project_return"
         android:textColor="#E8CA82"
         app:layout_constraintBottom_toTopOf="@+id/btnSettings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnGitHub" />
+        app:layout_constraintTop_toBottomOf="@+id/btnCreateQRCode" />
 
     <Button
         android:id="@+id/btnSettings"
@@ -99,7 +84,7 @@
         android:background="#0D1F2D"
         android:baselineAligned="false"
         android:onClick="openSettings"
-        android:text="@string/settings"
+        android:text="@string/home_settings"
         android:textColor="#E8CA82"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

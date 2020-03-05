@@ -1,12 +1,19 @@
 <resources>
+    <!-- General items -->
     <string name="app_name">MoDE</string>
     <string name="username">Input password</string>
     <string name="edit_password">Input password</string>
     <string name="button_login">Log In</string>
     <string name="google">Search</string>
 
+
+    <!-- Splash Screen Information-->
+    <string name="splash_name">Welcome to MoDE</string>
+    <string name="copyright">COPYRIGHT © 2020 MoDE. All rights reserved.</string>
+
     <string name="title_activity_ide_screen">IdeScreen</string>
 
+    <!-- Login Buttons & Text -->
     <string name="login_username_text">Login:</string>
     <string name="login_password_text">Password:</string>
     <string name="login_username_placeholder">Enter username</string>
@@ -16,13 +23,34 @@
     <string name="new_username_placeholder">Enter New Username</string>
     <string name="confirm_username_placeholder">Confirm New Username</string>
 
-    <string name="project_new">New project</string>
-    <string name="project_open">Open project</string>
-    <string name="project_from_qr">Project from QR code</string>
-    <string name="git">Git</string>
-    <string name="code_return">Return to code</string>
+    <!-- Settings Buttons [DEPRECATED] -->
+    <string name="change_password">Change Password</string>
+    <string name="change_username">Change Username</string>
+    <string name="user_preferences">User Preferences</string>
+
+    <!-- Home Buttons -->
+    <string name="home_new_project">New project</string>
+    <string name="home_open_project">Open project</string>
+    <string name="home_project_qr">Project from QR code</string>
+    <string name="home_project_return">Return to code</string>
+    <string name="home_settings">Settings</string>
 
     <string name="save_code">Save</string>
-    <string name="settings">Settings</string>
+    <string name="title_activity_settings_main">Settings</string>
+
+    <!-- Settings Headers -->
+    <string name="pattern_header">Pattern</string>
+    <string name="preferences_header">Preferences</string>
+    <string name="accessibility_header">Accessibility</string>
+
+    <!-- Settings Titles -->
+    <string name="pattern_title">Pattern</string>
+    <string name="dark_mode_title">Dark Mode</string>
+
+    <!-- Settings Information -->
+    <string name="pattern_disabled">Add a pattern to your account</string>
+    <string name="pattern_enabled">Change your pattern</string>
+    <string name="dark_mode_enabled">Good Choice, Sir</string>
+    <string name="dark_mode_disabled">Sorry, Light Mode is not supported</string>
 
 </resources>
