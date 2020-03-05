@@ -25,8 +25,10 @@
     <string name="save">Save</string>
     <string name="settings">Settings</string>
     <string name="cancel">Cancel</string>
-    <string name="create">Create</string>
+    <string name="create_file">Create File</string>
+    <string name="create_folder">Create Folder</string>
 
+    <string name="file_path">File Path: </string>
     <string name="file_name">File Name</string>
     <string name="enterFileName">Enter File Name:</string>
     <string name="directory_name">Directory Name</string>

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.File;
@@ -47,16 +48,24 @@ public class TextAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView == null){
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.file_viewer_item, parent, false);
-            convertView.setTag(1, new ViewHolder((TextView) convertView.findViewById(R.id.fileViewerItem)));
-            convertView.setTag(2, new ViewHolder((ImageView) convertView.findViewById(R.id.icon)));
+            convertView.setTag(R.id.fileViewerItem, new ViewHolder((TextView) convertView.findViewById(R.id.fileViewerItem)));
+            convertView.setTag(R.id.icon, new ViewHolder((ImageView) convertView.findViewById(R.id.icon)));
         }
 
         final File item = getItem(position);
 
-        ViewHolder holder = (ViewHolder) convertView.getTag(1);
+        ViewHolder holder = (ViewHolder) convertView.getTag(R.id.fileViewerItem);
         holder.textInfo.setText(item.getName().substring(item.getName().lastIndexOf('/') + 1));
 
-        holder = (ViewHolder) convertView.getTag(2);
+        if(selection != null) {
+            if (selection[position]) {
+                ((LinearLayout) holder.textInfo.getParent()).setBackgroundColor(Color.LTGRAY);
+            } else {
+                ((LinearLayout) holder.textInfo.getParent()).setBackgroundColor(Color.WHITE);
+            }
+        }
+
+        holder = (ViewHolder) convertView.getTag(R.id.icon);
 
         if (item.isDirectory()){
             holder.imageInfo.setImageResource(R.drawable.ic_folder_black_24dp);
@@ -65,15 +74,6 @@ public class TextAdapter extends BaseAdapter {
             holder.imageInfo.setImageResource(R.drawable.ic_file_black_24dp);
         }
 
-
-
-        if(selection != null) {
-            if (selection[position]) {
-                holder.textInfo.setBackgroundColor(Color.LTGRAY);
-            } else {
-                holder.textInfo.setBackgroundColor(Color.WHITE);
-            }
-        }
         return convertView;
     }
 

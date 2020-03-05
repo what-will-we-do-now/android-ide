@@ -87,6 +87,7 @@ public class Screen_FileViewer extends AppCompatActivity {
     private boolean isFileManagerInitialized = false;
 
     private boolean[] selection;
+    private boolean longClick = false;
 
     //Runs whenever the view is resumed
     @Override
@@ -127,6 +128,8 @@ public class Screen_FileViewer extends AppCompatActivity {
             listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    longClick = true;
+
                     selection[position] = !selection[position];
                     textAdapter.setSelection(selection);
 
@@ -142,6 +145,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                         findViewById(R.id.delete_btt).setEnabled(true);
                     } else {
                         findViewById(R.id.delete_btt).setEnabled(false);
+                        longClick = true;
                     }
 
                     return false;
@@ -153,8 +157,10 @@ public class Screen_FileViewer extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Screen_IDE.editTextContent =(loadActivity("MoDE_Code_Directory/" + filesList.get(position)));
-                    startActivity(intent);
+                    if (!longClick){
+                        Screen_IDE.editTextContent =(loadActivity(filesList.get(position).getAbsolutePath()));
+                        startActivity(intent);
+                    }
                 }
             });
 
@@ -170,7 +176,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                 }
             });
 
-            //Delete Button
+            //TODO Delete Button
             deleteBtt.setOnClickListener((new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
@@ -202,13 +208,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                                 }
                             }
 
-                            projectFiles = dir.listFiles();
-                            filesFoundCount = projectFiles.length;
-                            filesList.clear();
-                            for(int i=0; i < filesFoundCount; i++){
-                                filesList.add(projectFiles[i]);
-                            }
-                            textAdapter.setData(filesList);
+                            refresh();
                         }
                     });
 
@@ -225,6 +225,9 @@ public class Screen_FileViewer extends AppCompatActivity {
 
             isFileManagerInitialized = true;
         }
+        else {
+            refresh();
+        }
     }
 
     @Override
@@ -234,128 +237,80 @@ public class Screen_FileViewer extends AppCompatActivity {
     }
 
     //TODO To be expanded
-    @SuppressLint("InflateParams")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        View inflater;
+        final EditText input;
+
         switch (item.getItemId()){
             case R.id.create_file:
 
-                //Alert for user to decide whether he wants to create a file or directory
-                final AlertDialog.Builder fileOrDirectory = new AlertDialog.Builder(this);
-                fileOrDirectory.setTitle("What do you want to create?");
+                final AlertDialog.Builder newFileDialog = new AlertDialog.Builder(Screen_FileViewer.this);
 
-                fileOrDirectory.setPositiveButton("File", new DialogInterface.OnClickListener() {
+                inflater = LayoutInflater.from(Screen_FileViewer.this).inflate(R.layout.set_file_name_alert_dialog, null);
+                input = inflater.findViewById(R.id.fileNameEditText);
+
+                newFileDialog.setView(inflater);
+                newFileDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        toDirectory = false;
-                        //Alert for user to input a name of the new file/directory
-                        final AlertDialog.Builder newFileDialog = new AlertDialog.Builder(Screen_FileViewer.this);
-                        View inflater;
-                        final EditText input;
+                        try {
+                            saveActivity("", input.getText().toString());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
-                        inflater = LayoutInflater.from(Screen_FileViewer.this).inflate(R.layout.set_file_name_alert_dialog, null);
-                        input = inflater.findViewById(R.id.fileNameEditText);
+                        refresh();
 
-
-                        newFileDialog.setView(inflater);
-                        newFileDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                try {
-                                    saveActivity("", input.getText().toString());
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-
-                                dir = new File(getCodeDirectory());
-                                projectFiles = dir.listFiles();
-
-                                if (projectFiles == null) {
-                                    filesFoundCount = 0;
-                                }
-                                else {
-                                    filesFoundCount = projectFiles.length;
-                                }
-
-                                filesList.clear();
-                                for(int i=0; i < filesFoundCount; i++){
-                                    filesList.add(projectFiles[i]);
-                                }
-                                textAdapter.setData(filesList);
-
-                            }
-                        });
-                        newFileDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
-                        newFileDialog.show();
                     }
                 });
-
-                fileOrDirectory.setNegativeButton("Directory", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //Alert for user to input a name of the new file/directory
-                        final AlertDialog.Builder newFileDialog = new AlertDialog.Builder(Screen_FileViewer.this);
-                        View inflater;
-                        final EditText input;
-
-                        inflater = LayoutInflater.from(Screen_FileViewer.this).inflate(R.layout.set_directory_name_alret_dialog, null);
-                        input = inflater.findViewById(R.id.directoryNameEditText);
-
-                        newFileDialog.setView(inflater);
-                        newFileDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                try {
-                                    final File newDirectory = new File(projectsDirectory + '/' + input.getText().toString());
-                                    if (!newDirectory.exists()){
-                                        newDirectory.mkdir();
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                dir = new File(getCodeDirectory());
-                                projectFiles = dir.listFiles();
-
-                                if (projectFiles == null) {
-                                    filesFoundCount = 0;
-                                }
-                                else {
-                                    filesFoundCount = projectFiles.length;
-                                }
-
-                                filesList.clear();
-                                for(int i=0; i < filesFoundCount; i++){
-                                    filesList.add(projectFiles[i]);
-                                }
-                                textAdapter.setData(filesList);
-
-                            }
-                        });
-                        newFileDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
-                        newFileDialog.show();
-                    }
-                });
-
-                fileOrDirectory.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                newFileDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                     }
                 });
-
-                fileOrDirectory.show();
-
+                newFileDialog.show();
                 return true;
+
+            case R.id.create_folder:
+
+                final AlertDialog.Builder newFoldereDialog = new AlertDialog.Builder(Screen_FileViewer.this);
+
+                inflater = LayoutInflater.from(Screen_FileViewer.this).inflate(R.layout.set_directory_name_alret_dialog, null);
+                input = inflater.findViewById(R.id.directoryNameEditText);
+
+                newFoldereDialog.setView(inflater);
+                newFoldereDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            final File newDirectory = new File(projectsDirectory + '/' + input.getText().toString());
+                            if (!newDirectory.exists()){
+                                newDirectory.mkdir();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        refresh();
+
+                    }
+                });
+                newFoldereDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                newFoldereDialog.show();
+                return true;
+
+            case R.id.refresh_menu_option:
+                refresh();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -410,7 +365,7 @@ public class Screen_FileViewer extends AppCompatActivity {
     public String loadActivity(String fileName){
         String ret;
 
-        File file = new File(getExternalFilesDir(null), fileName);
+        File file = new File(fileName);
 
         try{
             InputStream input = new FileInputStream(file);
@@ -451,6 +406,24 @@ public class Screen_FileViewer extends AppCompatActivity {
         out.close();
         output.flush();
         output.close();
+    }
+
+    private void refresh (){
+        dir = new File(getCodeDirectory());
+        projectFiles = dir.listFiles();
+
+        if (projectFiles == null) {
+            filesFoundCount = 0;
+        }
+        else {
+            filesFoundCount = projectFiles.length;
+        }
+
+        filesList.clear();
+        for(int i=0; i < filesFoundCount; i++){
+            filesList.add(projectFiles[i]);
+        }
+        textAdapter.setData(filesList);
     }
 }
 
