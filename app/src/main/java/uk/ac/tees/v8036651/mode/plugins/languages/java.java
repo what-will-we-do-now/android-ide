@@ -6,6 +6,7 @@
 package uk.ac.tees.v8036651.mode.plugins.languages;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,7 +21,7 @@ public class java extends Plugin{
 
     private static final ArrayList<String> TOKENS;
     static{
-        TOKENS = new ArrayList();
+        TOKENS = new ArrayList<>();
         TOKENS.add("public");
         TOKENS.add("private");
         TOKENS.add("protected");
@@ -82,10 +83,13 @@ public class java extends Plugin{
         TOKENS.add("goto");
     }
 
-    public java(String name) {
-        super(name);
+    public java() {
         registerSupportedFiletype("java");
-        System.out.println("Java plugin registered");
+        registerTemplate("EMPTY_CLASS_MAIN", "Java Class with Main method");
+        registerTemplate("EMPTY_CLASS","Java Class");
+        registerTemplate("EMPTY_INTERFACE", "Java Interface");
+        registerTemplate("EMPTY_ENUM", "Java Enum");
+        registerTemplate("EXCEPTION", "Java Exception");
     }
 
     @Override
@@ -155,9 +159,61 @@ public class java extends Plugin{
     }
 
     @Override
+    public String getName() {
+        return "Java";
+    }
+
+    @Override
+    public String getTemplate(String templateID, Map<String, String> values) {
+        if("EMPTY_CLASS_MAIN".equals(templateID)){
+            return "package " + values.get("package") + ";\n" +
+                    "\n" +
+                    "public class " + values.get("filename") + "{\n" +
+                    "\n" +
+                    "    public static void main(String[] args){\n" +
+                    "\n" +
+                    "        //TODO implement main code\n" +
+                    "\n" +
+                    "    }\n" +
+                    "}";
+        }else if("EMPTY_CLASS".equals(templateID)){
+            return "package " + values.get("package") + ";\n" +
+                    "\n" +
+                    "public class " + values.get("filename") + "{\n" +
+                    "\n" +
+                    "}";
+        }else if("EMPTY_INTERFACE".equals(templateID)){
+            return "package " + values.get("package") + ";\n" +
+                    "\n" +
+                    "public interface " + values.get("filename") + "{\n" +
+                    "\n" +
+                    "}";
+        }else if("EMPTY_ENUM".equals(templateID)){
+            return "package " + values.get("package") + ";\n" +
+                    "\n" +
+                    "public enum " + values.get("filename") + "{\n" +
+                    "\n" +
+                    "}";
+        }else if("EXCEPTION".equals(templateID)){
+            return "package " + values.get("package") + ";\n" +
+                    "\n" +
+                    "public class " + values.get("filename") + " extends Exception{\n" +
+                    "\n" +
+                    "    public " + values.get("filename") + "() {\n" +
+                    "    }\n" +
+                    "\n" +
+                    "    public " + values.get("filename") + "(String msg) {\n" +
+                    "        super(msg);\n" +
+                    "    }\n" +
+                    "}";
+        }
+        return "";
+    }
+
+    /*@Override
     public String getDefaultTemplate(String pckg, String filename) {
         return "package " + pckg + ";\n\n\npublic class " + filename + "{\n\n    public static void main(String[] args){\n//TODO implement main code\n\n}\n}";
-    }
+    }*/
 
     /*private ArrayList<Integer> getOffsetsFor(String code, String find){
         ArrayList<Integer> offsets = new ArrayList();
