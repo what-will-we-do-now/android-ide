@@ -140,4 +140,17 @@ public class PluginManager {
         ((NumberedTextView) view).setText(span);
         ((NumberedTextView) view).setSelection(curpos);
     }
+
+    public static String getDefaultTemplate(String pckg, String filename, String lang){
+        if(cachedPlugin != null && cachedPlugin.getSupportedFiletypes().contains(lang)){
+            return cachedPlugin.getDefaultTemplate(pckg, filename);
+        }else{
+            for(Plugin plugin : plugins){
+                if(plugin.getSupportedFiletypes().contains(lang)){
+
+                }
+            }
+        }
+        return "";
+    }
 }

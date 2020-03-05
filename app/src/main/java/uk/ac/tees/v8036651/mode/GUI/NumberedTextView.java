@@ -11,6 +11,8 @@ import androidx.appcompat.widget.AppCompatEditText;
 public class NumberedTextView extends AppCompatEditText {
 
     private Paint paint;
+    private String language;
+
 
     public NumberedTextView(Context context) {
         super(context);
@@ -50,5 +52,13 @@ public class NumberedTextView extends AppCompatEditText {
         //set padding to always adjust to the length of line count
         setPadding((int) (getTextSize() * (String.valueOf(getLineCount()).length())), 0, 0, 0);
         super.onDraw(canvas);
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getLanguage() {
+        return language;
     }
 }

@@ -37,4 +37,6 @@ public abstract class Plugin {
     public final List<String> getSupportedFiletypes(){
         return Collections.unmodifiableList(supportedFiletypes);
     }
+
+    public abstract String getDefaultTemplate(String pckg, String filename);
 }

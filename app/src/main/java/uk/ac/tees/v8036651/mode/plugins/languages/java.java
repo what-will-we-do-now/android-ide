@@ -154,6 +154,11 @@ public class java extends Plugin{
         return codeFinal;
     }
 
+    @Override
+    public String getDefaultTemplate(String pckg, String filename) {
+        return "package " + pckg + ";\n\n\npublic class " + filename + "{\n\n    public static void main(String[] args){\n//TODO implement main code\n\n}\n}";
+    }
+
     /*private ArrayList<Integer> getOffsetsFor(String code, String find){
         ArrayList<Integer> offsets = new ArrayList();
         int grandoffset = 0;
