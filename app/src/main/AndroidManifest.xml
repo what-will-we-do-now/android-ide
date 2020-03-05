@@ -17,9 +17,8 @@
         <activity android:name=".Screen_QR" />
         <activity android:name=".Screen_Settings" />
         <activity android:name=".Junk_Screen_Git" />
-        <activity android:name=".Screen_ChangePassword" />
-        <activity android:name=".Screen_ChangeUsername" />
         <activity android:name=".Screen_Login" />
+        <activity android:name=".Screen_ChangePattern" />
         <activity
             android:name=".Screen_Home"
             android:parentActivityName=".Screen_Login">
