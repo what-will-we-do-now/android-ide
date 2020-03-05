@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -39,14 +40,13 @@ import uk.ac.tees.v8036651.mode.Screen_IDE;
 
 public class Screen_FileViewer extends AppCompatActivity {
 
-    public static String projectsDirectory = "";
-    private boolean toDirectory = false;
+    private String rootPath;
 
     @Override
     protected void onCreate(Bundle savedInsanceState) {
         super.onCreate(savedInsanceState);
         setContentView(R.layout.screen_file_viewer);
-        projectsDirectory = Objects.requireNonNull(getExternalFilesDir(null)).getAbsolutePath() + "/MoDE_Code_Directory";
+        rootPath = getCodeDirectory();
     }
 
     //Arbitrary token
@@ -78,6 +78,7 @@ public class Screen_FileViewer extends AppCompatActivity {
         return false;
     }
 
+    private String currentPath;
     private File[] projectFiles;
     private List<File> filesList;
     private int filesFoundCount;
@@ -98,12 +99,12 @@ public class Screen_FileViewer extends AppCompatActivity {
             return;
         }
         if (!isFileManagerInitialized) {
-            String rootPath = getCodeDirectory();
+            currentPath = rootPath;
             dir = new File(rootPath);
             projectFiles = dir.listFiles();
 
             final TextView pathOutput = findViewById(R.id.dir_name);
-            pathOutput.setText(rootPath.substring(rootPath.lastIndexOf('/') + 1));
+            pathOutput.setText(currentPath.substring(currentPath.lastIndexOf('/') + 1));
 
             if (projectFiles != null){
                filesFoundCount = projectFiles.length;
@@ -124,6 +125,20 @@ public class Screen_FileViewer extends AppCompatActivity {
             textAdapter.setData(filesList);
 
             selection = new boolean[filesFoundCount];
+
+            //Button to go upwards in directory
+            final ImageButton upDirectoryButton = findViewById(R.id.up_directory);
+            upDirectoryButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (currentPath.contains(rootPath)){
+                        currentPath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+                        dir = new File(currentPath);
+                        pathOutput.setText(currentPath.substring(currentPath.lastIndexOf('/') + 1));
+                        refresh();
+                    }
+                }
+            });
 
             listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
@@ -164,17 +179,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                 }
             });
 
-            //Buttons management and actions
-            final Button backBtt = findViewById(R.id.back_btt);
             final Button deleteBtt = findViewById(R.id.delete_btt);
-
-            //TODO for going up in file directory
-            backBtt.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
 
             //TODO Delete Button
             deleteBtt.setOnClickListener((new View.OnClickListener(){
@@ -286,7 +291,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         try {
-                            final File newDirectory = new File(projectsDirectory + '/' + input.getText().toString());
+                            final File newDirectory = new File(currentPath + '/' + input.getText().toString());
                             if (!newDirectory.exists()){
                                 newDirectory.mkdir();
                             }
@@ -357,9 +362,8 @@ public class Screen_FileViewer extends AppCompatActivity {
 
     //returns string path to the main storage of the app
     private String getCodeDirectory () {
-        File directory;
-            directory = new File(Objects.requireNonNull(getExternalFilesDir(null)).getAbsolutePath() + "/MoDE_Code_Directory");
-            return directory.getAbsolutePath();
+        File directory = new File(Objects.requireNonNull(getExternalFilesDir(null)).getAbsolutePath() + "/MoDE_Code_Directory");
+        return directory.getAbsolutePath();
     }
 
     public String loadActivity(String fileName){
@@ -397,7 +401,7 @@ public class Screen_FileViewer extends AppCompatActivity {
     //Saves files to specified directory
     public void saveActivity(String data, String fileName) throws Exception{
 
-        File file = new File(projectsDirectory, fileName);
+        File file = new File(currentPath, fileName);
 
         FileOutputStream output = new FileOutputStream(file);
         OutputStreamWriter out = new OutputStreamWriter(output);
@@ -409,7 +413,6 @@ public class Screen_FileViewer extends AppCompatActivity {
     }
 
     private void refresh (){
-        dir = new File(getCodeDirectory());
         projectFiles = dir.listFiles();
 
         if (projectFiles == null) {

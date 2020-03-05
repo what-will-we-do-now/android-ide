@@ -10,29 +10,40 @@
         android:orientation="horizontal"
         android:background="@color/colorPrimaryDark">
 
-        <ImageView
+        <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/up_directory"
+            android:background="@null"
             android:src="@drawable/ic_up_directory_white_24dp"
-            android:rotation="90"
-            android:layout_marginTop="6dp"
-            android:layout_marginHorizontal="4dp"/>
+            android:layout_margin="2dp"
+            android:rotation="90"/>
 
-        <TextView
-            android:id="@+id/dir_name_text"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/file_path"
-            android:textColor="@color/lightText"
-            android:textSize="24dp"/>
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/dir_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/lightText"
-            android:textSize="22dp" />
+            <TextView
+                android:id="@+id/dir_name_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/file_path"
+                android:textColor="@color/lightText"
+                android:layout_margin="2dp"
+                android:textSize="24dp"/>
+
+            <TextView
+                android:id="@+id/dir_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/lightText"
+                android:layout_margin="2dp"
+                android:textSize="18dp" />
+
+        </LinearLayout>
+
+
     </LinearLayout>
 
     <View style="@style/Divider"/>
