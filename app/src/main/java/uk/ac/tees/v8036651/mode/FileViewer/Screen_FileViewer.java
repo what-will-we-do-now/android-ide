@@ -44,7 +44,7 @@ public class Screen_FileViewer extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInsanceState) {
         super.onCreate(savedInsanceState);
-
+        setContentView(R.layout.screen_file_viewer);
         projectsDirectory = getExternalFilesDir(null).getAbsolutePath() + "/MoDE_Code_Directory";
     }
 
@@ -125,7 +125,7 @@ public class Screen_FileViewer extends AppCompatActivity {
             }
             textAdapter.setData(filesList);
 
-            selection = new boolean[projectFiles.length];
+            selection = new boolean[filesFoundCount];
 
             fileList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
