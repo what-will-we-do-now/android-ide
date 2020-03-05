@@ -24,34 +24,8 @@ public class Screen_ChangePattern extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_changepattern);
 
-        final PatternLockView patternLockView = findViewById(R.id.patternView);
-        patternLockView.addPatternLockListener(new PatternLockViewListener() {
-
-            public void onStarted() {
-
-            }
-
-            public void onProgress(List progressPattern) {
-
-            }
-
-            public void onComplete(List pattern) {
-                Log.d(getClass().getName(), "Pattern complete: " +
-                        PatternLockUtils.patternToString(patternLockView, pattern));
-
-            }
-
-            public void onCleared() {
-
-            }
-        });
-    }
-
-    public void updatePattern (View view)
-    {
         SharedPreferences pref = getSharedPreferences("mode", Context.MODE_PRIVATE);
         final SharedPreferences.Editor prefEdit = pref.edit();
-
 
         final PatternLockView patternLockView = findViewById(R.id.patternView);
         patternLockView.addPatternLockListener(new PatternLockViewListener() {
@@ -75,11 +49,18 @@ public class Screen_ChangePattern extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void updatePattern (View view)
+    {
+        SharedPreferences pref = getSharedPreferences("mode", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor prefEdit = pref.edit();
 
         String newPattern = pref.getString("UpdatedPattern", "");
         System.out.println(newPattern);
 
         prefEdit.putString("pattern", newPattern);
+
         prefEdit.commit();
         System.out.println("Updated");
 
