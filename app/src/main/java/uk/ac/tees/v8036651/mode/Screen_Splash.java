@@ -22,6 +22,11 @@ public class Screen_Splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen__splash);
 
+        File mainCodeDirectory = new File (getExternalFilesDir(null).getAbsolutePath() + "/MoDE_Code_Directory");
+        if(!mainCodeDirectory.exists()){
+            mainCodeDirectory.mkdir();
+        }
+
             new Handler().postDelayed(new Runnable()
             {
                 @Override

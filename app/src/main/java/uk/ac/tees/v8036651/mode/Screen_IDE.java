@@ -1,36 +1,59 @@
 package uk.ac.tees.v8036651.mode;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 
 import uk.ac.tees.v8036651.mode.FileViewer.Screen_FileViewer;
-import java.io.File;
 import uk.ac.tees.v8036651.mode.GUI.NumberedTextView;
 import uk.ac.tees.v8036651.mode.plugins.PluginManager;
 
+import android.view.View.OnKeyListener;
+
 public class Screen_IDE extends AppCompatActivity {
+
+    public static String projectsDirectory = "";
+    private static String fileName = null;
+    public static String editTextContent = "";
 
     @androidx.annotation.RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ide_screen);
-
+        setContentView(R.layout.screen_ide_screen);
+        ((NumberedTextView)findViewById(R.id.txtCode)).setText(editTextContent);
+        projectsDirectory = getExternalFilesDir(null).getAbsolutePath() + "/MoDE_Code_Directory";
 
         NumberedTextView txtCode = (NumberedTextView) findViewById(R.id.txtCode);
+
+
+        txtCode.setOnKeyListener(new OnKeyListener(){
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(!event.isCanceled() && keyCode == KeyEvent.KEYCODE_TAB && event.getAction() == KeyEvent.ACTION_UP){
+                    NumberedTextView txtCode = ((NumberedTextView) v);
+                    txtCode.getText().insert(txtCode.getSelectionStart(), "    ");
+                }
+                return false;
+            }
+        });
 
         txtCode.addTextChangedListener(new TextWatcher() {
 
@@ -96,12 +119,42 @@ public class Screen_IDE extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    //To be extended when more functionality is added
+    //TODO To be extended when more functionality is added
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.save_code:
                 Toast.makeText(this, "Saving", Toast.LENGTH_SHORT).show();
+
+                if (fileName == null){
+                    final AlertDialog.Builder setFileNameDialog = new AlertDialog.Builder(Screen_IDE.this);
+                    View inflater = LayoutInflater.from(this).inflate(R.layout.set_file_name_alert_dialog, null);
+
+                    final EditText input = (EditText) inflater.findViewById(R.id.fileNameEditText);
+
+                    setFileNameDialog.setView(inflater);
+                    setFileNameDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            fileName = input.getText().toString();
+
+                            try {
+                                saveActivity(((NumberedTextView) findViewById(R.id.txtCode)).getText().toString(), fileName);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    setFileNameDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    setFileNameDialog.show();
+                }
+
+
                 return true;
             case R.id.settings_nav:
                 startActivity(new Intent(Screen_IDE.this, Screen_Settings.class));
@@ -112,5 +165,20 @@ public class Screen_IDE extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+
+    //Saves files to specified directory
+    public void saveActivity(String data, String fileName) throws Exception{
+
+        File file = new File(projectsDirectory, fileName);
+
+        FileOutputStream output = new FileOutputStream(file);
+        OutputStreamWriter out = new OutputStreamWriter(output);
+        out.write(data);
+        out.flush();
+        out.close();
+        output.flush();
+        output.close();
     }
 }

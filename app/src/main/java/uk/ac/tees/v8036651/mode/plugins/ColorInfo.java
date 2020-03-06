@@ -1,14 +1,27 @@
 package uk.ac.tees.v8036651.mode.plugins;
 
 public class ColorInfo {
-    private int offset;
-    private int length;
-    private String color;
+
+    private final int offset;
+    private final int length;
+    private final String color;
+    /**
+     * Things with lower priority will overtake anything with higher priority
+     */
+    private final int priority;
 
     public ColorInfo(int offset, int length, String color) {
         this.offset = offset;
         this.length = length;
         this.color = color;
+        this.priority = 0;
+    }
+
+    public ColorInfo(int offset, int length, String color, int priority) {
+        this.offset = offset;
+        this.length = length;
+        this.color = color;
+        this.priority = priority;
     }
 
     public int getOffset() {
@@ -21,5 +34,9 @@ public class ColorInfo {
 
     public String getColor() {
         return color;
+    }
+
+    public int getPriority() {
+        return priority;
     }
 }

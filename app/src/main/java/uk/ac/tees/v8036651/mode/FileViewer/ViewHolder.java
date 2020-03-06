@@ -1,11 +1,16 @@
 package uk.ac.tees.v8036651.mode.FileViewer;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ViewHolder {
-    TextView info;
+    TextView textInfo;
+    ImageView imageInfo;
 
     ViewHolder(TextView info){
-        this.info = info;
+        this.textInfo = info;
     }
+
+
+    ViewHolder(ImageView info) { this.imageInfo = info; }
 }
