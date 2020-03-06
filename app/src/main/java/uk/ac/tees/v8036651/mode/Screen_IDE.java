@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -38,7 +37,7 @@ public class Screen_IDE extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.screen_ide_screen);
+        setContentView(R.layout.screen_ide);
         ((NumberedTextView)findViewById(R.id.txtCode)).setText(editTextContent);
         projectsDirectory = getExternalFilesDir(null).getAbsolutePath() + "/MoDE_Code_Directory";
 
@@ -181,5 +180,17 @@ public class Screen_IDE extends AppCompatActivity {
         out.close();
         output.flush();
         output.close();
+    }
+
+    //Stackoverflow search
+    public void stackOverflowSearch ()
+    {
+
+    }
+
+    //Google Search
+    public void searchUsingGoogle()
+    {
+
     }
 }
