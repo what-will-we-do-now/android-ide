@@ -19,13 +19,16 @@ import java.util.List;
 import uk.ac.tees.v8036651.mode.R;
 
 public class Screen_ChangePattern extends AppCompatActivity {
+
+    private SharedPreferences.Editor prefEdit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        prefEdit = getSharedPreferences("mode", Context.MODE_PRIVATE).edit();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_changepattern);
-
-        SharedPreferences pref = getSharedPreferences("mode", Context.MODE_PRIVATE);
-        final SharedPreferences.Editor prefEdit = pref.edit();
 
         final PatternLockView patternLockView = findViewById(R.id.patternView);
         patternLockView.addPatternLockListener(new PatternLockViewListener() {
@@ -41,7 +44,9 @@ public class Screen_ChangePattern extends AppCompatActivity {
             public void onComplete(List pattern) {
                 Log.d(getClass().getName(), "Pattern complete: " +
                         PatternLockUtils.patternToString(patternLockView, pattern));
-                prefEdit.putString("UpdatedPattern",pattern.toString());
+                String textpattern = PatternLockUtils.patternToString(patternLockView, pattern);
+                System.out.println(textpattern);
+                prefEdit.putString("pattern",textpattern);
 
             }
 
@@ -53,14 +58,6 @@ public class Screen_ChangePattern extends AppCompatActivity {
 
     public void updatePattern (View view)
     {
-        SharedPreferences pref = getSharedPreferences("mode", Context.MODE_PRIVATE);
-        final SharedPreferences.Editor prefEdit = pref.edit();
-
-        String newPattern = pref.getString("UpdatedPattern", "");
-        System.out.println(newPattern);
-
-        prefEdit.putString("pattern", newPattern);
-
         prefEdit.commit();
         System.out.println("Updated");
 

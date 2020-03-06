@@ -36,12 +36,10 @@ public class Screen_Login extends AppCompatActivity {
         PluginManager.load(this);
 
         SharedPreferences pref = getSharedPreferences("mode", Context.MODE_PRIVATE);
-        String pattern = pref.getString("pattern", "");
-
-        Intent intent = new Intent(this, Screen_Home.class);
-        System.out.println("Pattern is:");
-        System.out.println(pattern);
-        if (pattern.equals("")) {
+        final String pattern1 = pref.getString("pattern", "");
+        final Intent intent = new Intent(this, Screen_Home.class);
+        System.out.println("Pattern is: " + pattern1);
+        if (pattern1.equals("")) {
             startActivity(intent);
         }
         else {
@@ -61,8 +59,9 @@ public class Screen_Login extends AppCompatActivity {
                 public void onComplete(List pattern) {
                     Log.d(getClass().getName(), "Pattern complete: " +
                             PatternLockUtils.patternToString(patternLockView, pattern));
-                    if (PatternLockUtils.patternToString(patternLockView, pattern).equalsIgnoreCase(pattern.toString())) {
+                    if (PatternLockUtils.patternToString(patternLockView, pattern).equalsIgnoreCase(pattern1.toString())) {
                         Toast.makeText(Screen_Login.this, "Welcome back!", Toast.LENGTH_LONG).show();
+                        startActivity(intent);
                     } else {
                         Toast.makeText(Screen_Login.this, "Incorrect password", Toast.LENGTH_LONG).show();
                     }
