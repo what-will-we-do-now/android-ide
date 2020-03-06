@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -23,6 +24,8 @@ import java.io.OutputStreamWriter;
 import uk.ac.tees.v8036651.mode.FileViewer.Screen_FileViewer;
 import uk.ac.tees.v8036651.mode.GUI.NumberedTextView;
 import uk.ac.tees.v8036651.mode.plugins.PluginManager;
+
+import android.view.View.OnKeyListener;
 
 public class Screen_IDE extends AppCompatActivity {
 
@@ -39,6 +42,18 @@ public class Screen_IDE extends AppCompatActivity {
         projectsDirectory = getExternalFilesDir(null).getAbsolutePath() + "/MoDE_Code_Directory";
 
         NumberedTextView txtCode = (NumberedTextView) findViewById(R.id.txtCode);
+
+
+        txtCode.setOnKeyListener(new OnKeyListener(){
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(!event.isCanceled() && keyCode == KeyEvent.KEYCODE_TAB && event.getAction() == KeyEvent.ACTION_UP){
+                    NumberedTextView txtCode = ((NumberedTextView) v);
+                    txtCode.getText().insert(txtCode.getSelectionStart(), "    ");
+                }
+                return false;
+            }
+        });
 
         txtCode.addTextChangedListener(new TextWatcher() {
 
