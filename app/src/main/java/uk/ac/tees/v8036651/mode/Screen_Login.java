@@ -5,16 +5,23 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.andrognito.patternlockview.PatternLockView;
+import com.andrognito.patternlockview.listener.PatternLockViewListener;
+import com.andrognito.patternlockview.utils.PatternLockUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import uk.ac.tees.v8036651.mode.plugins.PluginManager;
 
@@ -24,95 +31,48 @@ public class Screen_Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initGit();
+
 
         PluginManager.load(this);
 
         SharedPreferences pref = getSharedPreferences("mode", Context.MODE_PRIVATE);
-        String actualUsername = pref.getString("username", "");
-        String actualPassword = pref.getString("password", "");
-        System.out.println("username: " + actualUsername);
-        System.out.println("password: " + actualPassword);
-
-        if ((actualUsername.equals("")) && (actualPassword.equals("")))
-        {
-            Intent intent = new Intent(this, Screen_Home.class);
+        final String pattern1 = pref.getString("pattern", "");
+        final Intent intent = new Intent(this, Screen_Home.class);
+        System.out.println("Pattern is: " + pattern1);
+        if (pattern1.equals("")) {
             startActivity(intent);
-        }else {
-            setContentView(R.layout.screen_login);
-        }
-        }
-
-
-    private void initGit(){
-
-        //TODO: temporary move later to spalsh screen
-
-        File gitFile = getFileStreamPath("git");
-
-        if(!gitFile.exists()) {
-
-            System.out.println("Creating GIT file");
-            try {
-
-                InputStream gitIn;
-                if(System.getProperty("os.arch").startsWith("arm")) {
-                    //the current phone is an ARM phone
-                    gitIn = getResources().openRawResource(getResources().getIdentifier("git_arm", "raw", getPackageName()));
-                }else if(System.getProperty("os.arch").equals("i686")){
-                    //the current phone is an x86 phone
-
-                    return;
-                }else{
-
-                    return;
-                }
-                byte[] buffer = new byte[gitIn.available()];
-                gitIn.read(buffer);
-                gitIn.close();
-
-                FileOutputStream gitOut = openFileOutput("git", Context.MODE_PRIVATE);
-                gitOut.write(buffer);
-                gitOut.close();
-
-                File file = getFileStreamPath("git");
-                file.setExecutable(true);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    //test
-    /**
-     * Called when the user hits log in.
-     */
-    public void logIn (View view)
-    {
-        SharedPreferences pref = getSharedPreferences("mode", Context.MODE_PRIVATE);
-        String actualUsername = pref.getString("username", "");
-        String actualPassword = pref.getString("password", "");
-        Intent intent = new Intent(this, Screen_Home.class);
-        //Intent intent = new Intent(this, Screen_Home.class);
-        EditText Username = (EditText) findViewById(R.id.Username);
-        EditText Password = (EditText) findViewById(R.id.Password);
-
-        if ((Username.getText().toString().equals(actualUsername)) && (Password.getText().toString().equals(actualPassword)))
-        {
-            startActivity(intent);
-            System.out.println("Worked");
         }
         else {
-            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+            setContentView(R.layout.screen_login);
 
-            dlgAlert.setMessage("Wrong Password or Username");
-            dlgAlert.setTitle("Error!");
-            dlgAlert.setPositiveButton("OK", null);
-            dlgAlert.setCancelable(true);
-            dlgAlert.create().show();
+            final PatternLockView patternLockView = findViewById(R.id.patternView);
+            patternLockView.addPatternLockListener(new PatternLockViewListener() {
 
-            System.out.println("Error occured!");
+                public void onStarted() {
+
+                }
+
+                public void onProgress(List progressPattern) {
+
+                }
+
+                public void onComplete(List pattern) {
+                    Log.d(getClass().getName(), "Pattern complete: " +
+                            PatternLockUtils.patternToString(patternLockView, pattern));
+                    if (PatternLockUtils.patternToString(patternLockView, pattern).equalsIgnoreCase(pattern1.toString())) {
+                        Toast.makeText(Screen_Login.this, "Welcome back!", Toast.LENGTH_LONG).show();
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(Screen_Login.this, "Incorrect password", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+
+                public void onCleared() {
+
+                }
+            });
         }
+
     }
 }
