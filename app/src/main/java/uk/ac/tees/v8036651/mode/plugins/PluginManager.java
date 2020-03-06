@@ -22,6 +22,12 @@ import uk.ac.tees.v8036651.mode.GUI.NumberedTextView;
 import uk.ac.tees.v8036651.mode.plugins.languages.java;
 
 public class PluginManager {
+
+    public static String COLOR_STRING = "#2ECC91";
+    public static String COLOR_NUMBER = "#00BFFF";
+    public static String COLOR_KEYWORD = "#DBAA21";
+    public static String COLOR_COMMENT = "#BFBFBF";
+
     private static List<Plugin> plugins;
 
     private static Plugin cachedPlugin;
@@ -34,7 +40,7 @@ public class PluginManager {
 
         /* PLAN C */
 
-        Plugin pluginJava = new java("java");
+        Plugin pluginJava = new java();
 
         plugins.add(pluginJava);
 
@@ -117,10 +123,8 @@ public class PluginManager {
         ColorInfo[] formattedCode = cachedPlugin.formatText(((NumberedTextView) view).getText().toString(), file.getName().substring(file.getName().lastIndexOf('.') + 1).toLowerCase());
 
         Spannable span = new SpannableString(((NumberedTextView) view).getText().toString());
-
         for(ColorInfo color : formattedCode){
-            System.out.println("creating span with color " + color.getColor() + " at offset " + color.getOffset() + " with length " + color.getLength());
-            span.setSpan(new ForegroundColorSpan(Color.parseColor(color.getColor())), color.getOffset(), color.getOffset() + color.getLength(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            span.setSpan(new ForegroundColorSpan(Color.parseColor(color.getColor())), color.getOffset(), color.getOffset() + color.getLength(), (color.getPriority() << Spannable.SPAN_PRIORITY_SHIFT) & Spannable.SPAN_PRIORITY);
         }
         /*
         for(CodeSnippet cs : formattedCode){
@@ -140,4 +144,17 @@ public class PluginManager {
         ((NumberedTextView) view).setText(span);
         ((NumberedTextView) view).setSelection(curpos);
     }
+/*
+    public static String getDefaultTemplate(String pckg, String filename, String lang){
+        if(cachedPlugin != null && cachedPlugin.getSupportedFiletypes().contains(lang)){
+            return cachedPlugin.getDefaultTemplate(pckg, filename);
+        }else{
+            for(Plugin plugin : plugins){
+                if(plugin.getSupportedFiletypes().contains(lang)){
+
+                }
+            }
+        }
+        return "";
+    }*/
 }
