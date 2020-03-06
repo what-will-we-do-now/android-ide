@@ -172,9 +172,19 @@ public class Screen_FileViewer extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                     if (!longClick){
-                        Screen_IDE.editTextContent =(loadActivity(filesList.get(position).getAbsolutePath()));
-                        startActivity(intent);
+                        if (projectFiles[position].isDirectory()){
+                            currentPath = (currentPath + '/' + projectFiles[position].getName());
+                            dir = new File(currentPath);
+                            pathOutput.setText(currentPath.substring(currentPath.lastIndexOf('/') + 1));
+                            refresh();
+                        }
+
+                        else {
+                            Screen_IDE.editTextContent =(loadActivity(filesList.get(position).getAbsolutePath()));
+                            startActivity(intent);
+                        }
                     }
                 }
             });
