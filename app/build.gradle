@@ -57,11 +57,14 @@ dependencies {
     //Pattern Lock
     implementation 'com.andrognito.patternlockview:patternlockview:1.0.0'
 
+    //JGit
+
+    implementation 'org.eclipse.jgit:org.eclipse.jgit:5.6.1.202002131546-r'
+
     allprojects {
         repositories {
             jcenter()
 
         }
     }
-    }
-
+}
