@@ -85,14 +85,55 @@ public class Screen_IDE extends AppCompatActivity {
                             txtCode.setSelection(start + count);
                         }
                     }else if (count == 1 && s.charAt(start) == '"') {
-                        if(txtCode.getText().toString().replaceAll("[^\"]", "").length() % 2 != 0) {
+                        if(s.length() > start + 1 && s.charAt(start + 1) == '\"'){
+                            String pre = txtCode.getText().toString().substring(0, start) + txtCode.getText().toString().substring(start + count);
+                            //check if the brackets were balanced before
+                            if(pre.replaceAll("[^\"]", "").length() % 2 == 0){
+                                txtCode.setText(pre);
+                                txtCode.setSelection(start + count);
+                            }
+                        }else if(txtCode.getText().toString().replaceAll("[^\"]", "").length() % 2 != 0) {
                             txtCode.getText().insert(start + count, "\"");
                             txtCode.setSelection(start + count);
                         }
                     }else if (count == 1 && s.charAt(start) == '\'') {
-                        if(txtCode.getText().toString().replaceAll("[^\']", "").length() % 2 != 0) {
+                        if(s.length() > start + 1 && s.charAt(start + 1) == '\''){
+                            String pre = txtCode.getText().toString().substring(0, start) + txtCode.getText().toString().substring(start + count);
+                            //check if the brackets were balanced before
+                            if(pre.replaceAll("[^\']", "").length() % 2 == 0){
+                                txtCode.setText(pre);
+                                txtCode.setSelection(start + count);
+                            }
+                        }else if(txtCode.getText().toString().replaceAll("[^\']", "").length() % 2 != 0) {
                             txtCode.getText().insert(start + count, "\'");
                             txtCode.setSelection(start + count);
+                        }
+                    }else if(count == 1 && s.charAt(start) == ')'){
+                        if(s.length() > start + 1 && s.charAt(start + 1) == ')'){
+                            String pre = txtCode.getText().toString().substring(0, start) + txtCode.getText().toString().substring(start + count);
+                            //check if the brackets were balanced before
+                            if(pre.replaceAll("([^(|^)])", "").length() % 2 == 0){
+                                txtCode.setText(pre);
+                                txtCode.setSelection(start + count);
+                            }
+                        }
+                    }else if(count == 1 && s.charAt(start) == '}'){
+                        if(s.length() > start + 1 && s.charAt(start + 1) == '}'){
+                            String pre = txtCode.getText().toString().substring(0, start) + txtCode.getText().toString().substring(start + count);
+                            //check if the brackets were balanced before
+                            if(pre.replaceAll("([^{|^}])", "").length() % 2 == 0){
+                                txtCode.setText(pre);
+                                txtCode.setSelection(start + count);
+                            }
+                        }
+                    }else if(count == 1 && s.charAt(start) == ']'){
+                        if(s.length() > start + 1 && s.charAt(start + 1) == ']'){
+                            String pre = txtCode.getText().toString().substring(0, start) + txtCode.getText().toString().substring(start + count);
+                            //check if the brackets were balanced before
+                            if(pre.replaceAll("([^\\[|^\\]])", "").length() % 2 == 0){
+                                txtCode.setText(pre);
+                                txtCode.setSelection(start + count);
+                            }
                         }
                     }
                     ignore = false;
