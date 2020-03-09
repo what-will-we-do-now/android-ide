@@ -34,4 +34,16 @@
     <string name="directory_name">Directory Name</string>
     <string name="enterDirectoryName">Enter Directory Name:</string>
 
+
+
+    <string name="git_clone">Clone from Git</string>
+    <string name="git_clone_enter_url">Enter Git URL</string>
+    <string name="git_clone_enter_project_name">Enter Project name</string>
+
+    <string name="git_authentication_message_default">Remote Git repository requires authentication.</string>
+    <string name="git_authentication_username">Remote username</string>
+    <string name="git_authentication_password">Remote password</string>
+
+    <string name="git_clone_error">Error occurred while trying to clone Git project</string>
+    <string name="git_clone_error_remote_not_found">Remote repository not found.</string>
 </resources>
