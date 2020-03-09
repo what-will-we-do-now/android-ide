@@ -17,8 +17,10 @@ import org.eclipse.jgit.api.errors.InvalidRemoteException;
 import org.eclipse.jgit.api.errors.TransportException;
 import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
+import org.eclipse.jgit.util.FileUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 
 import uk.ac.tees.v8036651.mode.R;
@@ -51,13 +53,16 @@ public class GitCloneTask extends AsyncTask<Void, Integer, Long> {
             clone.call();
         }catch(TransportException e) {
             Log.w("git", "Repository requires authentication", e);
+            purge(downloadDirectory);
             return -1L;
         } catch(InvalidRemoteException e){
             Log.e("git", "Remote repository not found", e);
+            purge(downloadDirectory);
             return -3L;
         } catch (GitAPIException e) {
             //an error occured while processing
             Log.e("git", "Could not clone git repository", e);
+            purge(downloadDirectory);
             return -2L;
         }
         return 1L;
@@ -98,5 +103,14 @@ public class GitCloneTask extends AsyncTask<Void, Integer, Long> {
         }else if(aLong == 1L){
             Toast.makeText(context, R.string.git_clone_success, Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void purge(File file){
+        if(file.isDirectory()){
+            for(File child : file.listFiles()){
+                purge(child);
+            }
+        }
+        file.delete();
     }
 }

@@ -3,6 +3,8 @@ package uk.ac.tees.v8036651.mode;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -54,6 +56,7 @@ public class Screen_Home extends AppCompatActivity {
         final File parentFile = new File(getExternalFilesDir(null), "MoDE_Code_Directory");
 
 
+
         builder.setPositiveButton("Clone", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -75,6 +78,35 @@ public class Screen_Home extends AppCompatActivity {
             }
         });
 
-        builder.show();
+
+        final AlertDialog dialog = builder.show();
+
+
+        //check that the project already doesn't exist!
+        projectName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(new File(parentFile, s.toString()).exists()){
+                    projectName.setError("Project with this name already exists!");
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                }else{
+                    projectName.setError(null);
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
     }
 }
