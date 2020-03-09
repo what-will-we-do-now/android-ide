@@ -58,7 +58,6 @@
         app:layout_constraintTop_toBottomOf="@+id/btnOpenProject" />
 
     <Button
-        android:visibility="gone"
         android:id="@+id/btnGitHub"
         android:layout_width="377dp"
         android:layout_height="42dp"
@@ -66,8 +65,8 @@
         android:layout_marginEnd="16dp"
         android:background="#0D1F2D"
         android:baselineAligned="false"
-        android:onClick="openGitHub"
-        android:text="@string/git"
+        android:onClick="gitClone"
+        android:text="@string/git_clone"
         android:textColor="#E8CA82"
         app:layout_constraintBottom_toTopOf="@+id/btnGotoCode"
         app:layout_constraintEnd_toEndOf="parent"

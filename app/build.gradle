@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 allprojects {
@@ -57,11 +62,14 @@ dependencies {
     //Pattern Lock
     implementation 'com.andrognito.patternlockview:patternlockview:1.0.0'
 
+    //JGit
+    implementation 'org.eclipse.jgit:org.eclipse.jgit:3.7.1.201504261725-r'
+
+
     allprojects {
         repositories {
             jcenter()
 
         }
     }
-    }
-
+}
