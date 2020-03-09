@@ -39,11 +39,13 @@ public class Screen_IDE extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_ide_screen);
-        ((NumberedTextView)findViewById(R.id.txtCode)).setText(editTextContent);
+
         projectsDirectory = getExternalFilesDir(null).getAbsolutePath() + "/MoDE_Code_Directory";
 
         NumberedTextView txtCode = (NumberedTextView) findViewById(R.id.txtCode);
 
+        txtCode.setText(editTextContent);
+        PluginManager.formatText(txtCode, new File("code.java"));
 
         txtCode.setOnKeyListener(new OnKeyListener(){
             @Override
@@ -143,11 +145,9 @@ public class Screen_IDE extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if(!ignore) {
-                    if (s.toString().contains("\n")) {
-                        ignore = true;
-                        PluginManager.formatText((NumberedTextView) findViewById(R.id.txtCode), new File("code.java"));
-                        ignore = false;
-                    }
+                    ignore = true;
+                    PluginManager.formatText((NumberedTextView) findViewById(R.id.txtCode), new File("code.java"));
+                    ignore = false;
                 }
             }
         });
