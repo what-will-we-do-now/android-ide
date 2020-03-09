@@ -44,6 +44,7 @@
     <string name="git_authentication_username">Remote username</string>
     <string name="git_authentication_password">Remote password</string>
 
-    <string name="git_clone_error">Error occurred while trying to clone Git project</string>
+    <string name="git_clone_success">Project successfully cloned.</string>
+    <string name="git_clone_error">Error occurred while trying to clone Git project.</string>
     <string name="git_clone_error_remote_not_found">Remote repository not found.</string>
 </resources>

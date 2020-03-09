@@ -95,6 +95,8 @@ public class GitCloneTask extends AsyncTask<Void, Integer, Long> {
             Toast.makeText(context, R.string.git_clone_error_remote_not_found, Toast.LENGTH_LONG).show();
         }else if(aLong == -2L){
             Toast.makeText(context, R.string.git_clone_error, Toast.LENGTH_LONG).show();
+        }else if(aLong == 1L){
+            Toast.makeText(context, R.string.git_clone_success, Toast.LENGTH_LONG).show();
         }
     }
 }
