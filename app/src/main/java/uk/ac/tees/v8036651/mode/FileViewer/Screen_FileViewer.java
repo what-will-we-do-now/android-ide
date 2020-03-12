@@ -99,7 +99,7 @@ public class Screen_FileViewer extends AppCompatActivity {
             upDirectoryButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (currentPath.contains(rootPath)){
+                    if (currentPath.contains(rootPath + "/")){
                         currentPath = currentPath.substring(0, currentPath.lastIndexOf('/'));
                         dir = new File(currentPath);
                         pathOutput.setText(currentPath.substring(currentPath.lastIndexOf('/') + 1));
@@ -219,7 +219,6 @@ public class Screen_FileViewer extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    //TODO To be expanded
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
