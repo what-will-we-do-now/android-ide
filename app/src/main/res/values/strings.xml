@@ -35,6 +35,7 @@
 
 
     <string name="git">Git</string>
+    <string name="git_names_branch">Branch</string>
 
     <string name="git_init">Initialise Git</string>
 
