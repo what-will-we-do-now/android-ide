@@ -69,6 +69,7 @@ public class Screen_Home extends AppCompatActivity {
 
                 Project.openedProject = new Project(projectName.getText().toString(), projectFile);
 
+
                 //open the file manager
                 //TODO add change path to where FileViewer is showing
                 startActivity(new Intent(Screen_Home.this, Screen_FileViewer.class));
