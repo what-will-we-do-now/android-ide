@@ -15,7 +15,7 @@
         android:layout_marginEnd="16dp"
         android:background="#0D1F2D"
         android:baselineAligned="false"
-        android:onClick="openIDE"
+        android:onClick="createProject"
         android:text="@string/project_new"
         android:textColor="#E8CA82"
         app:layout_constraintBottom_toTopOf="@+id/btnOpenProject"
@@ -24,7 +24,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:visibility="gone"
         android:id="@+id/btnOpenProject"
         android:layout_width="377dp"
         android:layout_height="42dp"
@@ -32,9 +31,10 @@
         android:layout_marginEnd="16dp"
         android:background="#0D1F2D"
         android:baselineAligned="false"
-        android:onClick="openIDE"
+        android:onClick="openProjects"
         android:text="@string/project_open"
         android:textColor="#E8CA82"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/btnCreateQRCode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +74,6 @@
         app:layout_constraintTop_toBottomOf="@+id/btnCreateQRCode" />
 
     <Button
-        android:visibility="gone"
         android:id="@+id/btnGotoCode"
         android:layout_width="377dp"
         android:layout_height="42dp"
@@ -85,6 +84,7 @@
         android:onClick="openIDE"
         android:text="@string/code_return"
         android:textColor="#E8CA82"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/btnSettings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
