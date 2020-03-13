@@ -106,8 +106,21 @@ public class Screen_IDE extends AppCompatActivity {
                 startActivity(new Intent(Screen_IDE.this, Screen_FileViewer.class));
                 return true;
             case R.id.git_init_nav:
-                Project.openedProject.gitInit();
-                invalidateOptionsMenu();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                builder.setTitle("Do you want to enable Git version control?");
+
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Project.openedProject.gitInit();
+                        invalidateOptionsMenu();
+                    }
+                });
+                builder.setNegativeButton("No", null);
+
+                builder.show();
                 return true;
             case R.id.git_nav:
 
