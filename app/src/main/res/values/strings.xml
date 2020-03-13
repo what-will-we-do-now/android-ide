@@ -36,21 +36,29 @@
 
     <string name="git">Git</string>
     <string name="git_names_branch">Branch</string>
+    <string name="git_names_branch_display">Branch: %1$s</string>
+    <string name="git_names_commit">Commit</string>
 
     <string name="git_init">Initialise Git</string>
+
+    <string name="git_commit_commit">Enter commit message</string>
+    <string name="git_commit_files">Choose files to commit</string>
 
     <string name="git_clone">Clone from Git</string>
     <string name="git_clone_enter_url">Enter Git URL</string>
     <string name="git_clone_enter_project_name">Enter Project name</string>
+    <string name="git_clone_success">Project successfully cloned.</string>
+    <string name="git_clone_error">Error occurred while trying to clone Git project.</string>
+    <string name="git_clone_error_remote_not_found">Remote repository not found.</string>
 
     <string name="git_authentication_message_default">Remote Git repository requires authentication.</string>
     <string name="git_authentication_username">Remote username</string>
     <string name="git_authentication_password">Remote password</string>
 
-    <string name="git_clone_success">Project successfully cloned.</string>
-    <string name="git_clone_error">Error occurred while trying to clone Git project.</string>
-    <string name="git_clone_error_remote_not_found">Remote repository not found.</string>
 
     <string name="project_new_name">Enter name of the project</string>
     <string name="project_new_name_hint">Project name</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

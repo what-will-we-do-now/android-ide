@@ -123,7 +123,7 @@ public class Screen_IDE extends AppCompatActivity {
                 builder.show();
                 return true;
             case R.id.git_nav:
-
+                startActivity(new Intent(Screen_IDE.this, Screen_git_commit.class));
             default:
                 return super.onOptionsItemSelected(item);
         }
