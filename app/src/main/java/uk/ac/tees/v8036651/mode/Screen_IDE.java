@@ -4,15 +4,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -24,9 +20,7 @@ import java.io.OutputStreamWriter;
 
 import uk.ac.tees.v8036651.mode.FileViewer.Screen_FileViewer;
 import uk.ac.tees.v8036651.mode.GUI.NumberedTextView;
-import uk.ac.tees.v8036651.mode.plugins.PluginManager;
-
-import android.view.View.OnKeyListener;
+import uk.ac.tees.v8036651.mode.Projects.Project;
 
 public class Screen_IDE extends AppCompatActivity {
 
@@ -54,6 +48,17 @@ public class Screen_IDE extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.ide_toolbar_menu, menu);
+
+        Menu subMenu = menu.getItem(1).getSubMenu();
+
+        if(Project.openedProject.hasGitSupport()){
+            subMenu.getItem(3).setVisible(true);
+            subMenu.getItem(2).setVisible(false);
+        }else{
+            subMenu.getItem(3).setVisible(false);
+            subMenu.getItem(2).setVisible(true);
+        }
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -99,10 +104,29 @@ public class Screen_IDE extends AppCompatActivity {
                 return true;
             case R.id.fileview_nav:
                 startActivity(new Intent(Screen_IDE.this, Screen_FileViewer.class));
+                return true;
+            case R.id.git_init_nav:
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                builder.setTitle("Do you want to enable Git version control?");
+
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Project.openedProject.gitInit();
+                        invalidateOptionsMenu();
+                    }
+                });
+                builder.setNegativeButton("No", null);
+
+                builder.show();
+                return true;
+            case R.id.git_nav:
+
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
 
 

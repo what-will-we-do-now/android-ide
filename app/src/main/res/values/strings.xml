@@ -19,7 +19,6 @@
     <string name="project_new">New project</string>
     <string name="project_open">Open project</string>
     <string name="project_from_qr">Project from QR code</string>
-    <string name="git">Git</string>
     <string name="code_return">Return to code</string>
 
     <string name="save">Save</string>
@@ -34,6 +33,11 @@
     <string name="directory_name">Directory Name</string>
     <string name="enterDirectoryName">Enter Directory Name:</string>
 
+
+    <string name="git">Git</string>
+    <string name="git_names_branch">Branch</string>
+
+    <string name="git_init">Initialise Git</string>
 
     <string name="git_clone">Clone from Git</string>
     <string name="git_clone_enter_url">Enter Git URL</string>
