@@ -8,19 +8,26 @@
 
     <TextView
         android:id="@+id/project_name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="4dp"
         android:text="PROJECT NAME"
-        android:textSize="22dp"/>
+        android:textSize="22dp" />
+
+
+    <ImageView
+        android:id="@+id/project_delete"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_alignParentRight="true"
+        app:srcCompat="@android:drawable/ic_menu_delete" />
 
     <ImageView
         android:id="@+id/project_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/project_name"
-        android:layout_margin
-            ="4dp"
+        android:layout_margin="4dp"
         android:src="@drawable/ic_folder_black_24dp" />
 
     <TextView
@@ -31,5 +38,6 @@
         android:layout_toEndOf="@+id/project_icon"
         android:padding="6dp"
         android:text="PROJECT LOCATION" />
+
 
 </RelativeLayout>

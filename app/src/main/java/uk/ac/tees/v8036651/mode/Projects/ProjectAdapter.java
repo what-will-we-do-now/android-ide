@@ -1,11 +1,13 @@
 package uk.ac.tees.v8036651.mode.Projects;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.BufferedReader;
@@ -47,6 +49,33 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectHolder>{
     public void onBindViewHolder(@NonNull ProjectHolder holder, int position) {
         holder.projectName.setText(projects.get(position).getName());
         holder.projectPath.setText(projects.get(position).getRoot().getAbsolutePath());
+
+        holder.itemView.findViewById(R.id.project_delete).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(recyclerView.getContext());
+
+                builder.setTitle("Are you sure you want to delete this project?");
+
+                builder.setPositiveButton("Delete Project", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which){
+                        projects.get(position).delete();
+                        projects.remove(position);
+                        recyclerView.removeViewAt(position);
+                        ProjectAdapter.this.notifyItemRemoved(position);
+                        ProjectAdapter.this.notifyItemRangeChanged(position, projects.size());
+                        ProjectAdapter.this.notifyDataSetChanged();
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", null);
+
+                final AlertDialog dialog = builder.show();
+            }
+        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

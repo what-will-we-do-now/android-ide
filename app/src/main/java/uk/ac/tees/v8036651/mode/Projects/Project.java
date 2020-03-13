@@ -88,4 +88,20 @@ public class Project {
         FileOutputStream os = new FileOutputStream(new File(root, "project.settings"));
         prop.storeToXML(os, "");
     }
+
+    public void delete(){
+        if(openedProject == this){
+            openedProject = null;
+        }
+        purge(root);
+    }
+
+    private void purge(File file){
+        if(file.isDirectory()){
+            for(File child : file.listFiles()){
+                purge(child);
+            }
+        }
+        file.delete();
+    }
 }
