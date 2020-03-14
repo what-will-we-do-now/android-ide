@@ -38,11 +38,16 @@
     <string name="git_names_branch">Branch</string>
     <string name="git_names_branch_display">Branch: %1$s</string>
     <string name="git_names_commit">Commit</string>
+    <string name="git_names_select_all">Select all</string>
+    <string name="git_names_deselect_all">Deselect all</string>
 
     <string name="git_init">Initialise Git</string>
 
     <string name="git_commit_commit">Enter commit message</string>
     <string name="git_commit_files">Choose files to commit</string>
+    <string name="git_commit_message_successful">Successfully committed %1$d commits.</string>
+    <string name="git_commit_message_partial">Successfully committed %1$d commits. Failed to commit %2$d commits.</string>
+    <string name="git_commit_message_failure">Failed to commit %1$d commits.</string>
 
     <string name="git_clone">Clone from Git</string>
     <string name="git_clone_enter_url">Enter Git URL</string>
@@ -55,10 +60,6 @@
     <string name="git_authentication_username">Remote username</string>
     <string name="git_authentication_password">Remote password</string>
 
-
     <string name="project_new_name">Enter name of the project</string>
     <string name="project_new_name_hint">Project name</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

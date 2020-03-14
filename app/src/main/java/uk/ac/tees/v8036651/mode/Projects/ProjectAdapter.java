@@ -33,7 +33,6 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectHolder>{
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         this.recyclerView = recyclerView;
-
     }
 
     @NonNull
@@ -41,8 +40,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectHolder>{
     public ProjectHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_project, parent, false);
 
-        ProjectHolder ph = new ProjectHolder(v);
-        return ph;
+        return new ProjectHolder(v);
     }
 
     @Override

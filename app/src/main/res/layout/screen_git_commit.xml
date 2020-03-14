@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Screen_git_commit">
+    tools:context=".Screen_Git_Commit">
 
     <TextView
         android:id="@+id/git_branch_name"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/git_commit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/git_branch_name"
@@ -30,25 +30,26 @@
         android:id="@+id/git_commit_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView5"
+        android:layout_below="@+id/git_commit_text"
         android:bufferType="spannable"
         android:focusable="true"
         android:gravity="start|top"
         android:imeOptions="flagNoFullscreen"
         android:inputType="textMultiLine"
-        android:lines="5"
+        android:lines="8"
         android:scrollbars="horizontal|vertical"
         android:scrollHorizontally="true"
         android:textIsSelectable="true"
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/git_commit_text"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/git_files_changed_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="6dp"
@@ -57,20 +58,49 @@
         app:layout_constraintTop_toBottomOf="@+id/git_commit_message" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
+    <LinearLayout
+        android:id="@+id/git_files_changed_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView7"
+        android:orientation="horizontal"
+        android:layout_below="@+id/git_files_changed_text">
+
+        <Button
+            android:id="@+id/git_files_changed_buttons_deselect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="?android:attr/buttonBarButtonStyle"
+            android:onClick="deselectAll"
+            android:text="@string/git_names_deselect_all"/>
+
+        <Button
+            android:id="@+id/git_files_changed_buttons_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="?android:attr/buttonBarButtonStyle"
+            android:onClick="selectAll"
+            android:text="@string/git_names_select_all" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/git_files_changed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/git_commit"
+        android:layout_below="@+id/git_files_changed_buttons"
         android:padding="6dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/git_files_changed_text"
         tools:layout_editor_absoluteX="0dp" />
 
-    <!---<Button
+    <Button
         android:id="@+id/git_commit"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/git_names_commit"
-        tools:layout_editor_absoluteX="287dp"
-        tools:layout_editor_absoluteY="461dp" /> -->
+        android:layout_alignParentBottom="true"
+        android:onClick="commit"
+        android:text="@string/git_names_commit" />
 
 </RelativeLayout>
