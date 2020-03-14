@@ -4,23 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
 import com.andrognito.patternlockview.utils.PatternLockUtils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 import uk.ac.tees.v8036651.mode.plugins.PluginManager;
@@ -41,6 +33,7 @@ public class Screen_Login extends AppCompatActivity {
         System.out.println("Pattern is: " + pattern1);
         if (pattern1.equals("")) {
             startActivity(intent);
+            finish();
         }
         else {
             setContentView(R.layout.screen_login);
@@ -62,6 +55,7 @@ public class Screen_Login extends AppCompatActivity {
                     if (PatternLockUtils.patternToString(patternLockView, pattern).equalsIgnoreCase(pattern1.toString())) {
                         Toast.makeText(Screen_Login.this, "Welcome back!", Toast.LENGTH_LONG).show();
                         startActivity(intent);
+                        finish();
                     } else {
                         Toast.makeText(Screen_Login.this, "Incorrect password", Toast.LENGTH_LONG).show();
                     }
