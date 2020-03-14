@@ -57,14 +57,20 @@ public class Screen_Git_Commit extends AppCompatActivity {
 
             List<GitChangedFile> gitFiles = new ArrayList<>();
 
+
+            //the file was already added to index via `git add` command
             for(String file: status.getAdded()){
-                gitFiles.add(new GitChangedFile(file, GitChangedFile.FileStatus.ADDED));
+                if(!status.getChanged().contains(file)) {
+                    gitFiles.add(new GitChangedFile(file, GitChangedFile.FileStatus.ADDED));
+                }
             }
 
+            //the file was already added to index via `git add` command
             for(String file: status.getChanged()){
                 gitFiles.add(new GitChangedFile(file, GitChangedFile.FileStatus.CHANGED));
             }
 
+            //file was deleted from file system but not from git index
             for(String file: status.getMissing()){
                 gitFiles.add(new GitChangedFile(file, GitChangedFile.FileStatus.MISSING));
             }
@@ -73,6 +79,7 @@ public class Screen_Git_Commit extends AppCompatActivity {
                 gitFiles.add(new GitChangedFile(file, GitChangedFile.FileStatus.MODIFIED));
             }
 
+            //the file was removed via `git rm` command
             for(String file: status.getRemoved()){
                 gitFiles.add(new GitChangedFile(file, GitChangedFile.FileStatus.REMOVED));
             }

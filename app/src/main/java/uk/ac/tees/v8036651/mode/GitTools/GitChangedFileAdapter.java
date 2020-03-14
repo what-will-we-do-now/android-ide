@@ -45,6 +45,12 @@ public class GitChangedFileAdapter extends RecyclerView.Adapter<GitChangedFileHo
     public void onBindViewHolder(@NonNull GitChangedFileHolder holder, int position) {
         holder.file.setText(changedFiles.get(position).getFile());
         holder.status.setText(changedFiles.get(position).getStatus().toString());
+
+        if(changedFiles.get(position).getStatus().equals(GitChangedFile.FileStatus.ADDED) || changedFiles.get(position).getStatus().equals(GitChangedFile.FileStatus.REMOVED)){
+            holder.checkBox.setChecked(true);
+        }
+
+
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             private boolean ignore = false;
 
