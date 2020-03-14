@@ -46,6 +46,13 @@ public class GitChangedFileAdapter extends RecyclerView.Adapter<GitChangedFileHo
         holder.file.setText(changedFiles.get(position).getFile());
         holder.status.setText(changedFiles.get(position).getStatus().toString());
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.checkBox.toggle();
+            }
+        });
+
         if(changedFiles.get(position).getStatus().equals(GitChangedFile.FileStatus.ADDED) || changedFiles.get(position).getStatus().equals(GitChangedFile.FileStatus.REMOVED)){
             holder.checkBox.setChecked(true);
         }
