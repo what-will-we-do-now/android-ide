@@ -35,7 +35,6 @@
     <string name="enterDirectoryName">Enter Directory Name:</string>
 
 
-
     <string name="git_clone">Clone from Git</string>
     <string name="git_clone_enter_url">Enter Git URL</string>
     <string name="git_clone_enter_project_name">Enter Project name</string>
@@ -47,4 +46,7 @@
     <string name="git_clone_success">Project successfully cloned.</string>
     <string name="git_clone_error">Error occurred while trying to clone Git project.</string>
     <string name="git_clone_error_remote_not_found">Remote repository not found.</string>
+
+    <string name="project_new_name">Enter name of the project</string>
+    <string name="project_new_name_hint">Project name</string>
 </resources>

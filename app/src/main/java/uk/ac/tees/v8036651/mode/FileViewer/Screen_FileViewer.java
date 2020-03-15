@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import uk.ac.tees.v8036651.mode.GUI.NumberedTextView;
+import uk.ac.tees.v8036651.mode.Projects.Project;
 import uk.ac.tees.v8036651.mode.R;
 import uk.ac.tees.v8036651.mode.Screen_IDE;
 
@@ -182,6 +183,13 @@ public class Screen_FileViewer extends AppCompatActivity {
                         }
 
                         else {
+
+                            try {
+                                Project.openedProject.setLastFile(filesList.get(position));
+                            } catch (IOException e) {
+                                Log.e("File Manager", "Failed to save new project configuration file", e);
+                            }
+
                             Screen_IDE.editTextContent =(loadActivity(filesList.get(position).getAbsolutePath()));
                             startActivity(intent);
                         }

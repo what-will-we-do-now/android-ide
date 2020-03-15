@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -13,8 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Screen_IDE"></activity>
-        <activity android:name=".FileViewer.Screen_FileViewer"></activity>
+        <activity android:name=".Screen_Project_Choose" />
+        <activity android:name=".Screen_IDE" />
+        <activity android:name=".FileViewer.Screen_FileViewer" />
         <activity android:name=".Screen_QR" />
         <activity android:name=".Screen_Settings" />
         <activity android:name=".Screen_Login" />
@@ -35,7 +36,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
