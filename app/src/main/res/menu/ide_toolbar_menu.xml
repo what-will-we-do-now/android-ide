@@ -37,6 +37,15 @@
                 android:id="@+id/git_nav"
                 app:showAsAction="never"/>
 
+            <item
+                android:id="@+id/git_pull"
+                android:title="@string/git_pull_long"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/git_push"
+                android:title="@string/git_push_long"
+                app:showAsAction="never" />
             <!-- To extend with further navigation options like Git -->
         </menu>
     </item>

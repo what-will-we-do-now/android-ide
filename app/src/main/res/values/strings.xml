@@ -60,6 +60,16 @@
     <string name="git_authentication_username">Remote username</string>
     <string name="git_authentication_password">Remote password</string>
 
+    <string name="git_pull_short">Pull</string>
+    <string name="git_pull_long">Git Pull</string>
+    <string name="git_pull_message_successful">Pull successful.</string>
+    <string name="git_pull_message_failure">Pull unsuccessful.</string>
+
+    <string name="git_push_short">Push</string>
+    <string name="git_push_long">Git Push</string>
+    <string name="git_push_message_successful">Push successful.</string>
+    <string name="git_push_message_failure">Push unsuccessful</string>
+
     <string name="project_new_name">Enter name of the project</string>
     <string name="project_new_name_hint">Project name</string>
 </resources>

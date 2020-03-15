@@ -14,12 +14,17 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.eclipse.jgit.api.PullCommand;
+import org.eclipse.jgit.api.PushCommand;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 
 import uk.ac.tees.v8036651.mode.FileViewer.Screen_FileViewer;
 import uk.ac.tees.v8036651.mode.GUI.NumberedTextView;
+import uk.ac.tees.v8036651.mode.GitTools.GitPullTask;
+import uk.ac.tees.v8036651.mode.GitTools.GitPushTask;
 import uk.ac.tees.v8036651.mode.Projects.Project;
 
 public class Screen_IDE extends AppCompatActivity {
@@ -124,6 +129,17 @@ public class Screen_IDE extends AppCompatActivity {
                 return true;
             case R.id.git_nav:
                 startActivity(new Intent(Screen_IDE.this, Screen_Git_Commit.class));
+                return true;
+            case R.id.git_push:
+                PushCommand gpush = Project.openedProject.getGit().push();
+                GitPushTask gpusht = new GitPushTask(this, gpush);
+                gpusht.execute();
+                return true;
+            case R.id.git_pull:
+                PullCommand gpull = Project.openedProject.getGit().pull();
+                GitPullTask gpullt = new GitPullTask(this, gpull);
+                gpullt.execute();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
