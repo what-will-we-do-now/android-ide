@@ -21,7 +21,6 @@
         <activity android:name=".Screen_IDE" />
         <activity android:name=".FileViewer.Screen_FileViewer" />
         <activity android:name=".Screen_QR" />
-        <activity android:name=".Screen_Settings" />
         <activity android:name=".Screen_Login" />
         <activity android:name=".Screen_ChangePattern" />
         <activity

@@ -105,7 +105,7 @@ public class Screen_IDE extends AppCompatActivity {
 
                 return true;
             case R.id.settings_nav:
-                startActivity(new Intent(Screen_IDE.this, Screen_Settings.class));
+                startActivity(new Intent(Screen_IDE.this, Screen_Preferences.class));
                 return true;
             case R.id.fileview_nav:
                 startActivity(new Intent(Screen_IDE.this, Screen_FileViewer.class));

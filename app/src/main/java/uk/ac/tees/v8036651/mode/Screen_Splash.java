@@ -1,6 +1,7 @@
 package uk.ac.tees.v8036651.mode;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,11 +21,16 @@ public class Screen_Splash extends AppCompatActivity {
         if(!mainCodeDirectory.exists()){
             mainCodeDirectory.mkdir();
         }
+        checkTheme();
 
         new Handler().postDelayed(() -> {
             Intent splashIntent = new Intent(Screen_Splash.this, Screen_Login.class);
             startActivity(splashIntent);
             finish();
         },SPLASH_TIME_OUT);
+    }
+
+    public void checkTheme(){
+
     }
 }
