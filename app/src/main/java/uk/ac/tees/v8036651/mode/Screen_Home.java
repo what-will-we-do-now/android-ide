@@ -27,7 +27,6 @@ public class Screen_Home extends AppCompatActivity {
         setTheme(getApplicationInfo().theme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_home);
-
         if(Project.openedProject == null){
             findViewById(R.id.btnGotoCode).setVisibility(View.GONE);
         }else{
