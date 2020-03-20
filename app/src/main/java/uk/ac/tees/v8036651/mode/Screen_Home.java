@@ -27,7 +27,6 @@ public class Screen_Home extends AppCompatActivity {
         new Update_Theme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_home);
-
         if(Project.openedProject == null){
             findViewById(R.id.btnGotoCode).setVisibility(View.GONE);
         }else{
@@ -122,7 +121,6 @@ public class Screen_Home extends AppCompatActivity {
     public void openSettings(View view){
         Intent settingsIntent = new Intent(this, Screen_Preferences.class);
         startActivity(settingsIntent);
-        finish();
     }
 
     public void gitClone(View view){

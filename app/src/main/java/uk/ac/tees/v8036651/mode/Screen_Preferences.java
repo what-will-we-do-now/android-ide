@@ -30,10 +30,10 @@ public class Screen_Preferences extends AppCompatActivity {
                 .replace(R.id.settings, new SettingsFragment())
                 .commit();
 
-        ActionBar actionBar = getSupportActionBar();
+        /*ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(false);
-        }
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }*/
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
@@ -74,8 +74,8 @@ public class Screen_Preferences extends AppCompatActivity {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onDestroy() {
+        super.onDestroy();
         Intent home_intent = new Intent(this, Screen_Home.class);
         startActivity(home_intent);
     }
