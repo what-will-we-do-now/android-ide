@@ -13,23 +13,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/darkTheme">
-        <activity android:name=".Screen_Git_Commit"></activity>
+        <activity
+            android:name=".Screen_Preferences"
+            android:label="@string/title_activity_screen__preferences"
+            android:launchMode="singleTop">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Screen_Home"/>
+        </activity>
+        <activity android:name=".Screen_Git_Commit" />
         <activity android:name=".Screen_Project_Choose" />
         <activity android:name=".Screen_IDE" />
         <activity android:name=".FileViewer.Screen_FileViewer" />
         <activity android:name=".Screen_QR" />
-        <activity android:name=".Screen_Settings" />
         <activity android:name=".Screen_Login" />
         <activity android:name=".Screen_ChangePattern" />
-        <activity
-            android:name=".Screen_Home"
-            android:parentActivityName=".Screen_Login">
-
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Screen_Login" />
-        </activity>
+        <activity android:name=".Screen_Home" />
         <activity android:name=".Screen_Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

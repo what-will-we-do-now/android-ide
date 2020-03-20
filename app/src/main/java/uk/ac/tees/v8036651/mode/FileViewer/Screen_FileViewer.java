@@ -44,8 +44,8 @@ public class Screen_FileViewer extends AppCompatActivity {
     private String rootPath;
 
     @Override
-    protected void onCreate(Bundle savedInsanceState) {
-        super.onCreate(savedInsanceState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_file_viewer);
         rootPath = getCodeDirectory();
     }

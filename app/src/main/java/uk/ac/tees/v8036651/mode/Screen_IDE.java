@@ -36,6 +36,7 @@ public class Screen_IDE extends AppCompatActivity {
     @androidx.annotation.RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(getApplicationInfo().theme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_ide_screen);
 
@@ -105,7 +106,7 @@ public class Screen_IDE extends AppCompatActivity {
 
                 return true;
             case R.id.settings_nav:
-                startActivity(new Intent(Screen_IDE.this, Screen_Settings.class));
+                startActivity(new Intent(Screen_IDE.this, Screen_Preferences.class));
                 return true;
             case R.id.fileview_nav:
                 startActivity(new Intent(Screen_IDE.this, Screen_FileViewer.class));

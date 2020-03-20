@@ -24,9 +24,9 @@ import uk.ac.tees.v8036651.mode.Projects.Project;
 public class Screen_Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(getApplicationInfo().theme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_home);
-
         if(Project.openedProject == null){
             findViewById(R.id.btnGotoCode).setVisibility(View.GONE);
         }else{
@@ -37,12 +37,12 @@ public class Screen_Home extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         if(Project.openedProject == null){
             findViewById(R.id.btnGotoCode).setVisibility(View.GONE);
         }else{
             findViewById(R.id.btnGotoCode).setVisibility(View.VISIBLE);
         }
+
     }
 
     public void openProjects(View view){
@@ -119,7 +119,7 @@ public class Screen_Home extends AppCompatActivity {
     }
 
     public void openSettings(View view){
-        Intent settingsIntent = new Intent(this, Screen_Settings.class);
+        Intent settingsIntent = new Intent(this, Screen_Preferences.class);
         startActivity(settingsIntent);
     }
 
