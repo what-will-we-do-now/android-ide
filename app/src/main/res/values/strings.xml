@@ -72,4 +72,21 @@
 
     <string name="project_new_name">Enter name of the project</string>
     <string name="project_new_name_hint">Project name</string>
+    <string name="title_activity_screen__preferences">Settings</string>
+
+    <!-- Settings Headers -->
+    <string name="pattern_header">Pattern</string>
+    <string name="preferences_header">Preferences</string>
+    <string name="accessibility_header">Accessibility</string>
+
+    <!-- Settings Titles -->
+    <string name="pattern_title">Pattern</string>
+    <string name="light_mode_title">Light Mode</string>
+
+    <!-- Settings Information -->
+    <string name="pattern_disabled">Add a pattern to your account</string>
+    <string name="pattern_enabled">Change your pattern</string>
+    <string name="light_mode_disabled">Good Choice, Sir</string>
+    <string name="light_mode_enabled">Sorry, Light Mode is not supported</string>
+
 </resources>
