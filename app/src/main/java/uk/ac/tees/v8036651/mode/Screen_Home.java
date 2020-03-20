@@ -122,6 +122,7 @@ public class Screen_Home extends AppCompatActivity {
     public void openSettings(View view){
         Intent settingsIntent = new Intent(this, Screen_Preferences.class);
         startActivity(settingsIntent);
+        finish();
     }
 
     public void gitClone(View view){
