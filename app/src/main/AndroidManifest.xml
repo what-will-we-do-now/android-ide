@@ -15,7 +15,12 @@
         android:theme="@style/darkTheme">
         <activity
             android:name=".Screen_Preferences"
-            android:label="@string/title_activity_screen__preferences"></activity>
+            android:label="@string/title_activity_screen__preferences"
+            android:launchMode="singleTop">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Screen_Home"/>
+        </activity>
         <activity android:name=".Screen_Git_Commit" />
         <activity android:name=".Screen_Project_Choose" />
         <activity android:name=".Screen_IDE" />

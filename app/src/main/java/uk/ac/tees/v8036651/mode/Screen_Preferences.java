@@ -3,10 +3,13 @@ package uk.ac.tees.v8036651.mode;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
@@ -28,10 +31,20 @@ public class Screen_Preferences extends AppCompatActivity {
                 .replace(R.id.settings, new SettingsFragment())
                 .commit();
 
-        /*ActionBar actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
+            actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
-        }*/
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            NavUtils.navigateUpFromSameTask(this);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
@@ -68,12 +81,5 @@ public class Screen_Preferences extends AppCompatActivity {
             Intent pattern_intent = new Intent(this.getContext(), Screen_ChangePattern.class);
             startActivity(pattern_intent);
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Intent home_intent = new Intent(this, Screen_Home.class);
-        startActivity(home_intent);
     }
 }
