@@ -3,6 +3,8 @@ package uk.ac.tees.v8036651.mode.Projects;
 import android.util.Log;
 
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.InitCommand;
+import org.eclipse.jgit.api.errors.GitAPIException;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -103,5 +105,19 @@ public class Project {
             }
         }
         file.delete();
+    }
+
+    public void gitInit(){
+        if(git == null){
+            InitCommand ginit = Git.init();
+            ginit.setDirectory(root);
+            try {
+                git = ginit.call();
+            } catch (GitAPIException e) {
+                Log.e("git", "Failed initialising Git repository", e);
+            }
+        }else{
+            Log.w("project", "Attempting to init git on existing repository");
+        }
     }
 }
