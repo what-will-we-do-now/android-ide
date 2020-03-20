@@ -5,7 +5,6 @@
     android:id="@+id/settingsScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0D1F2D"
     tools:context=".Screen_Settings">
 
     <TextView
@@ -13,7 +12,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Temporary Settings Screen"
-        android:textColor="#E8CA82"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
