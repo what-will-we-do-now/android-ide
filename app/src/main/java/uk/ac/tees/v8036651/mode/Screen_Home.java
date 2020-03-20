@@ -38,12 +38,12 @@ public class Screen_Home extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         if(Project.openedProject == null){
             findViewById(R.id.btnGotoCode).setVisibility(View.GONE);
         }else{
             findViewById(R.id.btnGotoCode).setVisibility(View.VISIBLE);
         }
+
     }
 
     public void openProjects(View view){

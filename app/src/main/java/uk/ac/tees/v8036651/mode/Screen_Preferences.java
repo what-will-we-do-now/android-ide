@@ -72,4 +72,11 @@ public class Screen_Preferences extends AppCompatActivity {
             startActivity(pattern_intent);
         }
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Intent home_intent = new Intent(this, Screen_Home.class);
+        startActivity(home_intent);
+    }
 }
