@@ -25,14 +25,10 @@ public class Screen_Splash extends AppCompatActivity {
             mainCodeDirectory.mkdir();
         }
 
-        new Handler().postDelayed(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                Intent splashIntent = new Intent(Screen_Splash.this, Screen_Login.class);
-                startActivity(splashIntent);
-                finish();
-            }},SPLASH_TIME_OUT);
+        new Handler().postDelayed(() -> {
+            Intent splashIntent = new Intent(Screen_Splash.this, Screen_Login.class);
+            startActivity(splashIntent);
+            finish();
+        },SPLASH_TIME_OUT);
     }
 }
