@@ -28,15 +28,7 @@
         <activity android:name=".Screen_QR" />
         <activity android:name=".Screen_Login" />
         <activity android:name=".Screen_ChangePattern" />
-        <activity
-            android:name=".Screen_Home"
-            android:parentActivityName=".Screen_Login">
-
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Screen_Login" />
-        </activity>
+        <activity android:name=".Screen_Home" />
         <activity android:name=".Screen_Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
