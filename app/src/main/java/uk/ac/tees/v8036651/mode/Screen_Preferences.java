@@ -48,7 +48,7 @@ public class Screen_Preferences extends AppCompatActivity {
                 return true;
             };
             Preference.OnPreferenceChangeListener onChange = (preference, newValue) -> {
-                if(preference.getKey() == "lightMode"){
+                if(preference.getKey().equals("lightMode")){
                     lightMode.setChecked((Boolean) newValue);
                     if(lightMode.isChecked()){ updateTheme(getString(R.string.light_mode_enabled));}
                     if(!lightMode.isChecked()){ updateTheme(getString(R.string.light_mode_enabled));}
