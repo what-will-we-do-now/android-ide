@@ -24,6 +24,7 @@ public class Screen_ChangePattern extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        new Update_Theme(this);
 
         prefEdit = getSharedPreferences("mode", Context.MODE_PRIVATE).edit();
 

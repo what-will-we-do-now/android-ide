@@ -22,7 +22,7 @@ public class Screen_Splash extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        checkTheme();
+        new Update_Theme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_splash);
 
@@ -38,18 +38,4 @@ public class Screen_Splash extends AppCompatActivity {
         },SPLASH_TIME_OUT);
     }
 
-    protected void checkTheme(){
-        SharedPreferences pref = getSharedPreferences("lightMode", MODE_PRIVATE);
-        final String lmSumm = pref.getString("lightMode", "");
-        System.out.println("String value of Light Mode is: " + lmSumm);
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        if (lmSumm.equals(R.string.light_mode_disabled)){
-            setTheme(R.style.darkTheme);
-        }
-        else if (lmSumm.equals(R.string.light_mode_enabled)){
-            setTheme(R.style.lightTheme);
-        }
-    }
 }

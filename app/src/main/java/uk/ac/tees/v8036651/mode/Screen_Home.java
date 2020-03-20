@@ -24,6 +24,7 @@ import uk.ac.tees.v8036651.mode.Projects.Project;
 public class Screen_Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        new Update_Theme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_home);
 

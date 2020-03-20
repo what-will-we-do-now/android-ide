@@ -7,6 +7,7 @@ public class Screen_QR extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState){
+        new Update_Theme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_qr);
     }

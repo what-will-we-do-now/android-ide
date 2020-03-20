@@ -19,8 +19,9 @@ public class Screen_Preferences extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        new Update_Theme(this);
 
-        prefEd = getSharedPreferences("lightMode", MODE_PRIVATE).edit();
+        prefEd = getSharedPreferences("light_mode", MODE_PRIVATE).edit();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
@@ -41,17 +42,17 @@ public class Screen_Preferences extends AppCompatActivity {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
             Preference pattern = findPreference("pattern");
             SwitchPreferenceCompat lightMode = findPreference("light_mode");
-            OnPreferenceClickListener onClick = preference -> {
-                if (preference.getKey() == "pattern"){
+            Preference.OnPreferenceClickListener onClick = preference -> {
+                if (preference.getKey().equals("pattern")){
                     updatePattern();
                 }
                 return true;
             };
             Preference.OnPreferenceChangeListener onChange = (preference, newValue) -> {
-                if(preference.getKey().equals("lightMode")){
+                if(preference.getKey().equals("light_mode")){
                     lightMode.setChecked((Boolean) newValue);
                     if(lightMode.isChecked()){ updateTheme(getString(R.string.light_mode_enabled));}
-                    if(!lightMode.isChecked()){ updateTheme(getString(R.string.light_mode_enabled));}
+                    if(!lightMode.isChecked()){ updateTheme(getString(R.string.light_mode_disabled));}
                 }
                 return true;
             };
@@ -59,12 +60,11 @@ public class Screen_Preferences extends AppCompatActivity {
             pattern.setOnPreferenceClickListener(onClick);
         }
 
-        protected static void updateTheme(String summ){
-            prefEd.putString("lightMode",summ);
-            System.out.println("The summary is " + summ);
+        protected static void updateTheme(String summary){
+            prefEd.putString("light_mode",summary);
+            System.out.println("The summary is " + summary);
             prefEd.commit();
             System.out.println("Committed");
-
         }
 
         private void updatePattern() {
