@@ -21,8 +21,7 @@ public class Screen_Login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        new Update_Theme(this);
+        setTheme(getApplicationInfo().theme);
         super.onCreate(savedInstanceState);
 
         PluginManager.load(this);

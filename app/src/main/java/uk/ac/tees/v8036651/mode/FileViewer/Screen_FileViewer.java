@@ -38,16 +38,14 @@ import java.util.Objects;
 import uk.ac.tees.v8036651.mode.Projects.Project;
 import uk.ac.tees.v8036651.mode.R;
 import uk.ac.tees.v8036651.mode.Screen_IDE;
-import uk.ac.tees.v8036651.mode.Update_Theme;
 
 public class Screen_FileViewer extends AppCompatActivity {
 
     private String rootPath;
 
     @Override
-    protected void onCreate(Bundle savedInsanceState) {
-        new Update_Theme(this);
-        super.onCreate(savedInsanceState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_file_viewer);
         rootPath = getCodeDirectory();
     }

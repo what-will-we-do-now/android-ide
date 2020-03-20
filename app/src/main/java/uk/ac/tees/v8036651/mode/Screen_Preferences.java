@@ -2,14 +2,12 @@ package uk.ac.tees.v8036651.mode;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.Preference;
-import androidx.preference.Preference.OnPreferenceClickListener;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 
@@ -19,7 +17,7 @@ public class Screen_Preferences extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new Update_Theme(this);
+        setTheme(getApplicationInfo().theme);
 
         prefEd = getSharedPreferences("light_mode", MODE_PRIVATE).edit();
 
@@ -32,7 +30,7 @@ public class Screen_Preferences extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
 
@@ -42,25 +40,24 @@ public class Screen_Preferences extends AppCompatActivity {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
             Preference pattern = findPreference("pattern");
             SwitchPreferenceCompat lightMode = findPreference("light_mode");
-            Preference.OnPreferenceClickListener onClick = preference -> {
+            lightMode.setOnPreferenceChangeListener((preference, newValue) -> {
+                if(preference.getKey().equals("light_mode")){
+                    lightMode.setChecked((Boolean) newValue);
+                    if(lightMode.isChecked()){ updateTheme(getString(R.string.light_mode_enabled));}
+                    else{ updateTheme(getString(R.string.light_mode_disabled));}
+                    Toast.makeText(SettingsFragment.this.getContext(), R.string.info_restart_required, Toast.LENGTH_LONG).show();
+                }
+                return true;
+            });
+            pattern.setOnPreferenceClickListener(preference -> {
                 if (preference.getKey().equals("pattern")){
                     updatePattern();
                 }
                 return true;
-            };
-            Preference.OnPreferenceChangeListener onChange = (preference, newValue) -> {
-                if(preference.getKey().equals("light_mode")){
-                    lightMode.setChecked((Boolean) newValue);
-                    if(lightMode.isChecked()){ updateTheme(getString(R.string.light_mode_enabled));}
-                    if(!lightMode.isChecked()){ updateTheme(getString(R.string.light_mode_disabled));}
-                }
-                return true;
-            };
-            lightMode.setOnPreferenceChangeListener(onChange);
-            pattern.setOnPreferenceClickListener(onClick);
+            });
         }
 
-        protected static void updateTheme(String summary){
+        private void updateTheme(String summary){
             prefEd.putString("light_mode",summary);
             System.out.println("The summary is " + summary);
             prefEd.commit();
@@ -71,12 +68,5 @@ public class Screen_Preferences extends AppCompatActivity {
             Intent pattern_intent = new Intent(this.getContext(), Screen_ChangePattern.class);
             startActivity(pattern_intent);
         }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Intent home_intent = new Intent(this, Screen_Home.class);
-        startActivity(home_intent);
     }
 }

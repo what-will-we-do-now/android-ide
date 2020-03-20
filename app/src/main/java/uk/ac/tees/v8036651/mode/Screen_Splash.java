@@ -1,17 +1,11 @@
 package uk.ac.tees.v8036651.mode;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.PreferenceManager;
-import androidx.preference.SwitchPreferenceCompat;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.Switch;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
 
@@ -22,7 +16,22 @@ public class Screen_Splash extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        new Update_Theme(this);
+
+        SharedPreferences pref = getSharedPreferences("light_mode", MODE_PRIVATE);
+        final String lmSummary = pref.getString("light_mode", "");
+        if (lmSummary.equals(getApplicationContext().getString(R.string.light_mode_disabled))){
+            getApplicationContext().setTheme(R.style.darkTheme);
+            getApplicationInfo().theme = R.style.darkTheme;
+        }
+        else if (lmSummary.equals(getApplicationContext().getString(R.string.light_mode_enabled))){
+            getApplicationContext().setTheme(R.style.lightTheme);
+            getApplicationInfo().theme = R.style.lightTheme;
+        }
+
+
+
+        setTheme(getApplicationInfo().theme);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_splash);
 

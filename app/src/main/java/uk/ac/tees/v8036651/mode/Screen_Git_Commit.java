@@ -32,7 +32,7 @@ public class Screen_Git_Commit extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new Update_Theme(this);
+        setTheme(getApplicationInfo().theme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_git_commit);
 

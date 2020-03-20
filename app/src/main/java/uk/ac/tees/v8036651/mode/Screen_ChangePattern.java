@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,15 +15,13 @@ import com.andrognito.patternlockview.utils.PatternLockUtils;
 
 import java.util.List;
 
-import uk.ac.tees.v8036651.mode.R;
-
 public class Screen_ChangePattern extends AppCompatActivity {
 
     private SharedPreferences.Editor prefEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new Update_Theme(this);
+        setTheme(getApplicationInfo().theme);
 
         prefEdit = getSharedPreferences("mode", Context.MODE_PRIVATE).edit();
 

@@ -74,6 +74,8 @@
     <string name="project_new_name_hint">Project name</string>
     <string name="title_activity_screen__preferences">Settings</string>
 
+    <string name="info_restart_required">You will need to restart the application for this to take an effect.</string>
+
     <!-- Settings Headers -->
     <string name="pattern_header">Pattern</string>
     <string name="preferences_header">Preferences</string>

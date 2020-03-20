@@ -24,7 +24,7 @@ import uk.ac.tees.v8036651.mode.Projects.Project;
 public class Screen_Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new Update_Theme(this);
+        setTheme(getApplicationInfo().theme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_home);
 
@@ -122,7 +122,6 @@ public class Screen_Home extends AppCompatActivity {
     public void openSettings(View view){
         Intent settingsIntent = new Intent(this, Screen_Preferences.class);
         startActivity(settingsIntent);
-        finish();
     }
 
     public void gitClone(View view){

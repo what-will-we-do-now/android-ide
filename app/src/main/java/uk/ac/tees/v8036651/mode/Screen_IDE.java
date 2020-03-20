@@ -36,7 +36,7 @@ public class Screen_IDE extends AppCompatActivity {
     @androidx.annotation.RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new Update_Theme(this);
+        setTheme(getApplicationInfo().theme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_ide_screen);
 
