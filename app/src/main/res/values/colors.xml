@@ -6,8 +6,13 @@
 
     <color name="black_overlay">#66EB0B0B</color>
 
-    <color name="default_background">#0D1F2D</color>
-    <color name="default_text">#E8CA82</color>
+    <!-- Light Theme colours -->
+    <color name="light_background">#ffffff</color>
+    <color name="light_text">#211f22</color>
+
+    <!-- Dark Theme colours -->
+    <color name="dark_background">#0D1F2D</color>
+    <color name="dark_text">#E8CA82</color>
 
     <color name="lightText">#EEEEEE</color>
     <color name="black">#000000</color>
