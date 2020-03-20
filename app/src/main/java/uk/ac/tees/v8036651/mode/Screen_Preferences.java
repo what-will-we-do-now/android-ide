@@ -31,19 +31,16 @@ public class Screen_Preferences extends AppCompatActivity {
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
             Preference pattern = findPreference("pattern");
-            OnPreferenceClickListener onClick = new OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    updatePattern();
-                    return true;
-                }
+            OnPreferenceClickListener onClick = preference -> {
+                updatePattern();
+                return true;
             };
             pattern.setOnPreferenceClickListener(onClick);
         }
 
         private void updatePattern() {
-            Intent NPintent = new Intent(this.getContext(), Screen_ChangePattern.class);
-            startActivity(NPintent);
+            Intent pattern_intent = new Intent(this.getContext(), Screen_ChangePattern.class);
+            startActivity(pattern_intent);
         }
     }
 }
