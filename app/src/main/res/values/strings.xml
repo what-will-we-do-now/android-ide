@@ -86,7 +86,7 @@
     <!-- Settings Information -->
     <string name="pattern_disabled">Add a pattern to your account</string>
     <string name="pattern_enabled">Change your pattern</string>
-    <string name="light_mode_disabled">Good Choice, Sir</string>
-    <string name="light_mode_enabled">Sorry, Light Mode is not supported</string>
+    <string name="light_mode_disabled">Light Mode Disabled</string>
+    <string name="light_mode_enabled">Light Mode Enabled</string>
 
 </resources>
