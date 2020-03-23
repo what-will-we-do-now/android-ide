@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 
@@ -14,7 +15,6 @@ import androidx.appcompat.widget.AppCompatEditText;
 
 import java.io.File;
 
-import uk.ac.tees.v8036651.mode.R;
 import uk.ac.tees.v8036651.mode.plugins.PluginManager;
 
 public class NumberedTextView extends AppCompatEditText {
@@ -32,9 +32,17 @@ public class NumberedTextView extends AppCompatEditText {
         super(context);
         paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.WHITE);
         paint.setTextSize(getTextSize());
         setWillNotDraw(false);
+
+        TypedValue typedValue = new TypedValue();
+
+        context.getTheme().resolveAttribute(android.R.attr.textColor, typedValue, true);
+        int color = typedValue.data;
+
+        paint.setColor(color);
+
+
 
         postInit();
     }
@@ -43,10 +51,15 @@ public class NumberedTextView extends AppCompatEditText {
         super(context, attrs, android.R.attr.editTextStyle);
         paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.WHITE);
         paint.setTextSize(getTextSize());
         setWillNotDraw(false);
 
+        TypedValue typedValue = new TypedValue();
+
+        context.getTheme().resolveAttribute(android.R.attr.textColor, typedValue, true);
+        int color = typedValue.data;
+
+        paint.setColor(color);
         postInit();
     }
 
@@ -54,10 +67,15 @@ public class NumberedTextView extends AppCompatEditText {
         super(context, attrs, android.R.attr.editTextStyle);
         paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.WHITE);
         paint.setTextSize(getTextSize());
         setWillNotDraw(false);
 
+        TypedValue typedValue = new TypedValue();
+
+        context.getTheme().resolveAttribute(android.R.attr.textColor, typedValue, true);
+        int color = typedValue.data;
+
+        paint.setColor(color);
         postInit();
     }
 
