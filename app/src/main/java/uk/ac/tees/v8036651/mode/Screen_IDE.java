@@ -160,4 +160,16 @@ public class Screen_IDE extends AppCompatActivity {
         output.flush();
         output.close();
     }
+
+    //Stackoverflow search
+    public void stackOverflowSearch ()
+    {
+
+    }
+
+    //Google Search
+    public void searchUsingGoogle()
+    {
+
+    }
 }
