@@ -50,35 +50,6 @@ public class Screen_FileViewer extends AppCompatActivity {
         rootPath = getCodeDirectory();
     }
 
-    //Arbitrary token
-    private static final int REQUEST_PERMISSIONS = 1234;
-
-    //Permissions for the manager to write to and read external storage
-    private static final String[] PERMISSIONS  = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
-
-
-    private static final int PERMISSIONS_COUNT = PERMISSIONS.length;
-
-    /**
-     * Checks for permissions to write and read external storage
-     * @return true if permissions are denied
-     */
-    //Version is already checked in onResume method, so this method won't run on devices with android 23 and below
-    @SuppressLint("NewApi")
-    private boolean arePermissionsDenied(){
-        int currentPerms = 0;
-        while (currentPerms < PERMISSIONS_COUNT){
-            if (checkSelfPermission(PERMISSIONS[currentPerms]) != PackageManager.PERMISSION_GRANTED){
-                return true;
-            }
-            currentPerms++;
-        }
-        return false;
-    }
-
     private String currentPath;
     private File[] projectFiles;
     private List<File> filesList;
@@ -95,10 +66,7 @@ public class Screen_FileViewer extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && arePermissionsDenied()) {
-            requestPermissions(PERMISSIONS, REQUEST_PERMISSIONS);
-            return;
-        }
+
         if (!isFileManagerInitialized) {
             currentPath = rootPath;
             dir = new File(rootPath);
@@ -132,7 +100,7 @@ public class Screen_FileViewer extends AppCompatActivity {
             upDirectoryButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (currentPath.contains(rootPath)){
+                    if (currentPath.contains(rootPath + "/")){
                         currentPath = currentPath.substring(0, currentPath.lastIndexOf('/'));
                         dir = new File(currentPath);
                         pathOutput.setText(currentPath.substring(currentPath.lastIndexOf('/') + 1));
@@ -259,7 +227,6 @@ public class Screen_FileViewer extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    //TODO To be expanded
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -359,22 +326,6 @@ public class Screen_FileViewer extends AppCompatActivity {
         }
         else {
             fileOrFolder.delete();
-        }
-    }
-
-    //checks for permissions
-    @Override
-    public void onRequestPermissionsResult(final int requestCode,
-                                           final String[] permissions, final int[] grantResults){
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_PERMISSIONS && grantResults.length>0){
-            if (arePermissionsDenied()){
-                ((ActivityManager) Objects.requireNonNull(this.getSystemService(ACTIVITY_SERVICE))).clearApplicationUserData();
-                recreate();
-            }
-            else {
-                onResume();
-            }
         }
     }
 
