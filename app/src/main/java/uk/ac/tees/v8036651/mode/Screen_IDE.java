@@ -38,7 +38,7 @@ public class Screen_IDE extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(getApplicationInfo().theme);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.screen_ide_screen);
+        setContentView(R.layout.screen_ide);
 
         projectsDirectory = getExternalFilesDir(null).getAbsolutePath() + "/MoDE_Code_Directory";
 
