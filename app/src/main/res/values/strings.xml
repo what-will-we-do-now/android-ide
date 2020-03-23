@@ -45,9 +45,15 @@
 
     <string name="git_commit_commit">Enter commit message</string>
     <string name="git_commit_files">Choose files to commit</string>
-    <string name="git_commit_message_successful">Successfully committed %1$d commits.</string>
-    <string name="git_commit_message_partial">Successfully committed %1$d commits. Failed to commit %2$d commits.</string>
-    <string name="git_commit_message_failure">Failed to commit %1$d commits.</string>
+    <string name="git_commit_message_successful">Commit successful</string>
+    <string name="git_commit_message_failure">Unable to commit; Undefined error</string>
+    <string name="git_commit_message_no_head">Unable to commit; repo doesn\'t have HEAD</string>
+    <string name="git_commit_message_no_message">Unable to commit; No commit message</string>
+    <string name="git_commit_message_unmerged_path">Unable to commit; Unmerged paths in index</string>
+    <string name="git_commit_message_concurrent_update">Unable to commit; HEAD is currently being updated by another process</string>
+    <string name="git_commit_message_wrong_state">Unable to commit; The repository is in wrong state</string>
+    <string name="git_commit_message_reject_commit">Unable to commit; The commit was rejected by commit hooks</string>
+    <string name="git_commit_message_no_author">Unable to commit; Author not set.</string>
 
     <string name="git_clone">Clone from Git</string>
     <string name="git_clone_enter_url">Enter Git URL</string>
