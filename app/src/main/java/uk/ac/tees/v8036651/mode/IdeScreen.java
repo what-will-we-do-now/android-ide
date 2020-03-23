@@ -16,5 +16,7 @@ public class IdeScreen extends AppCompatActivity {
         //apparently Horizontal Scrolling in XML is not working. Thanks Android
         txtCode.setHorizontallyScrolling(true);
 
+        invalid
+
     }
 }
