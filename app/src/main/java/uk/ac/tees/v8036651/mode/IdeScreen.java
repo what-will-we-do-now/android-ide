@@ -1,9 +1,9 @@
 package uk.ac.tees.v8036651.mode;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class IdeScreen extends AppCompatActivity {
 
