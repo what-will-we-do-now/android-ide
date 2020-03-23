@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="refresh"
+        android:id="@+id/refresh_menu_option"
+        android:icon="@drawable/ic_refresh_black_24dp"
+        app:showAsAction="always"/>
+
+    <item
+        android:title="Submenu"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_more_vert_black_24dp">
+
+        <menu>
+
+            <item
+                android:title="@string/create_file"
+                android:id="@+id/create_file"
+                android:icon="@drawable/ic_file_add_black_24dp"
+                app:showAsAction="ifRoom" />
+
+            <item
+                android:title="@string/create_folder"
+                android:id="@+id/create_folder"
+                android:icon="@drawable/ic_create_new_folder_black_24dp"
+                app:showAsAction="ifRoom" />
+
+        </menu>
+
+    </item>
+
+</menu>

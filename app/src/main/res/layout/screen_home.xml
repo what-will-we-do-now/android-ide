@@ -2,26 +2,21 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
+    android:id="@+id/homeScreen"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#0D1F2D">
+    android:layout_height="match_parent">
 
     <Button
         android:id="@+id/btnNewProject"
         android:layout_width="377dp"
         android:layout_height="42dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:background="#0D1F2D"
         android:baselineAligned="false"
-        android:onClick="openIDE"
+        android:onClick="createProject"
         android:text="@string/project_new"
-        android:textColor="#E8CA82"
         app:layout_constraintBottom_toTopOf="@+id/btnOpenProject"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,33 +25,28 @@
         android:layout_width="377dp"
         android:layout_height="42dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:background="#0D1F2D"
         android:baselineAligned="false"
-        android:onClick="openIDE"
+        android:onClick="openProjects"
         android:text="@string/project_open"
-        android:textColor="#E8CA82"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/btnCreateQRCode"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnNewProject" />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/btnCreateQRCode"
         android:layout_width="377dp"
         android:layout_height="42dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:background="#0D1F2D"
         android:baselineAligned="false"
+        android:onClick="openQRScreen"
         android:text="@string/project_from_qr"
-        android:textColor="#E8CA82"
         app:layout_constraintBottom_toTopOf="@+id/btnGitHub"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnOpenProject" />
 
@@ -65,15 +55,12 @@
         android:layout_width="377dp"
         android:layout_height="42dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:background="#0D1F2D"
         android:baselineAligned="false"
-        android:text="@string/git"
-        android:textColor="#E8CA82"
+        android:onClick="gitClone"
+        android:text="@string/git_clone"
         app:layout_constraintBottom_toTopOf="@+id/btnGotoCode"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnCreateQRCode" />
 
@@ -83,16 +70,27 @@
         android:layout_height="42dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="#0D1F2D"
         android:baselineAligned="false"
         android:onClick="openIDE"
         android:text="@string/code_return"
-        android:textColor="#E8CA82"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/btnSettings"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnGitHub" />
+
+    <Button
+        android:id="@+id/btnSettings"
+        android:layout_width="377dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:baselineAligned="false"
+        android:onClick="openSettings"
+        android:text="@string/settings"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnGotoCode" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

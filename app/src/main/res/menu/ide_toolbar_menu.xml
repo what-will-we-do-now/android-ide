@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:title="@string/save"
+        android:id="@+id/save_code"
+        android:icon="@drawable/ic_save_black_24dp"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:title="Submenu"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_more_vert_black_24dp"
+        >
+
+        <menu>
+            <item
+                android:title="Settings"
+                android:icon="@drawable/ic_settings_black_24dp"
+                android:id="@+id/settings_nav"
+                app:showAsAction="never"/>
+            <item
+                android:title="FileViewer"
+                android:icon="@drawable/ic_description_black_24dp"
+                android:id="@+id/fileview_nav"
+                app:showAsAction="never"/>
+
+            <item android:title="@string/git_init"
+                android:id="@+id/git_init_nav"
+                app:showAsAction="never"
+                android:visible="false"/>
+
+            <item android:title="@string/git"
+                android:id="@+id/git_nav"
+                app:showAsAction="never"/>
+
+            <item
+                android:id="@+id/git_pull"
+                android:title="@string/git_pull_long"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/git_push"
+                android:title="@string/git_push_long"
+                app:showAsAction="never" />
+            <!-- To extend with further navigation options like Git -->
+        </menu>
+    </item>
+
+</menu>
