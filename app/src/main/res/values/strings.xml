@@ -43,6 +43,8 @@
 
     <string name="git_init">Initialise Git</string>
 
+    <string name="git_commit_short">Commit</string>
+    <string name="git_commit_long">Git commit</string>
     <string name="git_commit_commit">Enter commit message</string>
     <string name="git_commit_files">Choose files to commit</string>
     <string name="git_commit_message_successful">Commit successful</string>
