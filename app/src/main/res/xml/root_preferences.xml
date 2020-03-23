@@ -1,0 +1,26 @@
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+
+    <androidx.preference.PreferenceCategory app:title="@string/pattern_header">
+        <androidx.preference.Preference
+            android:id="@+id/pcPattern"
+            app:key="pattern"
+            app:summary="@string/pattern_disabled"
+            app:title="@string/pattern_title" />
+
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory app:title="@string/preferences_header">
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:id="@+id/pcLightMode"
+            app:key="light_mode"
+            app:summaryOff="@string/light_mode_disabled"
+            app:summaryOn="@string/light_mode_enabled"
+            app:title="@string/light_mode_title"
+            />
+    </androidx.preference.PreferenceCategory>
+</androidx.preference.PreferenceScreen>

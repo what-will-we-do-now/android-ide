@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0D1F2D"
     tools:context=".Screen_Login"
     tools:layout_editor_absoluteY="81dp"
     >
@@ -15,6 +14,9 @@
         android:id="@+id/patternView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:normalStateColor="@color/colorAccent"
+        app:correctStateColor="@color/colorPrimary"
+        app:wrongStateColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

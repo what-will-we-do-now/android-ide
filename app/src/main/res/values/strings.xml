@@ -19,7 +19,6 @@
     <string name="project_new">New project</string>
     <string name="project_open">Open project</string>
     <string name="project_from_qr">Project from QR code</string>
-    <string name="git">Git</string>
     <string name="code_return">Return to code</string>
 
     <string name="save">Save</string>
@@ -33,5 +32,63 @@
     <string name="enterFileName">Enter File Name:</string>
     <string name="directory_name">Directory Name</string>
     <string name="enterDirectoryName">Enter Directory Name:</string>
+
+
+    <string name="git">Git</string>
+    <string name="git_names_branch">Branch</string>
+    <string name="git_names_branch_display">Branch: %1$s</string>
+    <string name="git_names_commit">Commit</string>
+    <string name="git_names_select_all">Select all</string>
+    <string name="git_names_deselect_all">Deselect all</string>
+
+    <string name="git_init">Initialise Git</string>
+
+    <string name="git_commit_commit">Enter commit message</string>
+    <string name="git_commit_files">Choose files to commit</string>
+    <string name="git_commit_message_successful">Successfully committed %1$d commits.</string>
+    <string name="git_commit_message_partial">Successfully committed %1$d commits. Failed to commit %2$d commits.</string>
+    <string name="git_commit_message_failure">Failed to commit %1$d commits.</string>
+
+    <string name="git_clone">Clone from Git</string>
+    <string name="git_clone_enter_url">Enter Git URL</string>
+    <string name="git_clone_enter_project_name">Enter Project name</string>
+    <string name="git_clone_success">Project successfully cloned.</string>
+    <string name="git_clone_error">Error occurred while trying to clone Git project.</string>
+    <string name="git_clone_error_remote_not_found">Remote repository not found.</string>
+
+    <string name="git_authentication_message_default">Remote Git repository requires authentication.</string>
+    <string name="git_authentication_username">Remote username</string>
+    <string name="git_authentication_password">Remote password</string>
+
+    <string name="git_pull_short">Pull</string>
+    <string name="git_pull_long">Git Pull</string>
+    <string name="git_pull_message_successful">Pull successful.</string>
+    <string name="git_pull_message_failure">Pull unsuccessful.</string>
+
+    <string name="git_push_short">Push</string>
+    <string name="git_push_long">Git Push</string>
+    <string name="git_push_message_successful">Push successful.</string>
+    <string name="git_push_message_failure">Push unsuccessful</string>
+
+    <string name="project_new_name">Enter name of the project</string>
+    <string name="project_new_name_hint">Project name</string>
+    <string name="title_activity_screen__preferences">Settings</string>
+
+    <string name="info_restart_required">You will need to restart the application for this to take an effect.</string>
+
+    <!-- Settings Headers -->
+    <string name="pattern_header">Pattern</string>
+    <string name="preferences_header">Preferences</string>
+    <string name="accessibility_header">Accessibility</string>
+
+    <!-- Settings Titles -->
+    <string name="pattern_title">Pattern</string>
+    <string name="light_mode_title">Light Mode</string>
+
+    <!-- Settings Information -->
+    <string name="pattern_disabled">Add a pattern to your account</string>
+    <string name="pattern_enabled">Change your pattern</string>
+    <string name="light_mode_disabled">Light Mode Disabled</string>
+    <string name="light_mode_enabled">Light Mode Enabled</string>
 
 </resources>

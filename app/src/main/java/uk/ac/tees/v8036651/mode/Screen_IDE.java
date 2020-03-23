@@ -4,9 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,15 +14,18 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.eclipse.jgit.api.PullCommand;
+import org.eclipse.jgit.api.PushCommand;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 
 import uk.ac.tees.v8036651.mode.FileViewer.Screen_FileViewer;
 import uk.ac.tees.v8036651.mode.GUI.NumberedTextView;
-import uk.ac.tees.v8036651.mode.plugins.PluginManager;
-
-import android.view.View.OnKeyListener;
+import uk.ac.tees.v8036651.mode.GitTools.GitPullTask;
+import uk.ac.tees.v8036651.mode.GitTools.GitPushTask;
+import uk.ac.tees.v8036651.mode.Projects.Project;
 
 public class Screen_IDE extends AppCompatActivity {
 
@@ -36,79 +36,17 @@ public class Screen_IDE extends AppCompatActivity {
     @androidx.annotation.RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(getApplicationInfo().theme);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.screen_ide);
-        ((NumberedTextView)findViewById(R.id.txtCode)).setText(editTextContent);
+        setContentView(R.layout.screen_ide_screen);
+
         projectsDirectory = getExternalFilesDir(null).getAbsolutePath() + "/MoDE_Code_Directory";
 
         NumberedTextView txtCode = (NumberedTextView) findViewById(R.id.txtCode);
 
+        txtCode.setLanguage("java");
 
-        txtCode.setOnKeyListener(new OnKeyListener(){
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(!event.isCanceled() && keyCode == KeyEvent.KEYCODE_TAB && event.getAction() == KeyEvent.ACTION_UP){
-                    NumberedTextView txtCode = ((NumberedTextView) v);
-                    txtCode.getText().insert(txtCode.getSelectionStart(), "    ");
-                }
-                return false;
-            }
-        });
-
-        txtCode.addTextChangedListener(new TextWatcher() {
-
-            boolean ignore = false;
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!ignore) {
-                    ignore = true;
-                    NumberedTextView txtCode = findViewById(R.id.txtCode);
-                    if (count == 1 && s.charAt(start) == '(') {
-                        if(txtCode.getText().toString().replaceAll("([^(|^)])", "").length() % 2 != 0) {
-                            txtCode.getText().insert(start + count, ")");
-                            txtCode.setSelection(start + count);
-                        }
-                    }else if (count == 1 && s.charAt(start) == '{') {
-                        if(txtCode.getText().toString().replaceAll("([^{|^}])", "").length() % 2 != 0) {
-                            txtCode.getText().insert(start + count, "}");
-                            txtCode.setSelection(start + count);
-                        }
-                    }else if (count == 1 && s.charAt(start) == '[') {
-                        if(txtCode.getText().toString().replaceAll("([^\\[|^\\]])", "").length() % 2 != 0) {
-                            txtCode.getText().insert(start + count, "]");
-                            txtCode.setSelection(start + count);
-                        }
-                    }else if (count == 1 && s.charAt(start) == '"') {
-                        if(txtCode.getText().toString().replaceAll("[^\"]", "").length() % 2 != 0) {
-                            txtCode.getText().insert(start + count, "\"");
-                            txtCode.setSelection(start + count);
-                        }
-                    }else if (count == 1 && s.charAt(start) == '\'') {
-                        if(txtCode.getText().toString().replaceAll("[^\']", "").length() % 2 != 0) {
-                            txtCode.getText().insert(start + count, "\'");
-                            txtCode.setSelection(start + count);
-                        }
-                    }
-                    ignore = false;
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(!ignore) {
-                    if (s.toString().contains("\n")) {
-                        ignore = true;
-                        PluginManager.formatText((NumberedTextView) findViewById(R.id.txtCode), new File("code.java"));
-                        ignore = false;
-                    }
-                }
-            }
-        });
+        txtCode.setText(editTextContent);
 
         txtCode.setHorizontallyScrolling(true);
     }
@@ -116,6 +54,17 @@ public class Screen_IDE extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.ide_toolbar_menu, menu);
+
+        Menu subMenu = menu.getItem(1).getSubMenu();
+
+        if(Project.openedProject.hasGitSupport()){
+            subMenu.getItem(3).setVisible(true);
+            subMenu.getItem(2).setVisible(false);
+        }else{
+            subMenu.getItem(3).setVisible(false);
+            subMenu.getItem(2).setVisible(true);
+        }
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -157,14 +106,44 @@ public class Screen_IDE extends AppCompatActivity {
 
                 return true;
             case R.id.settings_nav:
-                startActivity(new Intent(Screen_IDE.this, Screen_Settings.class));
+                startActivity(new Intent(Screen_IDE.this, Screen_Preferences.class));
                 return true;
             case R.id.fileview_nav:
                 startActivity(new Intent(Screen_IDE.this, Screen_FileViewer.class));
+                return true;
+            case R.id.git_init_nav:
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                builder.setTitle("Do you want to enable Git version control?");
+
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Project.openedProject.gitInit();
+                        invalidateOptionsMenu();
+                    }
+                });
+                builder.setNegativeButton("No", null);
+
+                builder.show();
+                return true;
+            case R.id.git_nav:
+                startActivity(new Intent(Screen_IDE.this, Screen_Git_Commit.class));
+                return true;
+            case R.id.git_push:
+                PushCommand gpush = Project.openedProject.getGit().push();
+                GitPushTask gpusht = new GitPushTask(this, gpush);
+                gpusht.execute();
+                return true;
+            case R.id.git_pull:
+                PullCommand gpull = Project.openedProject.getGit().pull();
+                GitPullTask gpullt = new GitPullTask(this, gpull);
+                gpullt.execute();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
 
 

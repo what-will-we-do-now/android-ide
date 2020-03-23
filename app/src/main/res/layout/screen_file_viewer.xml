@@ -7,8 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/colorPrimaryDark">
+        android:orientation="horizontal">
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -29,7 +28,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/file_path"
-                android:textColor="@color/lightText"
                 android:layout_margin="2dp"
                 android:textSize="24dp"/>
 
@@ -37,7 +35,6 @@
                 android:id="@+id/dir_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/lightText"
                 android:layout_margin="2dp"
                 android:textSize="18dp" />
 
