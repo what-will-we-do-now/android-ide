@@ -129,7 +129,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                         findViewById(R.id.delete_btt).setEnabled(true);
                     } else {
                         findViewById(R.id.delete_btt).setEnabled(false);
-                        longClick = true;
+                        longClick = false;
                     }
 
                     return false;
