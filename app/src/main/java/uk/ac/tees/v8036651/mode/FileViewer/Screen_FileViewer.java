@@ -394,9 +394,10 @@ public class Screen_FileViewer extends AppCompatActivity {
         for(int i=0; i < filesFoundCount; i++){
             filesList.add(projectFiles[i]);
         }
-        textAdapter.setData(filesList);
 
+        textAdapter.emptySelection();
         selection = new boolean[filesFoundCount];
+        textAdapter.setData(filesList);
     }
 }
 

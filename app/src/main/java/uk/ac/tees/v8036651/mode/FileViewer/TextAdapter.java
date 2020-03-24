@@ -90,4 +90,8 @@ public class TextAdapter extends BaseAdapter {
         }
     }
 
+    void emptySelection (){
+        selection = null;
+    }
+
 }
