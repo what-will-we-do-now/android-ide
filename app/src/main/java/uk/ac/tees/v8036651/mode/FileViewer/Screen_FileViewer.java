@@ -61,7 +61,6 @@ public class Screen_FileViewer extends AppCompatActivity {
 
     private boolean[] selection;
     private boolean longClick = false;
-    private boolean ignoreLastClick = false;
 
     //Runs whenever the view is resumed
     @Override
@@ -130,11 +129,10 @@ public class Screen_FileViewer extends AppCompatActivity {
                         findViewById(R.id.delete_btt).setEnabled(true);
                     } else {
                         findViewById(R.id.delete_btt).setEnabled(false);
-                        ignoreLastClick = true;
                         longClick = false;
                     }
 
-                    return false;
+                    return true;
                 }
             });
 
@@ -144,10 +142,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                    if (ignoreLastClick){
-                        ignoreLastClick = true;
-                    }
-                    else if (!longClick){
+                    if (!longClick){
                         if (projectFiles[position].isDirectory()){
                             currentPath = (currentPath + '/' + projectFiles[position].getName());
                             dir = new File(currentPath);
