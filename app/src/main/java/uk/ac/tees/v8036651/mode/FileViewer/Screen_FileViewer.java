@@ -47,7 +47,7 @@ public class Screen_FileViewer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_file_viewer);
-        rootPath = getCodeDirectory();
+        rootPath = getProjectDirectory();
     }
 
     private String currentPath;
@@ -329,10 +329,9 @@ public class Screen_FileViewer extends AppCompatActivity {
         }
     }
 
-    //returns string path to the main storage of the app
-    private String getCodeDirectory () {
-        File directory = new File(Objects.requireNonNull(getExternalFilesDir(null)).getAbsolutePath() + "/MoDE_Code_Directory");
-        return directory.getAbsolutePath();
+    //returns string path to the main storage of the project code
+    private String getProjectDirectory () {
+        return Project.openedProject.getRoot().getAbsolutePath();
     }
 
     public String loadActivity(String fileName){
