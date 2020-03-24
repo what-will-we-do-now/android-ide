@@ -61,7 +61,7 @@ public class Screen_ChangePattern extends AppCompatActivity {
 
         Intent intent = new Intent(this,Screen_Home.class);
         startActivity(intent);
-
+        finish();
     }
 
     public void resetPattern (View view)
@@ -72,5 +72,6 @@ public class Screen_ChangePattern extends AppCompatActivity {
 
         Intent intent = new Intent(this,Screen_Home.class);
         startActivity(intent);
+        finish();
     }
 }
