@@ -1,13 +1,8 @@
 package uk.ac.tees.v8036651.mode.FileViewer;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,6 +40,7 @@ public class Screen_FileViewer extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(getApplicationInfo().theme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_file_viewer);
         rootPath = getProjectDirectory();
