@@ -1,6 +1,7 @@
 package uk.ac.tees.v8036651.mode.FileViewer;
 
 import android.graphics.Color;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,9 +60,15 @@ public class TextAdapter extends BaseAdapter {
 
         if(selection != null) {
             if (selection[position]) {
-                ((LinearLayout) holder.textInfo.getParent()).setBackgroundColor(Color.LTGRAY);
+                TypedValue typedValue = new TypedValue();
+                parent.getContext().getTheme().resolveAttribute(R.attr.backgroundSelected, typedValue, true);
+                int color = typedValue.data;
+                ((LinearLayout) holder.textInfo.getParent()).setBackgroundColor(color);
             } else {
-                ((LinearLayout) holder.textInfo.getParent()).setBackgroundColor(Color.WHITE);
+                TypedValue typedValue = new TypedValue();
+                parent.getContext().getTheme().resolveAttribute(android.R.attr.colorBackground, typedValue, true);
+                int color = typedValue.data;
+                ((LinearLayout) holder.textInfo.getParent()).setBackgroundColor(color);
             }
         }
 

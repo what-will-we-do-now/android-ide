@@ -15,6 +15,7 @@
         <item name="android:colorBackground">@color/light_background</item>
         <item name="android:itemBackground">@color/light_background</item>
         <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless</item>
+        <item name="backgroundSelected">@color/light_selection</item>
     </style>
 
     <style name="darkTheme" parent="AppTheme">
@@ -25,6 +26,7 @@
         <item name="android:colorBackground">@color/dark_background</item>
         <item name="android:itemBackground">@color/light_text</item>
         <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless</item>
+        <item name="backgroundSelected">@color/dark_background</item>
     </style>
 
     <style name="FullscreenTheme" parent="AppTheme">
