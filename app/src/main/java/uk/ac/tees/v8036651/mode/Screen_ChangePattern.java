@@ -63,4 +63,14 @@ public class Screen_ChangePattern extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    public void resetPattern (View view)
+    {
+        prefEdit.putString("pattern", "");
+        prefEdit.commit();
+        System.out.println("Reset");
+
+        Intent intent = new Intent(this,Screen_Home.class);
+        startActivity(intent);
+    }
 }
