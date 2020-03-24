@@ -281,7 +281,6 @@ public class Screen_FileViewer extends AppCompatActivity {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                         refresh();
 
                     }
