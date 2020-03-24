@@ -153,8 +153,8 @@ public class Screen_Git_Commit extends AppCompatActivity {
     public void commit(View view){
         CommitCommand gcommit = Project.openedProject.getGit().commit();
         gcommit.setMessage(((NumberedTextView) findViewById(R.id.git_commit_message)).getText().toString());
-        GitCommitTask gct = new GitCommitTask(Screen_Git_Commit.this);
-        gct.execute(gcommit);
+        GitCommitTask gct = new GitCommitTask(Screen_Git_Commit.this, gcommit);
+        gct.execute();
         finish();
     }
 }

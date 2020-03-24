@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuCompat;
 
 import org.eclipse.jgit.api.PullCommand;
 import org.eclipse.jgit.api.PushCommand;
@@ -55,13 +56,21 @@ public class Screen_IDE extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.ide_toolbar_menu, menu);
 
+        MenuCompat.setGroupDividerEnabled(menu, true);
+
         Menu subMenu = menu.getItem(1).getSubMenu();
 
         if(Project.openedProject.hasGitSupport()){
             subMenu.getItem(3).setVisible(true);
+            subMenu.getItem(4).setVisible(true);
+            subMenu.getItem(5).setVisible(true);
+            subMenu.getItem(6).setVisible(true);
             subMenu.getItem(2).setVisible(false);
         }else{
             subMenu.getItem(3).setVisible(false);
+            subMenu.getItem(4).setVisible(false);
+            subMenu.getItem(5).setVisible(false);
+            subMenu.getItem(6).setVisible(false);
             subMenu.getItem(2).setVisible(true);
         }
 
@@ -128,7 +137,7 @@ public class Screen_IDE extends AppCompatActivity {
 
                 builder.show();
                 return true;
-            case R.id.git_nav:
+            case R.id.git_commit:
                 startActivity(new Intent(Screen_IDE.this, Screen_Git_Commit.class));
                 return true;
             case R.id.git_push:
@@ -140,6 +149,8 @@ public class Screen_IDE extends AppCompatActivity {
                 PullCommand gpull = Project.openedProject.getGit().pull();
                 GitPullTask gpullt = new GitPullTask(this, gpull);
                 gpullt.execute();
+                return true;
+            case R.id.git_nav:
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

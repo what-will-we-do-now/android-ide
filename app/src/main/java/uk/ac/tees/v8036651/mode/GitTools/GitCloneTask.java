@@ -40,23 +40,23 @@ public class GitCloneTask extends AsyncTask<Void, Integer, GitTaskStatus> {
         }catch(TransportException e) {
             Log.w("git", "Repository requires authentication", e);
             purge(downloadDirectory);
-            return GitTaskStatus.REQUIRES_AUTHENTICATION;
+            return GitTaskStatus.GENERIC_REQUIRES_AUTHENTICATION;
         } catch(InvalidRemoteException e){
             Log.e("git", "Remote repository not found", e);
             purge(downloadDirectory);
-            return GitTaskStatus.REMOTE_REPOSITORY_NOT_FOUND;
+            return GitTaskStatus.CLONE_REMOTE_REPOSITORY_NOT_FOUND;
         } catch (GitAPIException e) {
             //an error occured while processing
             Log.e("git", "Could not clone git repository", e);
             purge(downloadDirectory);
-            return GitTaskStatus.FAILURE;
+            return GitTaskStatus.GENERIC_FAILURE;
         }
-        return GitTaskStatus.SUCCESS;
+        return GitTaskStatus.GENERIC_SUCCESS;
     }
 
     @Override
     protected void onPostExecute(GitTaskStatus status) {
-        if(status.equals(GitTaskStatus.REQUIRES_AUTHENTICATION)){
+        if(status.equals(GitTaskStatus.GENERIC_REQUIRES_AUTHENTICATION)){
             GitTools.requestAuthentication(context, new Runnable() {
                 @Override
                 public void run() {
@@ -64,11 +64,11 @@ public class GitCloneTask extends AsyncTask<Void, Integer, GitTaskStatus> {
                     gt.execute();
                 }
             });
-        }else if(status.equals(GitTaskStatus.REMOTE_REPOSITORY_NOT_FOUND)){
+        }else if(status.equals(GitTaskStatus.CLONE_REMOTE_REPOSITORY_NOT_FOUND)){
             Toast.makeText(context, R.string.git_clone_error_remote_not_found, Toast.LENGTH_LONG).show();
-        }else if(status.equals(GitTaskStatus.FAILURE)){
+        }else if(status.equals(GitTaskStatus.GENERIC_FAILURE)){
             Toast.makeText(context, R.string.git_clone_error, Toast.LENGTH_LONG).show();
-        }else if(status.equals(GitTaskStatus.SUCCESS)){
+        }else if(status.equals(GitTaskStatus.GENERIC_SUCCESS)){
             Toast.makeText(context, R.string.git_clone_success, Toast.LENGTH_LONG).show();
         }
     }

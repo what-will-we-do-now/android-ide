@@ -29,22 +29,22 @@ public class GitPushTask extends AsyncTask<Void, Integer, GitTaskStatus> {
             push.call();
         } catch(TransportException e){
             Log.e("git", "Repository requires authentication", e);
-            return GitTaskStatus.REQUIRES_AUTHENTICATION;
+            return GitTaskStatus.GENERIC_REQUIRES_AUTHENTICATION;
         } catch (GitAPIException e) {
             Log.e("git", "Unable to push", e);
-            return GitTaskStatus.FAILURE;
+            return GitTaskStatus.GENERIC_FAILURE;
         }
-        return GitTaskStatus.SUCCESS;
+        return GitTaskStatus.GENERIC_SUCCESS;
     }
 
     @Override
     protected void onPostExecute(GitTaskStatus taskStatus) {
         super.onPostExecute(taskStatus);
-        if(taskStatus.equals(GitTaskStatus.SUCCESS)) {
+        if(taskStatus.equals(GitTaskStatus.GENERIC_SUCCESS)) {
             Toast.makeText(context, context.getResources().getString(R.string.git_push_message_successful), Toast.LENGTH_LONG).show();
-        }else if(taskStatus.equals(GitTaskStatus.FAILURE)){
+        }else if(taskStatus.equals(GitTaskStatus.GENERIC_FAILURE)){
             Toast.makeText(context, context.getResources().getString(R.string.git_push_message_failure), Toast.LENGTH_LONG).show();
-        }else if(taskStatus.equals(GitTaskStatus.REQUIRES_AUTHENTICATION)){
+        }else if(taskStatus.equals(GitTaskStatus.GENERIC_REQUIRES_AUTHENTICATION)){
             GitTools.requestAuthentication(context, new Runnable() {
                 @Override
                 public void run() {

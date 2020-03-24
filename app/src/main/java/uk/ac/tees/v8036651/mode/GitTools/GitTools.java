@@ -3,6 +3,9 @@ package uk.ac.tees.v8036651.mode.GitTools;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -36,6 +39,38 @@ public class GitTools {
         builder.setNegativeButton("Cancel", null);
 
         builder.show();
+    }
+
+    public static boolean hasInternet(Context context){
+        return isWiFiConnected(context) || isMobileDataConnected(context);
+    }
+
+    public static boolean isWiFiConnected(Context context){
+        ConnectivityManager conn = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        for(Network network : conn.getAllNetworks()){
+            NetworkInfo networkInfo = conn.getNetworkInfo(network);
+            if(networkInfo.getType() == ConnectivityManager.TYPE_WIFI){
+                if(networkInfo.isConnected()){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean isMobileDataConnected(Context context){
+        ConnectivityManager conn = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        for(Network network : conn.getAllNetworks()){
+            NetworkInfo networkInfo = conn.getNetworkInfo(network);
+            if(networkInfo.getType() == ConnectivityManager.TYPE_MOBILE){
+                if(networkInfo.isConnected()){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }
