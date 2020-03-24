@@ -396,6 +396,8 @@ public class Screen_FileViewer extends AppCompatActivity {
             filesList.add(projectFiles[i]);
         }
         textAdapter.setData(filesList);
+
+        selection = new boolean[filesFoundCount];
     }
 }
 
