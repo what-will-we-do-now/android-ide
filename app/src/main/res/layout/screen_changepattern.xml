@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Screen_Login"
+    tools:context=".Screen_ChangePattern"
     tools:layout_editor_absoluteY="81dp"
     >
 
@@ -25,28 +25,37 @@
         app:layout_constraintVertical_bias="0.21" />
 
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
-        android:onClick="updatePattern"
-        android:text="Update"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/patternView"
-        app:layout_constraintVertical_bias="0.492" />
 
-    <Button
-        android:id="@+id/Reset"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="resetPattern"
-        android:text="Reset"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="92dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button2"
-        app:layout_constraintTop_toBottomOf="@+id/patternView" />
+        android:gravity="center">
+        <Button
+            android:id="@+id/update"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="updatePattern"
+            android:text="@string/pattern_update"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/patternView" />
+
+        <Button
+            android:id="@+id/Reset"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="resetPattern"
+            android:text="@string/pattern_reset"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/update"
+            app:layout_constraintTop_toBottomOf="@+id/patternView" />
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

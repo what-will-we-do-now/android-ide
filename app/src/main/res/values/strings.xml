@@ -33,6 +33,9 @@
     <string name="directory_name">Directory Name</string>
     <string name="enterDirectoryName">Enter Directory Name:</string>
 
+    <string name="pattern_update">Update</string>
+    <string name="pattern_reset">Reset</string>
+
 
     <string name="git">Git</string>
     <string name="git_names_branch">Branch</string>
