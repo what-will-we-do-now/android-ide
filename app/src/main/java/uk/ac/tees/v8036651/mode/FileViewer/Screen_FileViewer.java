@@ -1,13 +1,8 @@
 package uk.ac.tees.v8036651.mode.FileViewer;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,9 +40,10 @@ public class Screen_FileViewer extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(getApplicationInfo().theme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_file_viewer);
-        rootPath = getCodeDirectory();
+        rootPath = getProjectDirectory();
     }
 
     private String currentPath;
@@ -129,10 +125,10 @@ public class Screen_FileViewer extends AppCompatActivity {
                         findViewById(R.id.delete_btt).setEnabled(true);
                     } else {
                         findViewById(R.id.delete_btt).setEnabled(false);
-                        longClick = true;
+                        longClick = false;
                     }
 
-                    return false;
+                    return true;
                 }
             });
 
@@ -221,6 +217,8 @@ public class Screen_FileViewer extends AppCompatActivity {
         }
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.file_viewer_toolbar_menu, menu);
@@ -283,7 +281,6 @@ public class Screen_FileViewer extends AppCompatActivity {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                         refresh();
 
                     }
@@ -329,10 +326,9 @@ public class Screen_FileViewer extends AppCompatActivity {
         }
     }
 
-    //returns string path to the main storage of the app
-    private String getCodeDirectory () {
-        File directory = new File(Objects.requireNonNull(getExternalFilesDir(null)).getAbsolutePath() + "/MoDE_Code_Directory");
-        return directory.getAbsolutePath();
+    //returns string path to the main storage of the project code
+    private String getProjectDirectory () {
+        return Project.openedProject.getRoot().getAbsolutePath();
     }
 
     public String loadActivity(String fileName){
@@ -395,6 +391,9 @@ public class Screen_FileViewer extends AppCompatActivity {
         for(int i=0; i < filesFoundCount; i++){
             filesList.add(projectFiles[i]);
         }
+
+        textAdapter.emptySelection();
+        selection = new boolean[filesFoundCount];
         textAdapter.setData(filesList);
     }
 }
