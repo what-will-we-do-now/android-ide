@@ -88,6 +88,7 @@
     <string name="project_new_main_name">Enter main file name</string>
 
     <string name="ide_file_open_error">Unable to open file</string>
+    <string name="ide_file_save_error">Unable to save file</string>
 
     <string name="title_activity_screen__preferences">Settings</string>
 

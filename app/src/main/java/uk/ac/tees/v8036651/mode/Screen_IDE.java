@@ -52,6 +52,8 @@ public class Screen_IDE extends AppCompatActivity {
         txtCode.setLanguage("java");
         if(getIntent().getExtras() != null && getIntent().getExtras().containsKey("OpenFile")){
 
+            fileName = getIntent().getStringExtra("OpenFile");
+
             String ret;
 
             File file = new File(getIntent().getStringExtra("OpenFile"));
@@ -127,12 +129,13 @@ public class Screen_IDE extends AppCompatActivity {
                     setFileNameDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            fileName = input.getText().toString();
+                            fileName = new File(Project.openedProject.getRoot(), input.getText().toString()).getAbsolutePath();
 
                             try {
                                 saveActivity(((NumberedTextView) findViewById(R.id.txtCode)).getText().toString(), fileName);
                             } catch (Exception e) {
-                                e.printStackTrace();
+                                Log.e("IDE", "Unable to save file", e);
+                                Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_file_save_error), Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -143,6 +146,13 @@ public class Screen_IDE extends AppCompatActivity {
                         }
                     });
                     setFileNameDialog.show();
+                }else{
+                    try {
+                        saveActivity(((NumberedTextView) findViewById(R.id.txtCode)).getText().toString(), fileName);
+                    } catch (Exception e) {
+                        Log.e("IDE", "Unable to save file", e);
+                        Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_file_save_error), Toast.LENGTH_LONG).show();
+                    }
                 }
 
 
@@ -194,7 +204,7 @@ public class Screen_IDE extends AppCompatActivity {
     //Saves files to specified directory
     public void saveActivity(String data, String fileName) throws Exception{
 
-        File file = new File(projectsDirectory, fileName);
+        File file = new File(fileName);
 
         FileOutputStream output = new FileOutputStream(file);
         OutputStreamWriter out = new OutputStreamWriter(output);
