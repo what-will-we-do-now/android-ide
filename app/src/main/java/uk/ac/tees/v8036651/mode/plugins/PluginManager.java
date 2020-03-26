@@ -1,15 +1,17 @@
 package uk.ac.tees.v8036651.mode.plugins;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import uk.ac.tees.v8036651.mode.GUI.NumberedTextView;
 import uk.ac.tees.v8036651.mode.plugins.languages.java;
@@ -29,7 +31,7 @@ public class PluginManager {
         plugins = new ArrayList<>();
     }
 
-    public static void load(Context context){
+    public static void load(){
 
         /* PLAN C */
 
@@ -150,4 +152,46 @@ public class PluginManager {
         }
         return "";
     }*/
+
+    public static ArrayList<String> getProjectTypes(){
+        ArrayList<String> projects = new ArrayList<>();
+
+        for(Plugin plugin : plugins){
+            projects.add(plugin.getName());
+        }
+
+        return projects;
+    }
+
+    public static Map<String, String> getTemplatesFor(String language){
+        for(Plugin plugin : plugins){
+            if(plugin.getName().equalsIgnoreCase(language)){
+                return plugin.getTemplateList();
+            }
+        }
+        Log.wtf("Plugin Manager", "No valid plugin found. This may be a bug. Using Fallback...");
+        Map<String, String> fallback = new HashMap<>();
+        fallback.put("EMPTY", "Empty file");
+        return fallback;
+    }
+
+    public static String getTemplate(String language, String templateID, Map<String, String> values){
+        for(Plugin plugin : plugins){
+            if(plugin.getName().equalsIgnoreCase(language)){
+                return plugin.getTemplate(templateID, values);
+            }
+        }
+        Log.wtf("Plugin Manager", "Language not found");
+        return "";
+    }
+
+    public static String getDefaultTemplate(String language, Map<String, String> values){
+        for(Plugin plugin : plugins){
+            if(plugin.getName().equalsIgnoreCase(language)){
+                return plugin.getTemplate(plugin.getMainTemplateID(), values);
+            }
+        }
+        Log.wtf("Plugin Manager", "Language not found");
+        return "";
+    }
 }

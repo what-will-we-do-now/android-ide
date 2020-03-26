@@ -42,6 +42,8 @@ public abstract class Plugin {
 
     public abstract String getName();
 
+    public abstract String getMainTemplateID();
+
     /**
      *
      * @param values a list of key-values pairs which should be used to generate the template

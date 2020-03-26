@@ -15,16 +15,12 @@ import com.andrognito.patternlockview.utils.PatternLockUtils;
 
 import java.util.List;
 
-import uk.ac.tees.v8036651.mode.plugins.PluginManager;
-
 public class Screen_Login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(getApplicationInfo().theme);
         super.onCreate(savedInstanceState);
-
-        PluginManager.load(this);
 
         SharedPreferences pref = getSharedPreferences("mode", Context.MODE_PRIVATE);
         final String pattern1 = pref.getString("pattern", "");

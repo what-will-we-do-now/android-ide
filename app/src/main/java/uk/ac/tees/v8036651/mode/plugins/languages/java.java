@@ -5,6 +5,8 @@
  */
 package uk.ac.tees.v8036651.mode.plugins.languages;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -95,19 +97,6 @@ public class java extends Plugin{
 
     @Override
     public ColorInfo[] formatText(String code, String type) {
-        /*
-        ArrayList<Integer> breakPoints = new ArrayList();
-
-        for(String token : TOKENS){
-            String codePart = code;
-            while(codePart.contains(token)){
-                int breakPoint = codePart.indexOf(token);
-                breakPoints.add(breakPoint);
-                codePart = codePart.substring(breakPoint);
-            }
-        }
-
-        */
 
         ArrayList<ColorInfo> formattedCode = new ArrayList<>();
 
@@ -157,37 +146,6 @@ public class java extends Plugin{
             formattedCode.add(new ColorInfo(offset, matcherStrings.end() - offset, PluginManager.COLOR_STRING, 1));
         }
 
-        /* pattern for detecting new linux line (\n), windows new line (\r\n), code separator (.) and line end (;) and word boundry
-         * for more info see https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html
-         */
-
-
-        /*//https://stackoverflow.com/questions/14735171/regex-to-tokenize-string-in-java-with-space-and-double-quotes
-        Matcher matcher = Pattern.compile("\\S").matcher(code);
-
-         while(matcher.find()){
-            int offset = matcher.start();
-            String token = matcher.group();
-            if(TOKENS.contains(token)){
-                formattedCode.add(new ColorInfo(offset, token.length(), 0x665E48));
-            }
-        }*/
-
-        /*
-        StringTokenizer tokenized = new StringTokenizer(code);
-        while(tokenized.hasMoreTokens()){
-            String token = tokenized.nextToken();
-            if(TOKENS.contains(token)){
-                formattedCode.add(new ColorInfo(tokenized.));
-                formattedCode.add(new CodeSnippetColor("665E48"));
-                formattedCode.add(new CodeSnippetString(token));
-                formattedCode.add(new CodeSnippetColor("FFFFFF"));
-            }else{
-                formattedCode.add(new CodeSnippetString(token));
-            }
-        }
-        */
-
         ColorInfo[] codeFinal = new ColorInfo[formattedCode.size()];
 
         for(int x = 0; x < formattedCode.size(); x++){
@@ -203,9 +161,14 @@ public class java extends Plugin{
     }
 
     @Override
+    public String getMainTemplateID() {
+        return "EMPTY_CLASS_MAIN";
+    }
+
+    @Override
     public String getTemplate(String templateID, Map<String, String> values) {
         if("EMPTY_CLASS_MAIN".equals(templateID)){
-            return "package " + values.get("package") + ";\n" +
+            return (values.containsKey("package") ? "package " + values.get("package") + ";\n" : "") +
                     "\n" +
                     "public class " + values.get("filename") + "{\n" +
                     "\n" +
@@ -216,25 +179,25 @@ public class java extends Plugin{
                     "    }\n" +
                     "}";
         }else if("EMPTY_CLASS".equals(templateID)){
-            return "package " + values.get("package") + ";\n" +
+            return (values.containsKey("package") ? "package " + values.get("package") + ";\n" : "") +
                     "\n" +
                     "public class " + values.get("filename") + "{\n" +
                     "\n" +
                     "}";
         }else if("EMPTY_INTERFACE".equals(templateID)){
-            return "package " + values.get("package") + ";\n" +
+            return (values.containsKey("package") ? "package " + values.get("package") + ";\n" : "") +
                     "\n" +
                     "public interface " + values.get("filename") + "{\n" +
                     "\n" +
                     "}";
         }else if("EMPTY_ENUM".equals(templateID)){
-            return "package " + values.get("package") + ";\n" +
+            return (values.containsKey("package") ? "package " + values.get("package") + ";\n" : "") +
                     "\n" +
                     "public enum " + values.get("filename") + "{\n" +
                     "\n" +
                     "}";
         }else if("EXCEPTION".equals(templateID)){
-            return "package " + values.get("package") + ";\n" +
+            return (values.containsKey("package") ? "package " + values.get("package") + ";\n" : "") +
                     "\n" +
                     "public class " + values.get("filename") + " extends Exception{\n" +
                     "\n" +
@@ -246,23 +209,10 @@ public class java extends Plugin{
                     "    }\n" +
                     "}";
         }
+        Log.wtf("Plugin Java", "TemplateID not found");
         return "";
     }
-    /*private ArrayList<Integer> getOffsetsFor(String code, String find){
-        ArrayList<Integer> offsets = new ArrayList();
-        int grandoffset = 0;
-        String subcode = code;
-        while(true){
-            int offset = subcode.indexOf(find);
-            if(offset == -1){
-                return offsets;
-            }else{
-                offsets.add(grandoffset + offset);
-                grandoffset = offset + find.length();
-                subcode = subcode.substring(offset + find.length());
-            }
-        }
-    }*/
+
     private ArrayList<Integer> getOffsetsFor(String code, String findRegex){
         Matcher matcher = Pattern.compile(findRegex).matcher(code);
         ArrayList<Integer> offsets = new ArrayList<>();

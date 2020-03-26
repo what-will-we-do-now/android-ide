@@ -153,8 +153,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                             } catch (IOException e) {
                                 Log.e("File Manager", "Failed to save new project configuration file", e);
                             }
-
-                            Screen_IDE.editTextContent =(loadActivity(filesList.get(position).getAbsolutePath()));
+                            intent.putExtra("OpenFile", filesList.get(position).getAbsolutePath());
                             startActivity(intent);
                         }
                     }

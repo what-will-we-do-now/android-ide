@@ -1,5 +1,6 @@
 package uk.ac.tees.v8036651.mode.Projects;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -10,10 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import uk.ac.tees.v8036651.mode.FileViewer.Screen_FileViewer;
@@ -82,38 +79,15 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectHolder>{
 
 
                 if(Project.openedProject.hasLastFile()){
-
-                    String ret;
-
-                    try{
-                        InputStream input = new FileInputStream(Project.openedProject.getLastFile());
-
-                        InputStreamReader inp = new InputStreamReader(input);
-                        BufferedReader reader = new BufferedReader(inp);
-                        String receiveString;
-                        StringBuilder str = new StringBuilder();
-
-                        while( (receiveString = reader.readLine()) != null){
-                            str.append(receiveString).append("\n");
-                        }
-
-                        ret = str.toString();
-
-
-                        input.close();
-                        inp.close();
-                        reader.close();
-                    }
-                    catch(Exception e){
-                        e.printStackTrace();
-                        ret = null;
-                    }
-                    Screen_IDE.editTextContent = ret;
-                    recyclerView.getContext().startActivity(new Intent(recyclerView.getContext(), Screen_IDE.class));
+                    Intent screenIDE = new Intent(recyclerView.getContext(), Screen_IDE.class);
+                    screenIDE.putExtra("OpenFile", Project.openedProject.getLastFile().getAbsolutePath());
+                    recyclerView.getContext().startActivity(screenIDE);
+                    ((Activity)recyclerView.getContext()).finish();
 
                 }else {
                     // TODO add ability to change directory in which file manager is opened
                     recyclerView.getContext().startActivity(new Intent(recyclerView.getContext(), Screen_FileViewer.class));
+                    ((Activity)recyclerView.getContext()).finish();
                 }
             }
         });

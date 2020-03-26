@@ -5,21 +5,31 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import uk.ac.tees.v8036651.mode.FileViewer.Screen_FileViewer;
 import uk.ac.tees.v8036651.mode.GitTools.GitCloneTask;
 import uk.ac.tees.v8036651.mode.Projects.Project;
+import uk.ac.tees.v8036651.mode.plugins.PluginManager;
 
 public class Screen_Home extends AppCompatActivity {
     @Override
@@ -37,7 +47,7 @@ public class Screen_Home extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(Project.openedProject == null){
+        if(Project.openedProject == null || Project.openedProject.getLastFile() == null){
             findViewById(R.id.btnGotoCode).setVisibility(View.GONE);
         }else{
             findViewById(R.id.btnGotoCode).setVisibility(View.VISIBLE);
@@ -57,6 +67,13 @@ public class Screen_Home extends AppCompatActivity {
 
         builder.setView(dialogue);
 
+        // fill in list of project types
+        Spinner projectTypes = dialogue.findViewById(R.id.project_type);
+
+        ArrayAdapter content = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, PluginManager.getProjectTypes());
+
+        projectTypes.setAdapter(content);
+
         final EditText projectName = dialogue.findViewById(R.id.project_name);
 
         builder.setPositiveButton("Create Project", new DialogInterface.OnClickListener() {
@@ -69,10 +86,50 @@ public class Screen_Home extends AppCompatActivity {
 
                 Project.openedProject = new Project(projectName.getText().toString(), projectFile);
 
+                String projectLanguage = ((Spinner)dialogue.findViewById(R.id.project_type)).getSelectedItem().toString();
 
-                //open the file manager
-                //TODO add change path to where FileViewer is showing
-                startActivity(new Intent(Screen_Home.this, Screen_FileViewer.class));
+                try {
+                    Project.openedProject.setLanguage(projectLanguage);
+                } catch (IOException e) {
+                    Log.e("Project", "Unable to set language", e);
+                }
+
+                boolean createMain = ((CheckBox) dialogue.findViewById(R.id.project_main_make)).isChecked();
+
+                if(createMain){
+
+                    String filename = ((EditText) dialogue.findViewById(R.id.project_main_name)).getText().toString();
+
+                    //TODO remove hardcoded JAVA and get the file extension from Plugin Manager
+                    File mainFile = new File(Project.openedProject.getSrc(), filename + ".java");
+
+                    Map<String, String> values = new HashMap<>();
+
+                    values.put("filename", filename);
+
+                    FileOutputStream output = null;
+                    try {
+                        output = new FileOutputStream(mainFile);
+                        OutputStreamWriter out = new OutputStreamWriter(output);
+                        out.write(PluginManager.getDefaultTemplate(projectLanguage, values));
+                        out.flush();
+                        out.close();
+                        output.flush();
+                        output.close();
+                        Project.openedProject.setLastFile(mainFile);
+                    } catch (IOException e) {
+                        Log.e("Project","Unable to automatically create default file", e);
+                        startActivity(new Intent(Screen_Home.this, Screen_FileViewer.class));
+                    }
+
+                    Intent screenIDE = new Intent(Screen_Home.this, Screen_IDE.class);
+                    screenIDE.putExtra("OpenFile", mainFile.getAbsolutePath());
+                    startActivity(screenIDE);
+                }else {
+                    //open the file manager
+                    //TODO add change path to where FileViewer is showing
+                    startActivity(new Intent(Screen_Home.this, Screen_FileViewer.class));
+                }
             }
         });
 
@@ -80,6 +137,7 @@ public class Screen_Home extends AppCompatActivity {
 
         final AlertDialog dialog = builder.show();
 
+        // add validation for project name already in use
         projectName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -105,11 +163,14 @@ public class Screen_Home extends AppCompatActivity {
 
             }
         });
+
+
+
     }
 
     public void openIDE(View view){
-
         Intent intent = new Intent(this, Screen_IDE.class);
+        intent.putExtra("OpenFile", Project.openedProject.getLastFile().getAbsolutePath());
         startActivity(intent);
     }
 
@@ -163,7 +224,7 @@ public class Screen_Home extends AppCompatActivity {
         final AlertDialog dialog = builder.show();
 
 
-        //check that the project already doesn't exist!
+        //check that the project name isn't already taken.
         projectName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
