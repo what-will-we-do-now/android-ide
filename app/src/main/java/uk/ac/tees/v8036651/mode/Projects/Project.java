@@ -20,6 +20,7 @@ public class Project {
     private File root;
     private Git git;
     private File src;
+    private String language;
 
     private File lastFile;
     private Properties prop;
@@ -56,6 +57,9 @@ public class Project {
             if(prop.getProperty("lastFile") != null) {
                 lastFile = new File(root, prop.getProperty("lastFile"));
             }
+            if(prop.getProperty("language") != null){
+                language = prop.getProperty("language");
+            }
 
         } catch (IOException e) {
             Log.w("project", "Could not load project.settings file", e);
@@ -84,6 +88,8 @@ public class Project {
         return lastFile != null;
     }
 
+    public String getLanguage(){ return language; }
+
     public File getLastFile(){
         return lastFile;
     }
@@ -96,6 +102,13 @@ public class Project {
     public void setLastFile(File file) throws IOException {
         lastFile = file;
         prop.setProperty("lastFile", file.getAbsolutePath().substring(root.getAbsolutePath().length()));
+        FileOutputStream os = new FileOutputStream(new File(root, "project.settings"));
+        prop.storeToXML(os, "");
+    }
+
+    public void setLanguage(String language) throws IOException {
+        this.language = language;
+        prop.setProperty("language", language);
         FileOutputStream os = new FileOutputStream(new File(root, "project.settings"));
         prop.storeToXML(os, "");
     }

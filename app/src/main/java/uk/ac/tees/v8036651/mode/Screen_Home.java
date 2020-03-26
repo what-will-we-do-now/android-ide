@@ -86,6 +86,14 @@ public class Screen_Home extends AppCompatActivity {
 
                 Project.openedProject = new Project(projectName.getText().toString(), projectFile);
 
+                String projectLanguage = ((Spinner)dialogue.findViewById(R.id.project_type)).getSelectedItem().toString();
+
+                try {
+                    Project.openedProject.setLanguage(projectLanguage);
+                } catch (IOException e) {
+                    Log.e("Project", "Unable to set language", e);
+                }
+
                 boolean createMain = ((CheckBox) dialogue.findViewById(R.id.project_main_make)).isChecked();
 
                 if(createMain){
@@ -95,7 +103,6 @@ public class Screen_Home extends AppCompatActivity {
                     //TODO remove hardcoded JAVA and get the file extension from Plugin Manager
                     File mainFile = new File(Project.openedProject.getSrc(), filename + ".java");
 
-                    String projectLanguage = ((Spinner)dialogue.findViewById(R.id.project_type)).getSelectedItem().toString();
                     Map<String, String> values = new HashMap<>();
 
                     values.put("filename", filename);
