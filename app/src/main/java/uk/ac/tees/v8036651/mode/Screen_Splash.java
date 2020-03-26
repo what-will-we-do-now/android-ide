@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
 
+import uk.ac.tees.v8036651.mode.plugins.PluginManager;
+
 public class Screen_Splash extends AppCompatActivity {
     private static int SPLASH_TIME_OUT = 1000;
 
@@ -28,9 +30,10 @@ public class Screen_Splash extends AppCompatActivity {
             getApplicationInfo().theme = R.style.lightTheme;
         }
 
-
-
         setTheme(getApplicationInfo().theme);
+
+
+        PluginManager.load();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_splash);

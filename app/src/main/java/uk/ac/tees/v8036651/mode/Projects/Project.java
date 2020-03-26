@@ -19,6 +19,7 @@ public class Project {
     private String name;
     private File root;
     private Git git;
+    private File src;
 
     private File lastFile;
     private Properties prop;
@@ -30,11 +31,17 @@ public class Project {
     public Project(String name, File root, Git git) {
         this.name = name;
         this.root = root;
+        this.src = new File(root, "src");
+        if(!this.src.exists()){
+            if(!this.src.mkdirs()){
+                Log.w("project", "Could not create src directory in the project.");
+            }
+        }
         if(git == null){
             try {
                 this.git = Git.open(root);
             } catch (IOException e) {
-                Log.w("project", "An error occured while trying to open local git repository. (Most likely not a repository)", e);
+                Log.w("project", "An error occurred while trying to open local git repository. (Most likely not a repository)", e);
                 this.git = null;
             }
         }else {
@@ -67,6 +74,8 @@ public class Project {
         return root;
     }
 
+    public File getSrc(){ return src; }
+
     public Git getGit() {
         return git;
     }
@@ -92,7 +101,7 @@ public class Project {
     }
 
     public void delete(){
-        if(openedProject == this){
+        if(openedProject.getName().equals(this.name)){
             openedProject = null;
         }
         purge(root);

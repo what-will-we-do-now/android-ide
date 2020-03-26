@@ -12,9 +12,16 @@
         <item name="android:textColor">@color/light_text</item>
         <item name="android:textColorPrimary">@color/light_text</item>
         <item name="android:textColorSecondary">@color/light_text</item>
+        <item name="android:buttonTint">@color/light_text</item>
         <item name="android:colorBackground">@color/light_background</item>
         <item name="android:itemBackground">@color/light_background</item>
         <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless</item>
+        <item name="android:checkboxStyle">@style/lightTheme.CheckBox</item>
+    </style>
+
+    <!-- Tweak to checkbox -->
+    <style name="lightTheme.CheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/light_text</item>
     </style>
 
     <style name="darkTheme" parent="AppTheme">
@@ -22,9 +29,17 @@
         <item name="android:textColor">@color/dark_text</item>
         <item name="android:textColorPrimary">@color/dark_text</item>
         <item name="android:textColorSecondary">@color/dark_text</item>
+        <item name="android:buttonTint">@color/dark_text</item>
         <item name="android:colorBackground">@color/dark_background</item>
         <item name="android:itemBackground">@color/light_text</item>
         <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless</item>
+        <item name="android:checkboxStyle">@style/darkTheme.CheckBox</item>
+    </style>
+
+    <!-- Tweak to checkbox -->
+    <style name="darkTheme.CheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/dark_text</item>
+        <item name="android:buttonTint">@color/colorAccent</item>
     </style>
 
     <style name="FullscreenTheme" parent="AppTheme">

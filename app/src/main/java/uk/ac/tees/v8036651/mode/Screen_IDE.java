@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,8 +19,12 @@ import androidx.core.view.MenuCompat;
 import org.eclipse.jgit.api.PullCommand;
 import org.eclipse.jgit.api.PushCommand;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 import uk.ac.tees.v8036651.mode.FileViewer.Screen_FileViewer;
@@ -32,7 +37,6 @@ public class Screen_IDE extends AppCompatActivity {
 
     public static String projectsDirectory = "";
     private static String fileName = null;
-    public static String editTextContent = "";
 
     @androidx.annotation.RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -46,9 +50,38 @@ public class Screen_IDE extends AppCompatActivity {
         NumberedTextView txtCode = (NumberedTextView) findViewById(R.id.txtCode);
 
         txtCode.setLanguage("java");
+        if(getIntent().getExtras() != null && getIntent().getExtras().containsKey("OpenFile")){
 
-        txtCode.setText(editTextContent);
+            String ret;
 
+            File file = new File(getIntent().getStringExtra("OpenFile"));
+
+            try{
+                InputStream input = new FileInputStream(file);
+
+                InputStreamReader inp = new InputStreamReader(input);
+                BufferedReader reader = new BufferedReader(inp);
+                String receiveString;
+                StringBuilder str = new StringBuilder();
+
+                while( (receiveString = reader.readLine()) != null){
+                    str.append(receiveString).append("\n");
+                }
+
+                ret = str.toString();
+
+
+                input.close();
+                inp.close();
+                reader.close();
+            }
+            catch(Exception e){
+                Log.e("IDE", "Unable to read file", e);
+                Toast.makeText(this, getResources().getString(R.string.ide_file_open_error), Toast.LENGTH_LONG).show();
+                ret = "";
+            }
+            txtCode.setText(ret);
+        }
         txtCode.setHorizontallyScrolling(true);
     }
 
