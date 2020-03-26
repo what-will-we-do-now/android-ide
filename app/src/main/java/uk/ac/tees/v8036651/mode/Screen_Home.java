@@ -109,10 +109,12 @@ public class Screen_Home extends AppCompatActivity {
                         out.close();
                         output.flush();
                         output.close();
+                        Project.openedProject.setLastFile(mainFile);
                     } catch (IOException e) {
                         Log.e("Project","Unable to automatically create default file", e);
                         startActivity(new Intent(Screen_Home.this, Screen_FileViewer.class));
                     }
+
                     Intent screenIDE = new Intent(Screen_Home.this, Screen_IDE.class);
                     screenIDE.putExtra("OpenFile", mainFile.getAbsolutePath());
                     startActivity(screenIDE);
