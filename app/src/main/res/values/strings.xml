@@ -91,8 +91,9 @@
     <string name="ide_file_save_error">Unable to save file</string>
     <string name="ide_close_no_save_title">Close without saving changes</string>
     <string name="ide_close_no_save_text">Are you sure you want to close, without saving changes</string>
-    <string name="ide_close_option_yes">Yes</string>
-    <string name="ide_close_option_no">No</string>
+    <string name="ide_close_option_yes_and_save">Close and save</string>
+    <string name="ide_close_option_yes_and_discard">Close without saving</string>
+    <string name="ide_close_option_no">Cancel</string>
 
     <string name="title_activity_screen__preferences">Settings</string>
 
