@@ -142,48 +142,7 @@ public class Screen_IDE extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.save_code:
-                Toast.makeText(this, "Saving", Toast.LENGTH_SHORT).show();
-
-                if (fileName == null){
-                    final AlertDialog.Builder setFileNameDialog = new AlertDialog.Builder(Screen_IDE.this);
-                    View inflater = LayoutInflater.from(this).inflate(R.layout.set_file_name_alert_dialog, null);
-
-                    final EditText input = (EditText) inflater.findViewById(R.id.fileNameEditText);
-
-                    setFileNameDialog.setView(inflater);
-                    setFileNameDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            fileName = new File(Project.openedProject.getRoot(), input.getText().toString()).getAbsolutePath();
-
-                            try {
-                                saveActivity(((NumberedTextView) findViewById(R.id.txtCode)).getText().toString(), fileName);
-                                saveAvailable = false;
-                                invalidateOptionsMenu();
-                            } catch (Exception e) {
-                                Log.e("IDE", "Unable to save file", e);
-                                Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_file_save_error), Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-                    setFileNameDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-                    setFileNameDialog.show();
-                }else{
-                    try {
-                        saveActivity(((NumberedTextView) findViewById(R.id.txtCode)).getText().toString(), fileName);
-                        saveAvailable = false;
-                        invalidateOptionsMenu();
-                    } catch (Exception e) {
-                        Log.e("IDE", "Unable to save file", e);
-                        Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_file_save_error), Toast.LENGTH_LONG).show();
-                    }
-                }
-
+                saveChanges();
 
                 return true;
             case R.id.settings_nav:
@@ -229,6 +188,74 @@ public class Screen_IDE extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        if(saveAvailable) {
+            new AlertDialog.Builder(this)
+                    .setTitle(getResources().getString(R.string.ide_close_no_save_title))
+                    .setMessage(getResources().getString(R.string.ide_close_no_save_text))
+                    .setPositiveButton(getResources().getString(R.string.ide_close_option_yes_and_save), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            saveChanges();
+                            finish();
+                        }
+                    }).setNegativeButton(getResources().getString(R.string.ide_close_option_yes_and_discard), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    }).setNeutralButton(getResources().getString(R.string.ide_close_option_no), null)
+                    .show();
+        }else{
+            super.onBackPressed();
+        }
+    }
+
+    private void saveChanges(){
+
+        Toast.makeText(this, "Saving", Toast.LENGTH_SHORT).show();
+
+        if (fileName == null){
+            final AlertDialog.Builder setFileNameDialog = new AlertDialog.Builder(Screen_IDE.this);
+            View inflater = LayoutInflater.from(this).inflate(R.layout.set_file_name_alert_dialog, null);
+
+            final EditText input = (EditText) inflater.findViewById(R.id.fileNameEditText);
+
+            setFileNameDialog.setView(inflater);
+            setFileNameDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    fileName = new File(Project.openedProject.getRoot(), input.getText().toString()).getAbsolutePath();
+
+                    try {
+                        saveActivity(((NumberedTextView) findViewById(R.id.txtCode)).getText().toString(), fileName);
+                        saveAvailable = false;
+                        invalidateOptionsMenu();
+                    } catch (Exception e) {
+                        Log.e("IDE", "Unable to save file", e);
+                        Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_file_save_error), Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+            setFileNameDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            setFileNameDialog.show();
+        }else{
+            try {
+                saveActivity(((NumberedTextView) findViewById(R.id.txtCode)).getText().toString(), fileName);
+                saveAvailable = false;
+                invalidateOptionsMenu();
+            } catch (Exception e) {
+                Log.e("IDE", "Unable to save file", e);
+                Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_file_save_error), Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 
     //Saves files to specified directory
     public void saveActivity(String data, String fileName) throws Exception{

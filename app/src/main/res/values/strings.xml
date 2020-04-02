@@ -89,6 +89,11 @@
 
     <string name="ide_file_open_error">Unable to open file</string>
     <string name="ide_file_save_error">Unable to save file</string>
+    <string name="ide_close_no_save_title">Do you want to save your changes?</string>
+    <string name="ide_close_no_save_text"></string>
+    <string name="ide_close_option_yes_and_save">Save and close</string>
+    <string name="ide_close_option_yes_and_discard">Close without saving</string>
+    <string name="ide_close_option_no">Cancel</string>
 
     <string name="title_activity_screen__preferences">Settings</string>
 
