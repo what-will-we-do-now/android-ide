@@ -229,6 +229,24 @@ public class Screen_IDE extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        if(saveAvailable) {
+            new AlertDialog.Builder(this)
+                    .setTitle(getResources().getString(R.string.ide_close_no_save_title))
+                    .setMessage(getResources().getString(R.string.ide_close_no_save_text))
+                    .setPositiveButton(getResources().getString(R.string.ide_close_option_yes), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    }).setNegativeButton(getResources().getString(R.string.ide_close_option_no), null)
+                    .show();
+        }else{
+            super.onBackPressed();
+        }
+    }
+
 
     //Saves files to specified directory
     public void saveActivity(String data, String fileName) throws Exception{
