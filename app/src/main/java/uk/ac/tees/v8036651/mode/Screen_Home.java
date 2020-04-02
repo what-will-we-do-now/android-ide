@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -69,6 +70,10 @@ public class Screen_Home extends AppCompatActivity {
 
         // fill in list of project types
         Spinner projectTypes = dialogue.findViewById(R.id.project_type);
+        CheckBox mainCreate = dialogue.findViewById(R.id.project_main_make);
+        mainCreate.setChecked(true);
+        EditText mainName = dialogue.findViewById(R.id.project_main_name);
+        mainName.setText("main");
 
         ArrayAdapter content = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, PluginManager.getProjectTypes());
 
@@ -148,13 +153,14 @@ public class Screen_Home extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
                     projectName.setError("Project must have name!");
-                    dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setEnabled(false);
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                 }else if((new File(new File(getExternalFilesDir(null), "MoDE_Code_Directory"), s.toString())).exists()){
                     projectName.setError("Project already exists!");
-                    dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setEnabled(false);
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                 }else{
                     projectName.setError(null);
-                    dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setEnabled(true);
+                    //only enable if main name is valid or is not being created
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(mainName.getVisibility() != View.VISIBLE || mainName.getError() == null);
                 }
             }
 
@@ -165,6 +171,50 @@ public class Screen_Home extends AppCompatActivity {
         });
 
 
+        mainCreate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked) {
+                    dialog.findViewById(R.id.project_main_name_text).setVisibility(View.GONE);
+                    mainName.setError(null);
+                    mainName.setVisibility(View.GONE);
+                    //trigger text watcher to check if main name is allowed
+                    projectName.setText(projectName.getText());
+                }else{
+                    dialog.findViewById(R.id.project_main_name_text).setVisibility(View.VISIBLE);
+                    mainName.setVisibility(View.VISIBLE);
+                    //trigger text watcher to check if main name is allowed
+                    mainName.setText(mainName.getText());
+                    projectName.setText(projectName.getText());
+                }
+            }
+        });
+
+
+
+        mainName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length() == 0){
+                    mainName.setError("Main file must have a name");
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                }else{
+                    mainName.setError(null);
+                    //only enable if project name is valid
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(projectName.getError() == null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
     }
 
