@@ -71,7 +71,9 @@ public class Screen_Home extends AppCompatActivity {
         // fill in list of project types
         Spinner projectTypes = dialogue.findViewById(R.id.project_type);
         CheckBox mainCreate = dialogue.findViewById(R.id.project_main_make);
+        mainCreate.setChecked(true);
         EditText mainName = dialogue.findViewById(R.id.project_main_name);
+        mainName.setText("main");
 
         ArrayAdapter content = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, PluginManager.getProjectTypes());
 
