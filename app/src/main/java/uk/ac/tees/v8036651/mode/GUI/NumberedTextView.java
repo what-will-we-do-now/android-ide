@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -35,6 +36,8 @@ public class NumberedTextView extends AppCompatEditText {
         paint.setTextSize(getTextSize());
         setWillNotDraw(false);
 
+        setTypeface(Typeface.MONOSPACE);
+
         TypedValue typedValue = new TypedValue();
 
         context.getTheme().resolveAttribute(android.R.attr.textColor, typedValue, true);
@@ -54,6 +57,8 @@ public class NumberedTextView extends AppCompatEditText {
         paint.setTextSize(getTextSize());
         setWillNotDraw(false);
 
+        setTypeface(Typeface.MONOSPACE);
+
         TypedValue typedValue = new TypedValue();
 
         context.getTheme().resolveAttribute(android.R.attr.textColor, typedValue, true);
@@ -69,6 +74,8 @@ public class NumberedTextView extends AppCompatEditText {
         paint.setStyle(Paint.Style.FILL);
         paint.setTextSize(getTextSize());
         setWillNotDraw(false);
+
+        setTypeface(Typeface.MONOSPACE);
 
         TypedValue typedValue = new TypedValue();
 
