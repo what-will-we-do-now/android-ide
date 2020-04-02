@@ -282,7 +282,7 @@ public class NumberedTextView extends AppCompatEditText {
         public boolean onKey(View v, int keyCode, KeyEvent event) {
             if(!event.isCanceled() && keyCode == KeyEvent.KEYCODE_TAB && event.getAction() == KeyEvent.ACTION_UP){
                 NumberedTextView txtCode = ((NumberedTextView) v);
-                txtCode.getText().insert(txtCode.getSelectionStart(), "    ");
+                txtCode.getText().insert(txtCode.getSelectionStart(), "  ");
                 return true;
             }
             return false;
