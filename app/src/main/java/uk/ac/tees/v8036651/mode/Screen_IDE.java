@@ -4,6 +4,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,6 +40,8 @@ public class Screen_IDE extends AppCompatActivity {
     public static String projectsDirectory = "";
     private static String fileName = null;
 
+    private boolean saveAvailable = false;
+
     @androidx.annotation.RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +51,7 @@ public class Screen_IDE extends AppCompatActivity {
 
         projectsDirectory = getExternalFilesDir(null).getAbsolutePath() + "/MoDE_Code_Directory";
 
-        NumberedTextView txtCode = (NumberedTextView) findViewById(R.id.txtCode);
+        NumberedTextView txtCode = findViewById(R.id.txtCode);
 
         txtCode.setLanguage("java");
         if(getIntent().getExtras() != null && getIntent().getExtras().containsKey("OpenFile")){
@@ -85,6 +89,24 @@ public class Screen_IDE extends AppCompatActivity {
             txtCode.setText(ret);
         }
         txtCode.setHorizontallyScrolling(true);
+
+        txtCode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Screen_IDE.this.saveAvailable = true;
+                Screen_IDE.this.invalidateOptionsMenu();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
@@ -92,6 +114,9 @@ public class Screen_IDE extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.ide_toolbar_menu, menu);
 
         MenuCompat.setGroupDividerEnabled(menu, true);
+
+        menu.getItem(0).setVisible(saveAvailable);
+        menu.getItem(0).setEnabled(saveAvailable);
 
         Menu subMenu = menu.getItem(1).getSubMenu();
 
@@ -133,6 +158,8 @@ public class Screen_IDE extends AppCompatActivity {
 
                             try {
                                 saveActivity(((NumberedTextView) findViewById(R.id.txtCode)).getText().toString(), fileName);
+                                saveAvailable = false;
+                                invalidateOptionsMenu();
                             } catch (Exception e) {
                                 Log.e("IDE", "Unable to save file", e);
                                 Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_file_save_error), Toast.LENGTH_LONG).show();
@@ -149,6 +176,8 @@ public class Screen_IDE extends AppCompatActivity {
                 }else{
                     try {
                         saveActivity(((NumberedTextView) findViewById(R.id.txtCode)).getText().toString(), fileName);
+                        saveAvailable = false;
+                        invalidateOptionsMenu();
                     } catch (Exception e) {
                         Log.e("IDE", "Unable to save file", e);
                         Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_file_save_error), Toast.LENGTH_LONG).show();
