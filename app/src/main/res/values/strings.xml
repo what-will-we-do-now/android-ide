@@ -34,7 +34,7 @@
     <string name="enterDirectoryName">Enter Directory Name:</string>
 
     <string name="pattern_update">Update</string>
-    <string name="pattern_reset">Reset</string>
+    <string name="pattern_reset">Remove</string>
 
 
     <string name="git">Git</string>
