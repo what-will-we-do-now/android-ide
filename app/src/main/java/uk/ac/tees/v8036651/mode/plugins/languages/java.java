@@ -172,11 +172,11 @@ public class java extends Plugin{
                     "\n" +
                     "public class " + values.get("filename") + "{\n" +
                     "\n" +
-                    "    public static void main(String[] args){\n" +
+                    "  public static void main(String[] args){\n" +
                     "\n" +
-                    "        //TODO implement main code\n" +
+                    "    //TODO implement main code\n" +
                     "\n" +
-                    "    }\n" +
+                    "  }\n" +
                     "}";
         }else if("EMPTY_CLASS".equals(templateID)){
             return (values.containsKey("package") ? "package " + values.get("package") + ";\n" : "") +
@@ -201,12 +201,12 @@ public class java extends Plugin{
                     "\n" +
                     "public class " + values.get("filename") + " extends Exception{\n" +
                     "\n" +
-                    "    public " + values.get("filename") + "() {\n" +
-                    "    }\n" +
+                    "  public " + values.get("filename") + "() {\n" +
+                    "  }\n" +
                     "\n" +
-                    "    public " + values.get("filename") + "(String msg) {\n" +
-                    "        super(msg);\n" +
-                    "    }\n" +
+                    "  public " + values.get("filename") + "(String msg) {\n" +
+                    "    super(msg);\n" +
+                    "  }\n" +
                     "}";
         }
         Log.wtf("Plugin Java", "TemplateID not found");
