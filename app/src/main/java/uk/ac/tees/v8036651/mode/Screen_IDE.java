@@ -25,6 +25,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -58,35 +59,15 @@ public class Screen_IDE extends AppCompatActivity {
 
             fileName = getIntent().getStringExtra("OpenFile");
 
-            String ret;
-
             File file = new File(getIntent().getStringExtra("OpenFile"));
 
             try{
-                InputStream input = new FileInputStream(file);
-
-                InputStreamReader inp = new InputStreamReader(input);
-                BufferedReader reader = new BufferedReader(inp);
-                String receiveString;
-                StringBuilder str = new StringBuilder();
-
-                while( (receiveString = reader.readLine()) != null){
-                    str.append(receiveString).append("\n");
-                }
-
-                ret = str.toString();
-
-
-                input.close();
-                inp.close();
-                reader.close();
+                txtCode.setText(loadFile(file));
             }
             catch(Exception e){
                 Log.e("IDE", "Unable to read file", e);
                 Toast.makeText(this, getResources().getString(R.string.ide_file_open_error), Toast.LENGTH_LONG).show();
-                ret = "";
             }
-            txtCode.setText(ret);
         }
         txtCode.setHorizontallyScrolling(true);
 
@@ -177,9 +158,67 @@ public class Screen_IDE extends AppCompatActivity {
                 gpusht.execute();
                 return true;
             case R.id.git_pull:
-                PullCommand gpull = Project.openedProject.getGit().pull();
-                GitPullTask gpullt = new GitPullTask(this, gpull);
-                gpullt.execute();
+                if(saveAvailable){
+                    new AlertDialog.Builder(this)
+                            .setTitle(getResources().getString(R.string.ide_continue_save_title))
+                            .setMessage(getResources().getString(R.string.ide_continue_save_message))
+                            .setPositiveButton(getResources().getString(R.string.ide_continue_save_save), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    saveChanges();
+                                    PullCommand gpull = Project.openedProject.getGit().pull();
+                                    GitPullTask gpullt = new GitPullTask(Screen_IDE.this, gpull, new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                ((NumberedTextView)Screen_IDE.this.findViewById(R.id.txtCode)).setText(loadFile(new File(fileName)));
+                                                saveAvailable = false;
+                                            } catch (IOException e) {
+                                                Log.e("IDE", "Unable to read file", e);
+                                                Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_file_open_error), Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    });
+                                    gpullt.execute();
+                                }
+                            })
+                            .setNegativeButton(getResources().getString(R.string.ide_continue_save_continue), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    PullCommand gpull = Project.openedProject.getGit().pull();
+                                    GitPullTask gpullt = new GitPullTask(Screen_IDE.this, gpull, new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                ((NumberedTextView)Screen_IDE.this.findViewById(R.id.txtCode)).setText(loadFile(new File(fileName)));
+                                                saveAvailable = false;
+                                            } catch (IOException e) {
+                                                Log.e("IDE", "Unable to read file", e);
+                                                Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_file_open_error), Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    });
+                                    gpullt.execute();
+                                }
+                            })
+                            .setNeutralButton(getResources().getString(R.string.ide_continue_save_cancel), null)
+                            .show();
+                }else {
+                    PullCommand gpull = Project.openedProject.getGit().pull();
+                    GitPullTask gpullt = new GitPullTask(this, gpull, new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                ((NumberedTextView)Screen_IDE.this.findViewById(R.id.txtCode)).setText(loadFile(new File(fileName)));
+                                saveAvailable = false;
+                            } catch (IOException e) {
+                                Log.e("IDE", "Unable to read file", e);
+                                Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_file_open_error), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                    gpullt.execute();
+                }
                 return true;
             case R.id.git_nav:
                 return true;
@@ -255,6 +294,27 @@ public class Screen_IDE extends AppCompatActivity {
                 Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_file_save_error), Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    private String loadFile(File file) throws IOException {
+        InputStream input = new FileInputStream(file);
+
+        InputStreamReader inp = new InputStreamReader(input);
+        BufferedReader reader = new BufferedReader(inp);
+        String receiveString;
+        StringBuilder str = new StringBuilder();
+
+        while( (receiveString = reader.readLine()) != null){
+            str.append(receiveString).append("\n");
+        }
+
+        String ret = str.toString();
+
+
+        input.close();
+        inp.close();
+        reader.close();
+        return ret;
     }
 
     //Saves files to specified directory

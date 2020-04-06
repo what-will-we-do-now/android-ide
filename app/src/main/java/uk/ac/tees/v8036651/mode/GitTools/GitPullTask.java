@@ -16,10 +16,16 @@ public class GitPullTask extends AsyncTask<Void, Integer, GitTaskStatus> {
 
     private Context context;
     private PullCommand pull;
+    private Runnable postExec;
 
-    public GitPullTask(Context context, PullCommand pull) {
+    public GitPullTask(Context context, PullCommand pull){
+        this(context, pull, null);
+    }
+
+    public GitPullTask(Context context, PullCommand pull, Runnable postExec) {
         this.context = context;
         this.pull = pull;
+        this.postExec = postExec;
     }
 
     @Override
@@ -48,10 +54,13 @@ public class GitPullTask extends AsyncTask<Void, Integer, GitTaskStatus> {
             GitTools.requestAuthentication(context, new Runnable() {
                 @Override
                 public void run() {
-                    GitPullTask gpt = new GitPullTask(context, pull);
+                    GitPullTask gpt = new GitPullTask(context, pull, postExec);
                     gpt.execute();
                 }
             });
+        }
+        if(postExec != null) {
+            postExec.run();
         }
     }
 }

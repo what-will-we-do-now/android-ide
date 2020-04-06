@@ -95,6 +95,12 @@
     <string name="ide_close_option_yes_and_discard">Close without saving</string>
     <string name="ide_close_option_no">Cancel</string>
 
+    <string name="ide_continue_save_title">Do you want to save your changes?</string>
+    <string name="ide_continue_save_message">Unsaved changes will be lost.</string>
+    <string name="ide_continue_save_save">Save and continue</string>
+    <string name="ide_continue_save_continue">Discard and continue</string>
+    <string name="ide_continue_save_cancel">Cancel</string>
+
     <string name="title_activity_screen__preferences">Settings</string>
 
     <string name="info_restart_required">You will need to restart the application for this to take an effect.</string>
