@@ -63,7 +63,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="Delete"
-            android:enabled="false"
+            android:visibility="invisible"
             android:layout_weight="1">
         </Button>
 
@@ -72,7 +72,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="Rename"
-            android:enabled="false"
+            android:visibility="invisible"
             android:layout_weight="1">
         </Button>
 
@@ -81,7 +81,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="Copy"
-            android:enabled="false"
+            android:visibility="invisible"
             android:layout_weight="1">
         </Button>
 
@@ -90,7 +90,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="Cut"
-            android:enabled="false"
+            android:visibility="invisible"
             android:layout_weight="1">
         </Button>
 
@@ -99,7 +99,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="Paste"
-            android:enabled="false"
+            android:visibility="invisible"
             android:layout_weight="1">
         </Button>
 

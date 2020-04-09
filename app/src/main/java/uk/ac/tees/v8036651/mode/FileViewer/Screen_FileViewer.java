@@ -129,17 +129,21 @@ public class Screen_FileViewer extends AppCompatActivity {
 
                     if (selectionCount == 1) {
                         selectedItemIndex = position;
-                        findViewById(R.id.rename_btt).setEnabled(true);
+                        findViewById(R.id.rename_btt).setVisibility(View.VISIBLE);
+                        findViewById(R.id.cut_btt).setVisibility(View.VISIBLE);
+                        findViewById(R.id.copy_btt).setVisibility(View.VISIBLE);
                     }
                     else {
-                        findViewById(R.id.rename_btt).setEnabled(false);
+                        findViewById(R.id.rename_btt).setVisibility(View.INVISIBLE);
+                        findViewById(R.id.cut_btt).setVisibility(View.INVISIBLE);
+                        findViewById(R.id.copy_btt).setVisibility(View.INVISIBLE);
                     }
 
-                    if (selectionCount > 1){
-                        findViewById(R.id.delete_btt).setEnabled(true);
+                    if (selectionCount >= 1){
+                        findViewById(R.id.delete_btt).setVisibility(View.VISIBLE);
                     }
                     else {
-                        findViewById(R.id.delete_btt).setEnabled(false);
+                        findViewById(R.id.delete_btt).setVisibility(View.INVISIBLE);
                     }
 
                     return true;
