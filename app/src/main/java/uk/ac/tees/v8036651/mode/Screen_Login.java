@@ -35,38 +35,50 @@ public class Screen_Login extends AppCompatActivity {
         final String pattern1 = pref.getString("pattern", "");
         final Intent intent = new Intent(this, Screen_Home.class);
         System.out.println("Pattern is: " + pattern1);
-        if (pattern1.equals("")) {
+        if (pattern1.equals(""))
+        {
             startActivity(intent);
             finish();
         }
-        else {
+
+
+
+        else
+            {
             setContentView(R.layout.screen_login);
 
             final PatternLockView patternLockView = findViewById(R.id.patternView);
             patternLockView.addPatternLockListener(new PatternLockViewListener() {
 
-                public void onStarted() {
+                public void onStarted()
+                {
 
                 }
 
-                public void onProgress(List progressPattern) {
+                public void onProgress(List progressPattern)
+                {
 
                 }
 
-                public void onComplete(List pattern) {
+                public void onComplete(List pattern)
+                {
                     Log.d(getClass().getName(), "Pattern complete: " +
                             PatternLockUtils.patternToString(patternLockView, pattern));
-                    if (PatternLockUtils.patternToString(patternLockView, pattern).equalsIgnoreCase(pattern1.toString())) {
+                    if (PatternLockUtils.patternToString(patternLockView, pattern).equalsIgnoreCase(pattern1.toString()))
+                    {
                         Toast.makeText(Screen_Login.this, "Welcome back!", Toast.LENGTH_LONG).show();
                         startActivity(intent);
                         finish();
-                    } else {
-                        Toast.makeText(Screen_Login.this, "Incorrect password", Toast.LENGTH_LONG).show();
                     }
+                    else
+                        {
+                            Toast.makeText(Screen_Login.this, "Incorrect password", Toast.LENGTH_LONG).show();
+                        }
 
                 }
 
-                public void onCleared() {
+                public void onCleared()
+                {
 
                 }
             });
@@ -100,6 +112,12 @@ public class Screen_Login extends AppCompatActivity {
                 System.out.println("Fingerprint is able to work on this device!");
                 FingerprintHandler fingerprintHandler = new FingerprintHandler(this);
                 fingerprintHandler.startAuth(fingerprintManager, null);
+
+                if(fingerprintManager.equals(true))
+                {
+                    startActivity(intent);
+                    finish();
+                }
             }
         }
     }
