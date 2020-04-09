@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -22,8 +24,7 @@ import uk.ac.tees.v8036651.mode.plugins.PluginManager;
 public class Screen_Splash extends AppCompatActivity {
     private static int SPLASH_TIME_OUT = 1000;
 
-    private FingerprintManager fingerprintManager;
-    private KeyguardManager keyguardManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,35 +60,13 @@ public class Screen_Splash extends AppCompatActivity {
             startActivity(splashIntent);
             finish();
         },SPLASH_TIME_OUT);
+
+
+
+
+
     }
 
-    /**
-     * Checks for finger print log in
-     */
-    if (Build version check)
-    {
-        fingerprintManager = (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
-        keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
 
-        if(!fingerprintManager.isHardwareDetected())
-        {
-            System.out.println("Finger print check unsupported as no ahrdware avalible!");
-        }
-        else if (ContextCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED)
-        {
-            System.out.println("Permission to use fingerprint not granted!");
-        }
-        else if (!keyguardManager.isKeyguardSecure())
-        {
-            System.out.println("Please add a lock to your device first!");
-        }
-        else if (!fingerprintManager.hasEnrolledFingerprints())
-        {
-            System.out.println("Please add a fingerprint to your device first!");
-        }
-        else
-        {
-            System.out.println("Fingerprint is able to work on this device!");
-        }
-    }
+
 }
