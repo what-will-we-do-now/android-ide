@@ -140,9 +140,11 @@ public class Screen_FileViewer extends AppCompatActivity {
                     }
 
                     if (selectionCount >= 1){
+                        longClick = true;
                         findViewById(R.id.delete_btt).setVisibility(View.VISIBLE);
                     }
                     else {
+                        longClick = false;
                         findViewById(R.id.delete_btt).setVisibility(View.INVISIBLE);
                     }
 
