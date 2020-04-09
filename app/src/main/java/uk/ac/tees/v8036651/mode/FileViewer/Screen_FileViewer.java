@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -57,6 +59,11 @@ public class Screen_FileViewer extends AppCompatActivity {
 
     private boolean[] selection;
     private boolean longClick = false;
+
+    private int selectedItemIndex;
+
+    private File currentCopied;
+    private boolean isCurrentCopiedCut;
 
     //Runs whenever the view is resumed
     @Override
@@ -108,24 +115,31 @@ public class Screen_FileViewer extends AppCompatActivity {
             listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    longClick = true;
 
                     selection[position] = !selection[position];
                     textAdapter.setSelection(selection);
 
-                    boolean isAnySelected = false;
+                    int selectionCount = 0;
                     for (boolean aSelection : selection) {
                         if (aSelection) {
-                            isAnySelected = true;
+                            selectionCount++;
                             break;
                         }
                     }
 
-                    if (isAnySelected) {
+                    if (selectionCount == 1) {
+                        selectedItemIndex = position;
+                        findViewById(R.id.rename_btt).setEnabled(true);
+                    }
+                    else {
+                        findViewById(R.id.rename_btt).setEnabled(false);
+                    }
+
+                    if (selectionCount > 1){
                         findViewById(R.id.delete_btt).setEnabled(true);
-                    } else {
+                    }
+                    else {
                         findViewById(R.id.delete_btt).setEnabled(false);
-                        longClick = false;
                     }
 
                     return true;
@@ -161,8 +175,12 @@ public class Screen_FileViewer extends AppCompatActivity {
             });
 
             final Button deleteBtt = findViewById(R.id.delete_btt);
+            final Button renameBtt = findViewById(R.id.rename_btt);
+            final Button copyBtt = findViewById(R.id.copy_btt);
+            final Button cutBtt = findViewById(R.id.cut_btt);
+            final Button pasteBtt = findViewById(R.id.paste_btt);
 
-            //TODO Delete Button
+            //Delete Button
             deleteBtt.setOnClickListener((new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
@@ -209,13 +227,76 @@ public class Screen_FileViewer extends AppCompatActivity {
                 }
             }));
 
+            renameBtt.setOnClickListener((new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    final AlertDialog.Builder renameDialog = new AlertDialog.Builder(Screen_FileViewer.this);
+                    renameDialog.setTitle("Rename file to: ");
+                    final EditText newNameInput = new EditText(Screen_FileViewer.this);
+
+                    String filePath = projectFiles[selectedItemIndex].getAbsolutePath();
+
+                    newNameInput.setText(filePath.substring(filePath.lastIndexOf('/') + 1));
+                    newNameInput.setInputType(InputType.TYPE_CLASS_TEXT);
+                    renameDialog.setView(newNameInput);
+
+                    renameDialog.setPositiveButton("Rename", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String newName = new File(filePath).getParent() + '/' + newNameInput.getText();
+                            File newFile = new File(newName);
+                            new File(filePath).renameTo(new File(newName));
+                            refresh();
+                        }
+                    });
+
+                    renameDialog.show();
+                }
+            }));
+
+            copyBtt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    currentCopied = projectFiles[selectedItemIndex];
+                    isCurrentCopiedCut = false;
+                    Toast.makeText(Screen_FileViewer.this, "File Copied", Toast.LENGTH_LONG).show();
+                }
+            });
+
+            cutBtt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    currentCopied = projectFiles[selectedItemIndex];
+                    isCurrentCopiedCut = true;
+                    Toast.makeText(Screen_FileViewer.this, "File Cut", Toast.LENGTH_LONG).show();
+                }
+            });
+
+            pasteBtt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        saveActivity(loadActivity(currentCopied), currentCopied.getName());
+                        Toast.makeText(Screen_FileViewer.this, "File Pasted", Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    if (isCurrentCopiedCut){
+                        deleteFileOrFolder(currentCopied);
+                    }
+
+                    refresh();
+                }
+            });
+
             isFileManagerInitialized = true;
         }
         else {
             refresh();
         }
     }
-
 
 
     @Override
@@ -330,10 +411,8 @@ public class Screen_FileViewer extends AppCompatActivity {
         return Project.openedProject.getRoot().getAbsolutePath();
     }
 
-    public String loadActivity(String fileName){
+    public String loadActivity(File file){
         String ret;
-
-        File file = new File(fileName);
 
         try{
             InputStream input = new FileInputStream(file);

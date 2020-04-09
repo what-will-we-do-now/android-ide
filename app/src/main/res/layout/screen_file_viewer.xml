@@ -59,20 +59,47 @@
         android:orientation="horizontal">
 
         <Button
-            android:visibility="gone"
-            android:text="Back"
-            android:id="@+id/back_btt"
+            android:id="@+id/delete_btt"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:text="Delete"
+            android:enabled="false"
             android:layout_weight="1">
         </Button>
 
         <Button
-            android:text="Delete"
-            android:enabled="false"
-            android:id="@+id/delete_btt"
+            android:id="@+id/rename_btt"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:text="Rename"
+            android:enabled="false"
+            android:layout_weight="1">
+        </Button>
+
+        <Button
+            android:id="@+id/copy_btt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Copy"
+            android:enabled="false"
+            android:layout_weight="1">
+        </Button>
+
+        <Button
+            android:id="@+id/cut_btt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Cut"
+            android:enabled="false"
+            android:layout_weight="1">
+        </Button>
+
+        <Button
+            android:id="@+id/paste_btt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Paste"
+            android:enabled="false"
             android:layout_weight="1">
         </Button>
 
