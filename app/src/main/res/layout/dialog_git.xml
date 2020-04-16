@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/git_branch_new"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/git_branch_create" />
+
+    <Button
+        android:id="@+id/git_checkout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/git_checkout" />
+</LinearLayout>
