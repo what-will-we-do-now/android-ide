@@ -23,4 +23,21 @@
             app:title="@string/light_mode_title"
             />
     </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory app:title="Git">
+        <androidx.preference.Preference
+            android:id="@+id/pcGitUsername"
+            app:key="Git_Username"
+            app:summary="@string/settings_git_username_summary"
+            app:title="@string/settings_git_username_title"
+            />
+
+        <androidx.preference.Preference
+            android:id="@+id/pcGitEmail"
+            app:key="Git_Email"
+            app:summary="@string/settings_git_email_summary"
+            app:title="@string/settings_git_email_title"
+            />
+
+    </androidx.preference.PreferenceCategory>
 </androidx.preference.PreferenceScreen>

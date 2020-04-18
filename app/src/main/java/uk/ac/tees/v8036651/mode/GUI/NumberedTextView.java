@@ -171,7 +171,9 @@ public class NumberedTextView extends AppCompatEditText {
         public void afterTextChanged(Editable s) {
             if(!ignore) {
                 ignore = true;
-                PluginManager.formatText(edit, getFileEdited());
+                if(getFileEdited() != null) {
+                    PluginManager.formatText(edit, getFileEdited());
+                }
                 ignore = false;
             }
         }

@@ -59,6 +59,8 @@
     <string name="git_commit_message_wrong_state">Unable to commit; The repository is in wrong state</string>
     <string name="git_commit_message_reject_commit">Unable to commit; The commit was rejected by commit hooks</string>
     <string name="git_commit_message_no_author">Unable to commit; Author not set.</string>
+    <string name="git_commit_no_author_title">No committer username and email set!</string>
+    <string name="git_commit_no_author_description">Would you like to set them now?</string>
 
     <string name="git_clone">Clone from Git</string>
     <string name="git_clone_enter_url">Enter Git URL</string>
@@ -97,7 +99,7 @@
     <string name="ide_file_open_error">Unable to open file</string>
     <string name="ide_file_save_error">Unable to save file</string>
     <string name="ide_close_no_save_title">Do you want to save your changes?</string>
-    <string name="ide_close_no_save_text"></string>
+    <string name="ide_close_no_save_text">All unsaved changes will be lost.</string>
     <string name="ide_close_option_yes_and_save">Save and close</string>
     <string name="ide_close_option_yes_and_discard">Close without saving</string>
     <string name="ide_close_option_no">Cancel</string>
@@ -126,5 +128,11 @@
     <string name="pattern_enabled">Change your pattern</string>
     <string name="light_mode_disabled">Light Mode Disabled</string>
     <string name="light_mode_enabled">Light Mode Enabled</string>
+    <string name="settings_git_username_summary">The committer username</string>
+    <string name="settings_git_username_summary_current">The committer username: %1$s</string>
+    <string name="settings_git_username_title">Git Username</string>
+    <string name="settings_git_email_title">Git Email</string>
+    <string name="settings_git_email_summary">Git committer email</string>
+    <string name="settings_git_email_summary_current">Git committer email: %1$s</string>
 
 </resources>
