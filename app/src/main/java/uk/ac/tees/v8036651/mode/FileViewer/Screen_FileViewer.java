@@ -235,6 +235,7 @@ public class Screen_FileViewer extends AppCompatActivity {
             copyBtt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    findViewById(R.id.paste_btt).setVisibility(View.VISIBLE);
                     currentCopied = projectFiles[selectedItemIndex];
                     isCurrentCopiedCut = false;
                     Toast.makeText(Screen_FileViewer.this, "File Copied", Toast.LENGTH_LONG).show();
@@ -244,6 +245,7 @@ public class Screen_FileViewer extends AppCompatActivity {
             cutBtt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    findViewById(R.id.paste_btt).setVisibility(View.VISIBLE);
                     currentCopied = projectFiles[selectedItemIndex];
                     isCurrentCopiedCut = true;
                     Toast.makeText(Screen_FileViewer.this, "File Cut", Toast.LENGTH_LONG).show();
@@ -264,6 +266,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                         deleteFileOrFolder(currentCopied);
                     }
 
+                    findViewById(R.id.paste_btt).setVisibility(View.GONE);
                     refresh();
                 }
             });
@@ -447,8 +450,8 @@ public class Screen_FileViewer extends AppCompatActivity {
             filesList.add(projectFiles[i]);
         }
 
-        textAdapter.emptySelection();
         selection = new boolean[filesFoundCount];
+        textAdapter.setSelection(selection);
         textAdapter.setData(filesList);
     }
 

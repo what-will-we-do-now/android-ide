@@ -1,6 +1,5 @@
 package uk.ac.tees.v8036651.mode.FileViewer;
 
-import android.graphics.Color;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -96,9 +95,4 @@ public class TextAdapter extends BaseAdapter {
             notifyDataSetChanged();
         }
     }
-
-    void emptySelection (){
-        selection = null;
-    }
-
 }
