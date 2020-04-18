@@ -88,6 +88,7 @@ public class Screen_Preferences extends AppCompatActivity {
                             SharedPreferences.Editor gitSettings = getActivity().getSharedPreferences("git", Activity.MODE_PRIVATE).edit();
                             gitSettings.putString("username", username.getText().toString());
                             gitSettings.commit();
+                            GitUsername.setSummary(getResources().getString(R.string.settings_git_username_summary_current, getActivity().getSharedPreferences("git", Activity.MODE_PRIVATE).getString("username", "")));
                         }
                     });
 
@@ -96,7 +97,7 @@ public class Screen_Preferences extends AppCompatActivity {
                     return true;
                 }
             });
-            GitUsername.setSummary();
+            GitUsername.setSummary(getResources().getString(R.string.settings_git_username_summary_current, getActivity().getSharedPreferences("git", Activity.MODE_PRIVATE).getString("username", "")));
 
             Preference GitEmail = findPreference("Git_Email");
             GitEmail.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -112,6 +113,7 @@ public class Screen_Preferences extends AppCompatActivity {
                             SharedPreferences.Editor gitSettings = getActivity().getSharedPreferences("git", Activity.MODE_PRIVATE).edit();
                             gitSettings.putString("email", email.getText().toString());
                             gitSettings.commit();
+                            GitEmail.setSummary(getResources().getString(R.string.settings_git_username_summary_current, getActivity().getSharedPreferences("git", Activity.MODE_PRIVATE).getString("email", "")));
                         }
                     });
 
@@ -120,6 +122,7 @@ public class Screen_Preferences extends AppCompatActivity {
                     return true;
                 }
             });
+            GitEmail.setSummary(getResources().getString(R.string.settings_git_username_summary_current, getActivity().getSharedPreferences("git", Activity.MODE_PRIVATE).getString("email", "")));
         }
 
         private void updateTheme(String summary){

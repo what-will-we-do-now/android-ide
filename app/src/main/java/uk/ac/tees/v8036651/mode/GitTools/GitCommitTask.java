@@ -33,7 +33,7 @@ public class GitCommitTask extends AsyncTask<Void, Integer, GitTaskStatus> {
         SharedPreferences preferences = context.getSharedPreferences("git", Context.MODE_PRIVATE);
         commitCommand.setAuthor(preferences.getString("username", ""), preferences.getString("email", ""));
 
-        if(commitCommand.getAuthor() == null || commitCommand.getAuthor().getEmailAddress() == null || commitCommand.getAuthor().getName() == null){
+        if(commitCommand.getAuthor() == null || commitCommand.getAuthor().getEmailAddress().equals("") || commitCommand.getAuthor().getName().equals("")){
             return GitTaskStatus.COMMIT_NO_AUTHOR;
         }
 
