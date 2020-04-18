@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import uk.ac.tees.v8036651.mode.R;
@@ -25,6 +26,7 @@ public class TextAdapter extends BaseAdapter {
             if (data.size() > 0){
                 this.data.addAll(data);
             }
+            Collections.sort(data);
             notifyDataSetChanged();
         }
     }
