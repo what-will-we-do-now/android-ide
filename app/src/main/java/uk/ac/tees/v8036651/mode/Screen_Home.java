@@ -106,7 +106,7 @@ public class Screen_Home extends AppCompatActivity {
                     String filename = ((EditText) dialogue.findViewById(R.id.project_main_name)).getText().toString();
 
                     //TODO remove hardcoded JAVA and get the file extension from Plugin Manager
-                    File mainFile = new File(Project.openedProject.getSrc(), filename + ".java");
+                    File mainFile = new File(Project.openedProject.getSrc(), filename + "." + PluginManager.getDefaultFileExtensionFor(projectLanguage));
 
                     Map<String, String> values = new HashMap<>();
 

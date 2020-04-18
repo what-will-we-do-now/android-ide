@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import uk.ac.tees.v8036651.mode.GUI.NumberedTextView;
-import uk.ac.tees.v8036651.mode.plugins.languages.java;
+import uk.ac.tees.v8036651.mode.plugins.languages.*;
 
 public class PluginManager {
 
@@ -36,9 +36,13 @@ public class PluginManager {
         /* PLAN C */
 
         Plugin pluginJava = new java();
+        Plugin pluginXML = new xml();
+        Plugin pluginPython = new python();
+
 
         plugins.add(pluginJava);
-
+        plugins.add(pluginXML);
+        plugins.add(pluginPython);
 
         /* PLAN B
         try{
@@ -189,6 +193,16 @@ public class PluginManager {
         for(Plugin plugin : plugins){
             if(plugin.getName().equalsIgnoreCase(language)){
                 return plugin.getTemplate(plugin.getMainTemplateID(), values);
+            }
+        }
+        Log.wtf("Plugin Manager", "Language not found");
+        return "";
+    }
+
+    public static String getDefaultFileExtensionFor(String language){
+        for(Plugin plugin : plugins){
+            if(plugin.getName().equalsIgnoreCase(language)){
+                return plugin.getDefaultFileExtension();
             }
         }
         Log.wtf("Plugin Manager", "Language not found");

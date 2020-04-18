@@ -213,6 +213,11 @@ public class java extends Plugin{
         return "";
     }
 
+    @Override
+    public String getDefaultFileExtension() {
+        return "java";
+    }
+
     private ArrayList<Integer> getOffsetsFor(String code, String findRegex){
         Matcher matcher = Pattern.compile(findRegex).matcher(code);
         ArrayList<Integer> offsets = new ArrayList<>();

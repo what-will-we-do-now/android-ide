@@ -53,4 +53,6 @@ public abstract class Plugin {
      * @return
      */
     public abstract String getTemplate(String templateID, Map<String, String> values);
+
+    public abstract String getDefaultFileExtension();
 }
