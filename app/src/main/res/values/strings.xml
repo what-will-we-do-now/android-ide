@@ -127,8 +127,10 @@
     <string name="light_mode_disabled">Light Mode Disabled</string>
     <string name="light_mode_enabled">Light Mode Enabled</string>
     <string name="settings_git_username_summary">The committer username</string>
+    <string name="settings_git_username_summary_current">The committer username: %1$s</string>
     <string name="settings_git_username_title">Git Username</string>
     <string name="settings_git_email_title">Git Email</string>
     <string name="settings_git_email_summary">Git committer email</string>
+    <string name="settings_git_email_summary_current">Git committer email: %1$s</string>
 
 </resources>

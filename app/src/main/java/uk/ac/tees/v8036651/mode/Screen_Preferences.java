@@ -74,7 +74,7 @@ public class Screen_Preferences extends AppCompatActivity {
                 }
                 return true;
             });
-            Preference GitUsername = findPreference("GitUsername");
+            Preference GitUsername = findPreference("Git_Username");
             GitUsername.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
@@ -96,9 +96,9 @@ public class Screen_Preferences extends AppCompatActivity {
                     return true;
                 }
             });
+            GitUsername.setSummary();
 
-
-            Preference GitEmail = findPreference("pcGitEmail");
+            Preference GitEmail = findPreference("Git_Email");
             GitEmail.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
@@ -108,9 +108,9 @@ public class Screen_Preferences extends AppCompatActivity {
                     builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            EditText username = dialogue.findViewById(R.id.git_committer_email);
+                            EditText email = dialogue.findViewById(R.id.git_committer_email);
                             SharedPreferences.Editor gitSettings = getActivity().getSharedPreferences("git", Activity.MODE_PRIVATE).edit();
-                            gitSettings.putString("email", username.getText().toString());
+                            gitSettings.putString("email", email.getText().toString());
                             gitSettings.commit();
                         }
                     });

@@ -34,7 +34,7 @@
 
         <androidx.preference.Preference
             android:id="@+id/pcGitEmail"
-            app:key="Git_Password"
+            app:key="Git_Email"
             app:summary="@string/settings_git_email_summary"
             app:title="@string/settings_git_email_title"
             />
