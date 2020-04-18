@@ -11,10 +11,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +37,7 @@ import java.util.Objects;
 import uk.ac.tees.v8036651.mode.Projects.Project;
 import uk.ac.tees.v8036651.mode.R;
 import uk.ac.tees.v8036651.mode.Screen_IDE;
+import uk.ac.tees.v8036651.mode.plugins.PluginManager;
 
 public class Screen_FileViewer extends AppCompatActivity {
 
@@ -311,10 +314,29 @@ public class Screen_FileViewer extends AppCompatActivity {
 
                 final AlertDialog.Builder newFileDialog = new AlertDialog.Builder(Screen_FileViewer.this);
 
-                inflater = LayoutInflater.from(Screen_FileViewer.this).inflate(R.layout.set_file_name_alert_dialog, null);
-                input = inflater.findViewById(R.id.fileNameEditText);
-
+                inflater = LayoutInflater.from(Screen_FileViewer.this).inflate(R.layout.dialog_file_new, null);
                 newFileDialog.setView(inflater);
+
+                input = inflater.findViewById(R.id.file_name);
+                Spinner language = inflater.findViewById(R.id.file_language_spinner);
+                Spinner template = inflater.findViewById(R.id.file_template_spinner);
+
+                ArrayAdapter languageContent = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, PluginManager.getProjectTypes());
+
+                language.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        ArrayAdapter templateContent = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, (ArrayList)PluginManager.getTemplatesFor(language.getSelectedItem().toString()).values());
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
+
+
                 newFileDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
