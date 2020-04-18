@@ -68,7 +68,7 @@ public class Screen_FileViewer extends AppCompatActivity {
 
     private int selectedItemIndex;
 
-    private ArrayList<File> currentCopied;
+    private ArrayList<File> currentCopied = new ArrayList<>();
     private boolean isCurrentCopiedCut;
 
     //Runs whenever the view is resumed
@@ -196,12 +196,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                         }
                     });
 
-                    deteteDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
+                    deteteDialog.setNegativeButton("No", null);
 
                     deteteDialog.show();
                 }
@@ -237,6 +232,8 @@ public class Screen_FileViewer extends AppCompatActivity {
                             refresh();
                         }
                     });
+
+                    renameDialog.setNegativeButton(R.string.cancel, null);
 
                     renameDialog.show();
                 }
@@ -354,10 +351,13 @@ public class Screen_FileViewer extends AppCompatActivity {
 
                 ArrayAdapter languageContent = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, PluginManager.getProjectTypes());
 
+                language.setAdapter(languageContent);
+
                 language.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         ArrayAdapter templateContent = new ArrayAdapter<>(Screen_FileViewer.this, android.R.layout.simple_spinner_dropdown_item, (ArrayList)PluginManager.getTemplatesFor(language.getSelectedItem().toString()).values());
+                        template.setAdapter(templateContent);
                     }
 
                     @Override
@@ -385,12 +385,7 @@ public class Screen_FileViewer extends AppCompatActivity {
 
                     }
                 });
-                newFileDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+                newFileDialog.setNegativeButton(R.string.cancel, null);
                 newFileDialog.show();
                 return true;
 
@@ -417,12 +412,7 @@ public class Screen_FileViewer extends AppCompatActivity {
 
                     }
                 });
-                newFoldereDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+                newFoldereDialog.setNegativeButton(R.string.cancel, null);
                 newFoldereDialog.show();
                 return true;
 
