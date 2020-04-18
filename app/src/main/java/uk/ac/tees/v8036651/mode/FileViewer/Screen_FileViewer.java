@@ -468,9 +468,9 @@ public class Screen_FileViewer extends AppCompatActivity {
             findViewById(R.id.copy_btt).setVisibility(View.VISIBLE);
         }
         else {
-            findViewById(R.id.rename_btt).setVisibility(View.INVISIBLE);
-            findViewById(R.id.cut_btt).setVisibility(View.INVISIBLE);
-            findViewById(R.id.copy_btt).setVisibility(View.INVISIBLE);
+            findViewById(R.id.rename_btt).setVisibility(View.GONE);
+            findViewById(R.id.cut_btt).setVisibility(View.GONE);
+            findViewById(R.id.copy_btt).setVisibility(View.GONE);
         }
 
         if (selectionCount >= 1){
@@ -479,7 +479,7 @@ public class Screen_FileViewer extends AppCompatActivity {
         }
         else {
             longClick = false;
-            findViewById(R.id.delete_btt).setVisibility(View.INVISIBLE);
+            findViewById(R.id.delete_btt).setVisibility(View.GONE);
         }
     }
 }
