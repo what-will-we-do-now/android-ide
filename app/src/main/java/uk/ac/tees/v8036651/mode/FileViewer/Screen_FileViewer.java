@@ -131,12 +131,11 @@ public class Screen_FileViewer extends AppCompatActivity {
                     for (boolean aSelection : selection) {
                         if (aSelection) {
                             selectionCount++;
-                            break;
                         }
                     }
 
                     System.out.println("SELECTION COUNT: " + selectionCount);
-                    if (selectionCount == 1) {selectedItemIndex = position; }
+                    selectedItemIndex = position;
                     buttonCheck();
 
                     return true;
@@ -281,7 +280,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                 public void onClick(View v) {
                     int filesUnpasted = 0;
                     int filesPasted = 0;
-                    int totalFiles;
+                    int totalFiles = 0;
 
                     for (File copiedFile : currentCopied){
 
@@ -311,7 +310,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                     totalFiles = filesPasted + filesUnpasted;
 
                     if (filesUnpasted == 0){
-                        Toast.makeText(Screen_FileViewer.this, filesPasted+ "files pasted successfully", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Screen_FileViewer.this, filesPasted+ " files pasted successfully", Toast.LENGTH_LONG).show();
                     }
                     else {
                         Toast.makeText(Screen_FileViewer.this, filesPasted + "/" + totalFiles + " files pasted successfully", Toast.LENGTH_LONG).show();
@@ -319,6 +318,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                 }
             });
 
+            currentCopied.clear();
             isFileManagerInitialized = true;
             refresh();
         }
