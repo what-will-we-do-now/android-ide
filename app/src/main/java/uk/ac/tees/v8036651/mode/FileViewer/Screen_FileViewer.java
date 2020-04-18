@@ -203,7 +203,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                 }
             }));
 
-            renameBtt.setOnClickListener((new View.OnClickListener() {
+            renameBtt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -222,14 +222,21 @@ public class Screen_FileViewer extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             String newName = new File(filePath).getParent() + '/' + newNameInput.getText();
                             File newFile = new File(newName);
-                            new File(filePath).renameTo(new File(newName));
+                            if (Project.openedProject.getLastFile().equals(new File(filePath))){
+                                try {
+                                    Project.openedProject.setLastFile(newFile);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            new File(filePath).renameTo(newFile);
                             refresh();
                         }
                     });
 
                     renameDialog.show();
                 }
-            }));
+            });
 
             copyBtt.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -256,6 +263,13 @@ public class Screen_FileViewer extends AppCompatActivity {
             pasteBtt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    for (File file : projectFiles){
+                        if (file.equals(currentCopied)){
+                            Toast.makeText(Screen_FileViewer.this, "File already exists in this directory", Toast.LENGTH_LONG).show();
+                            break;
+                        }
+                    }
+
                     try {
                         saveActivity(loadActivity(currentCopied), currentCopied.getName());
                         Toast.makeText(Screen_FileViewer.this, "File Pasted", Toast.LENGTH_LONG).show();
