@@ -68,7 +68,7 @@ public class Screen_FileViewer extends AppCompatActivity {
 
     private int selectedItemIndex;
 
-    private File currentCopied;
+    private ArrayList<File> currentCopied;
     private boolean isCurrentCopiedCut;
 
     //Runs whenever the view is resumed
@@ -189,7 +189,6 @@ public class Screen_FileViewer extends AppCompatActivity {
                                 if(selection[position]){
                                     deleteFileOrFolder(projectFiles[position]);
                                     selection[position] = false;
-                                    if (selectionCount == 1) {selectedItemIndex = position; }
                                     selectedItemIndex = position;
                                 }
                             }
@@ -247,7 +246,14 @@ public class Screen_FileViewer extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     findViewById(R.id.paste_btt).setVisibility(View.VISIBLE);
-                    currentCopied = projectFiles[selectedItemIndex];
+
+                    for (int position = 0; position < projectFiles.length; position++){
+                        if(selection[position]){
+                            currentCopied.add(projectFiles[position]);
+                            selection[position] = false;
+                        }
+                    }
+
                     isCurrentCopiedCut = false;
                     Toast.makeText(Screen_FileViewer.this, "File Copied", Toast.LENGTH_LONG).show();
                     refresh();
@@ -258,7 +264,13 @@ public class Screen_FileViewer extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     findViewById(R.id.paste_btt).setVisibility(View.VISIBLE);
-                    currentCopied = projectFiles[selectedItemIndex];
+
+                    for (int position = 0; position < projectFiles.length; position++){
+                        if(selection[position]){
+                            currentCopied.add(projectFiles[position]);
+                            selection[position] = false;
+                        }
+                    }
                     isCurrentCopiedCut = true;
                     Toast.makeText(Screen_FileViewer.this, "File Cut", Toast.LENGTH_LONG).show();
                     refresh();
@@ -268,26 +280,43 @@ public class Screen_FileViewer extends AppCompatActivity {
             pasteBtt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    for (File file : projectFiles){
-                        if (file.equals(currentCopied)){
-                            Toast.makeText(Screen_FileViewer.this, "File already exists in this directory", Toast.LENGTH_LONG).show();
-                            break;
+                    int filesUnpasted = 0;
+                    int filesPasted = 0;
+                    int totalFiles = 0;
+
+                    for (File copiedFile : currentCopied){
+
+                        for (File file : projectFiles){
+                            if (file.equals(copiedFile)){
+                                filesUnpasted++;
+                                break;
+                            }
                         }
+
+                        try {
+                            saveActivity(loadActivity(copiedFile), copiedFile.getName());
+                            filesPasted++;
+                        } catch (Exception e) {
+                            filesUnpasted++;
+                            e.printStackTrace();
+                        }
+
+                        if (isCurrentCopiedCut){
+                            deleteFileOrFolder(copiedFile);
+                        }
+
+                        findViewById(R.id.paste_btt).setVisibility(View.GONE);
+                        refresh();
                     }
 
-                    try {
-                        saveActivity(loadActivity(currentCopied), currentCopied.getName());
-                        Toast.makeText(Screen_FileViewer.this, "File Pasted", Toast.LENGTH_LONG).show();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    totalFiles = filesPasted + filesUnpasted;
 
-                    if (isCurrentCopiedCut){
-                        deleteFileOrFolder(currentCopied);
+                    if (filesUnpasted == 0){
+                        Toast.makeText(Screen_FileViewer.this, filesPasted+ "files pasted successfully", Toast.LENGTH_LONG).show();
                     }
-
-                    findViewById(R.id.paste_btt).setVisibility(View.GONE);
-                    refresh();
+                    else {
+                        Toast.makeText(Screen_FileViewer.this, filesPasted + "/" + totalFiles + " files pasted successfully", Toast.LENGTH_LONG).show();
+                    }
                 }
             });
 
