@@ -96,6 +96,11 @@
     <string name="project_new_main_create">Create main file</string>
     <string name="project_new_main_name">Enter main file name</string>
 
+    <string name="file_new_name">Enter name of the file: </string>
+    <string name="file_new_name_hint">File name</string>
+    <string name="file_language">Choose language type: </string>
+    <string name="file_template">Choose file template: </string>
+
     <string name="ide_file_open_error">Unable to open file</string>
     <string name="ide_file_save_error">Unable to save file</string>
     <string name="ide_close_no_save_title">Do you want to save your changes?</string>
