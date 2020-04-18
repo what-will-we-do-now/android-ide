@@ -31,6 +31,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -100,6 +102,23 @@ public class Screen_FileViewer extends AppCompatActivity {
             for(int i=0; i < filesFoundCount; i++){
                 filesList.add(projectFiles[i]);
             }
+            Collections.sort(filesList, new Comparator<File>() {
+                @Override
+                public int compare(File o1, File o2) {
+                    if((o1.isDirectory() && o2.isDirectory()) || (o1.isFile() && o2.isFile())) {
+                        return o1.getName().compareToIgnoreCase(o2.getName());
+                    }
+                    else if(o1.isDirectory() && o2.isFile()){
+                        return -1;
+                    }
+                    else if(o1.isFile() && o2.isDirectory()){
+                        return 1;
+                    }
+                    //this should never happen
+                    Log.wtf("Sorter", "NOOOO");
+                    return 0;
+                }
+            });
             textAdapter.setData(filesList);
 
             selection = new boolean[filesFoundCount];
@@ -147,8 +166,8 @@ public class Screen_FileViewer extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                     if (!longClick){
-                        if (projectFiles[position].isDirectory()){
-                            currentPath = (currentPath + '/' + projectFiles[position].getName());
+                        if (filesList.get(position).isDirectory()){
+                            currentPath = (currentPath + '/' +filesList.get(position).getName());
                             dir = new File(currentPath);
                             pathOutput.setText(currentPath.substring(currentPath.lastIndexOf('/') + 1));
                             refresh();

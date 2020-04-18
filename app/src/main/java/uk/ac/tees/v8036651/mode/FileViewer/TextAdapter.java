@@ -1,5 +1,6 @@
 package uk.ac.tees.v8036651.mode.FileViewer;
 
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import uk.ac.tees.v8036651.mode.R;
@@ -23,11 +25,28 @@ public class TextAdapter extends BaseAdapter {
     public void setData(List<File> data) {
         if(data != null){
             this.data.clear();
+            Collections.sort(data, new Comparator<File>() {
+                @Override
+                public int compare(File o1, File o2) {
+                    if((o1.isDirectory() && o2.isDirectory()) || (o1.isFile() && o2.isFile())) {
+                        return o1.getName().compareToIgnoreCase(o2.getName());
+                    }
+                    else if(o1.isDirectory() && o2.isFile()){
+                        return -1;
+                    }
+                    else if(o1.isFile() && o2.isDirectory()){
+                        return 1;
+                    }
+                    //this should never happen
+                    Log.wtf("Sorter", "NOOOO");
+                    return 0;
+                }
+            });
+            notifyDataSetChanged();
+
             if (data.size() > 0){
                 this.data.addAll(data);
             }
-            Collections.sort(data);
-            notifyDataSetChanged();
         }
     }
 
