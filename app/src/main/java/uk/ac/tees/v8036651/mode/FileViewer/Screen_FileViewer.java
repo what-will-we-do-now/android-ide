@@ -356,7 +356,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                 language.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        ArrayAdapter templateContent = new ArrayAdapter<>(Screen_FileViewer.this, android.R.layout.simple_spinner_dropdown_item, (ArrayList)PluginManager.getTemplatesFor(language.getSelectedItem().toString()).values());
+                        ArrayAdapter templateContent = new ArrayAdapter<>(Screen_FileViewer.this, android.R.layout.simple_spinner_dropdown_item, new ArrayList<>(PluginManager.getTemplatesFor(language.getSelectedItem().toString()).keySet()));
                         template.setAdapter(templateContent);
                     }
 

@@ -168,8 +168,7 @@ public class java extends Plugin{
     @Override
     public String getTemplate(String templateID, Map<String, String> values) {
         if("EMPTY_CLASS_MAIN".equals(templateID)){
-            return (values.containsKey("package") ? "package " + values.get("package") + ";\n" : "") +
-                    "\n" +
+            return (values.containsKey("package") ? "package " + values.get("package") + ";\n\n" : "") +
                     "public class " + values.get("filename") + "{\n" +
                     "\n" +
                     "    public static void main(String[] args){\n" +
@@ -179,26 +178,22 @@ public class java extends Plugin{
                     "    }\n" +
                     "}";
         }else if("EMPTY_CLASS".equals(templateID)){
-            return (values.containsKey("package") ? "package " + values.get("package") + ";\n" : "") +
-                    "\n" +
+            return (values.containsKey("package") ? "package " + values.get("package") + ";\n\n" : "") +
                     "public class " + values.get("filename") + "{\n" +
                     "\n" +
                     "}";
         }else if("EMPTY_INTERFACE".equals(templateID)){
-            return (values.containsKey("package") ? "package " + values.get("package") + ";\n" : "") +
-                    "\n" +
+            return (values.containsKey("package") ? "package " + values.get("package") + ";\n\n" : "") +
                     "public interface " + values.get("filename") + "{\n" +
                     "\n" +
                     "}";
         }else if("EMPTY_ENUM".equals(templateID)){
-            return (values.containsKey("package") ? "package " + values.get("package") + ";\n" : "") +
-                    "\n" +
+            return (values.containsKey("package") ? "package " + values.get("package") + ";\n\n" : "") +
                     "public enum " + values.get("filename") + "{\n" +
                     "\n" +
                     "}";
         }else if("EXCEPTION".equals(templateID)){
-            return (values.containsKey("package") ? "package " + values.get("package") + ";\n" : "") +
-                    "\n" +
+            return (values.containsKey("package") ? "package " + values.get("package") + ";\n\n" : "") +
                     "public class " + values.get("filename") + " extends Exception{\n" +
                     "\n" +
                     "    public " + values.get("filename") + "() {\n" +
