@@ -110,7 +110,6 @@ public class Screen_FileViewer extends AppCompatActivity {
                         pathOutput.setText(currentPath.substring(currentPath.lastIndexOf('/') + 1));
                     }
                     refresh();
-                    buttonCheck();
                 }
             });
 
@@ -187,10 +186,8 @@ public class Screen_FileViewer extends AppCompatActivity {
                                     selection[position] = false;
                                     if (selectionCount == 1) {selectedItemIndex = position; }
                                     selectedItemIndex = position;
-                                    buttonCheck();
                                 }
                             }
-
                             refresh();
                         }
                     });
@@ -457,6 +454,8 @@ public class Screen_FileViewer extends AppCompatActivity {
         selection = new boolean[filesFoundCount];
         textAdapter.setSelection(selection);
         textAdapter.setData(filesList);
+
+        buttonCheck();
     }
 
     private void buttonCheck(){
