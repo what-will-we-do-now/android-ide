@@ -31,7 +31,7 @@ public class GitCommitTask extends AsyncTask<Void, Integer, GitTaskStatus> {
     @Override
     protected GitTaskStatus doInBackground(Void... voids) {
         SharedPreferences preferences = context.getSharedPreferences("git", Context.MODE_PRIVATE);
-        commitCommand.setAuthor(preferences.getString("git.author", ""), preferences.getString("git.email", ""));
+        commitCommand.setAuthor(preferences.getString("username", ""), preferences.getString("email", ""));
 
         if(commitCommand.getAuthor() == null || commitCommand.getAuthor().getEmailAddress() == null || commitCommand.getAuthor().getName() == null){
             return GitTaskStatus.COMMIT_NO_AUTHOR;
