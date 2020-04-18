@@ -31,7 +31,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import uk.ac.tees.v8036651.mode.Projects.Project;
@@ -326,22 +328,26 @@ public class Screen_FileViewer extends AppCompatActivity {
                 language.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        ArrayAdapter templateContent = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, (ArrayList)PluginManager.getTemplatesFor(language.getSelectedItem().toString()).values());
+                        ArrayAdapter templateContent = new ArrayAdapter<>(Screen_FileViewer.this, android.R.layout.simple_spinner_dropdown_item, (ArrayList)PluginManager.getTemplatesFor(language.getSelectedItem().toString()).values());
                     }
 
                     @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
+                    public void onNothingSelected(AdapterView<?> parent) {}
                 });
-
-
 
                 newFileDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         try {
-                            saveActivity("", input.getText().toString());
+                            String lang = ((Spinner)language.findViewById(R.id.file_language_spinner)).getSelectedItem().toString();
+                            String temp = ((Spinner)template.findViewById(R.id.file_template_spinner)).getSelectedItem().toString();
+
+                            Map<String, String> values = new HashMap<>();
+                            values.put("filename", input.getText().toString());
+
+                            String templateData = PluginManager.getTemplate(lang, temp, values);
+                            saveActivity(templateData, input.getText().toString());
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
