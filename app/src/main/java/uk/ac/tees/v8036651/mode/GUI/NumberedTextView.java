@@ -21,9 +21,9 @@ import uk.ac.tees.v8036651.mode.plugins.PluginManager;
 public class NumberedTextView extends AppCompatEditText {
 
     private Paint paint;
-    private String language;
     private boolean autoHighlight;
     private boolean autoClose;
+    private File fileEdited;
 
     private AutoFormatter autoHighlightWatcher;
     private AutoClose autoCloseWatcher;
@@ -87,7 +87,6 @@ public class NumberedTextView extends AppCompatEditText {
     }
 
     private final void postInit(){
-        language = "";
         autoHighlight = true;
         autoHighlightWatcher = new AutoFormatter(this);
         addTextChangedListener(autoHighlightWatcher);
@@ -144,14 +143,13 @@ public class NumberedTextView extends AppCompatEditText {
         return autoClose;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    public void setFileEdited(File file){
+        this.fileEdited = file;
     }
 
-    public String getLanguage() {
-        return language;
+    public File getFileEdited(){
+        return this.fileEdited;
     }
-
 
     public class AutoFormatter implements TextWatcher {
 
@@ -173,7 +171,7 @@ public class NumberedTextView extends AppCompatEditText {
         public void afterTextChanged(Editable s) {
             if(!ignore) {
                 ignore = true;
-                PluginManager.formatText(edit, new File("code." + edit.getLanguage()));
+                PluginManager.formatText(edit, getFileEdited());
                 ignore = false;
             }
         }

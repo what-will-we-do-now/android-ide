@@ -54,13 +54,12 @@ public class Screen_IDE extends AppCompatActivity {
 
         NumberedTextView txtCode = findViewById(R.id.txtCode);
 
-        txtCode.setLanguage("java");
         if(getIntent().getExtras() != null && getIntent().getExtras().containsKey("OpenFile")){
 
             fileName = getIntent().getStringExtra("OpenFile");
 
             File file = new File(getIntent().getStringExtra("OpenFile"));
-
+            txtCode.setFileEdited(file);
             try{
                 txtCode.setText(loadFile(file));
             }
