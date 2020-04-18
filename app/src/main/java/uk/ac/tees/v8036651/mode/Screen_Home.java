@@ -57,10 +57,6 @@ public class Screen_Home extends AppCompatActivity {
 
     public void openProjects(View view){
         Intent intent = new Intent(this, Screen_Project_Choose.class);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-
         startActivity(intent);
     }
 
