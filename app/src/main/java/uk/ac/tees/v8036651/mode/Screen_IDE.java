@@ -107,13 +107,19 @@ public class Screen_IDE extends AppCompatActivity {
             subMenu.getItem(3).setVisible(true);
             subMenu.getItem(4).setVisible(true);
             subMenu.getItem(5).setVisible(true);
-            subMenu.getItem(6).setVisible(true);
+            // temporarily disabled
+            subMenu.getItem(6).setVisible(false);
+            subMenu.getItem(7).setVisible(false);
+            // end of temporarily disabled
+            subMenu.getItem(8).setVisible(true);
             subMenu.getItem(2).setVisible(false);
         }else{
             subMenu.getItem(3).setVisible(false);
             subMenu.getItem(4).setVisible(false);
             subMenu.getItem(5).setVisible(false);
             subMenu.getItem(6).setVisible(false);
+            subMenu.getItem(7).setVisible(false);
+            subMenu.getItem(8).setVisible(false);
             subMenu.getItem(2).setVisible(true);
         }
 
@@ -264,6 +270,9 @@ public class Screen_IDE extends AppCompatActivity {
                     }
                 });
                 alertDialog.show();
+                return true;
+            case R.id.git_checkout:
+                startActivity(new Intent(Screen_IDE.this, Screen_Git_Branches.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

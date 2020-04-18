@@ -84,8 +84,9 @@
     <string name="git_branch_create">Create Branch</string>
     <string name="git_branch_create_name">Enter name for new branch</string>
 
-    <string name="git_checkout">Checkout</string>
-    <string name="git_checkout_name">Enter name for local branch</string>
+    <string name="git_checkout_short">Checkout</string>
+    <string name="git_checkout_long">Git Checkout</string>
+    <string name="git_checkout_new_branch_name">Enter name for local branch</string>
     
     <string name="project_new_name">Enter name of the project</string>
     <string name="project_new_name_hint">Project name</string>

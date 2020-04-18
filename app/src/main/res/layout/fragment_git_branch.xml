@@ -28,7 +28,7 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/button"
+        android:id="@+id/git_branch_delete"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_weight="1"

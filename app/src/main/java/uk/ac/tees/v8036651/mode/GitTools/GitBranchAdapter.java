@@ -3,6 +3,7 @@ package uk.ac.tees.v8036651.mode.GitTools;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.eclipse.jgit.api.CheckoutCommand;
 import org.eclipse.jgit.api.CreateBranchCommand;
+import org.eclipse.jgit.api.DeleteBranchCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +59,35 @@ public class GitBranchAdapter extends RecyclerView.Adapter<GitBranchHolder> {
         holder.branchName.setText(Repository.shortenRefName(branches.get(position).getName()));
         holder.location.setText(remoteBranches.contains(branches.get(position)) ? "Remote" : "Local");
 
+        if(remoteBranches.contains(branches.get(position))){
+            try {
+                if(!Project.openedProject.getGit().getRepository().getFullBranch().equals(branches.get(position).getName())) {
+                    holder.delete.setVisibility(View.GONE);
+                }
+            } catch (IOException e) {
+                Log.wtf("Git", "Could not get current branch name. Is HEAD detached?", e);
+            }
+        }else{
+            holder.delete.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    DeleteBranchCommand dbc = Project.openedProject.getGit().branchDelete();
+                    dbc.setBranchNames(branches.get(position).getName());
+                    try {
+                        dbc.call();
+                        localBranches.remove(branches.get(position));
+                        branches.remove(position);
+                        recyclerView.removeViewAt(position);
+                        GitBranchAdapter.this.notifyItemRemoved(position);
+                        GitBranchAdapter.this.notifyItemRangeChanged(position, branches.size());
+                        GitBranchAdapter.this.notifyDataSetChanged();
+                    } catch (GitAPIException e) {
+                        Log.e("Git", "Could not delete branch", e);
+                    }
+                }
+            });
+        }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,12 +95,9 @@ public class GitBranchAdapter extends RecyclerView.Adapter<GitBranchHolder> {
                     // change the branch
                     CheckoutCommand checkout = Project.openedProject.getGit().checkout();
                     checkout.setName(branches.get(position).getName());
-                    try {
-                        checkout.call();
-                        ((Activity) recyclerView.getContext()).finish();
-                    } catch (GitAPIException e) {
-                        e.printStackTrace();
-                    }
+                    GitCheckoutTask gct = new GitCheckoutTask(checkout);
+                    gct.execute();
+                    ((Activity) recyclerView.getContext()).finish();
                 }else{
                     //checkout requires downloading new branch
 
@@ -86,7 +115,21 @@ public class GitBranchAdapter extends RecyclerView.Adapter<GitBranchHolder> {
                             checkout.setName(((EditText)dialogue.findViewById(R.id.git_checkout_name)).getText().toString());
                             checkout.setUpstreamMode(CreateBranchCommand.SetupUpstreamMode.TRACK);
                             checkout.setStartPoint(branches.get(position).getName());
-                            GitCheckoutTask gct = new GitCheckoutTask(checkout);
+                            GitCheckoutTask gct = new GitCheckoutTask(checkout, new Runnable() {
+                                @Override
+                                public void run() {
+                                    //for some bloody reason checking out remote branch only downloads it then detaches head
+                                    //so lets check it out again, shall we
+
+                                    CheckoutCommand checkout = Project.openedProject.getGit().checkout();
+                                    checkout.setName(((EditText)dialogue.findViewById(R.id.git_checkout_name)).getText().toString());
+                                    try {
+                                        checkout.call();
+                                    } catch (GitAPIException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
                             gct.execute();
                             ((Activity) recyclerView.getContext()).finish();
                         }
