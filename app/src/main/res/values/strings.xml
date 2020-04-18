@@ -59,6 +59,8 @@
     <string name="git_commit_message_wrong_state">Unable to commit; The repository is in wrong state</string>
     <string name="git_commit_message_reject_commit">Unable to commit; The commit was rejected by commit hooks</string>
     <string name="git_commit_message_no_author">Unable to commit; Author not set.</string>
+    <string name="git_commit_no_author_title">No committer username and email set!</string>
+    <string name="git_commit_no_author_description">Would you like to set them now?</string>
 
     <string name="git_clone">Clone from Git</string>
     <string name="git_clone_enter_url">Enter Git URL</string>

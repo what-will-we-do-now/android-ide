@@ -2,6 +2,7 @@ package uk.ac.tees.v8036651.mode;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -157,7 +158,24 @@ public class Screen_IDE extends AppCompatActivity {
                 builder.show();
                 return true;
             case R.id.git_commit:
-                startActivity(new Intent(Screen_IDE.this, Screen_Git_Commit.class));
+                SharedPreferences pref = getSharedPreferences("git", MODE_PRIVATE);
+                if(pref.getString("username", "").equals("") || pref.getString("email", "").equals("")) {
+                    //the committer username and email is not set
+                    AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+                    builder2.setTitle(getResources().getString(R.string.git_commit_no_author_title));
+                    builder2.setMessage(getResources().getString(R.string.git_commit_no_author_description));
+                    builder2.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(Screen_IDE.this, Screen_Preferences.class));
+                        }
+                    });
+                    builder2.setNegativeButton("No", null);
+                    builder2.show();
+
+                }else{
+                    startActivity(new Intent(Screen_IDE.this, Screen_Git_Commit.class));
+                }
                 return true;
             case R.id.git_push:
                 PushCommand gpush = Project.openedProject.getGit().push();
