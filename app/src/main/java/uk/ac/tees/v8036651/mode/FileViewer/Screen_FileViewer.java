@@ -108,8 +108,9 @@ public class Screen_FileViewer extends AppCompatActivity {
                         currentPath = currentPath.substring(0, currentPath.lastIndexOf('/'));
                         dir = new File(currentPath);
                         pathOutput.setText(currentPath.substring(currentPath.lastIndexOf('/') + 1));
-                        refresh();
                     }
+                    refresh();
+                    buttonCheck();
                 }
             });
 
@@ -129,8 +130,8 @@ public class Screen_FileViewer extends AppCompatActivity {
                     }
 
                     System.out.println("SELECTION COUNT: " + selectionCount);
-
-                    buttonCheck(position);
+                    if (selectionCount == 1) {selectedItemIndex = position; }
+                    buttonCheck();
 
                     return true;
                 }
@@ -184,8 +185,9 @@ public class Screen_FileViewer extends AppCompatActivity {
                                 if(selection[position]){
                                     deleteFileOrFolder(projectFiles[position]);
                                     selection[position] = false;
-
-                                    buttonCheck(position);
+                                    if (selectionCount == 1) {selectedItemIndex = position; }
+                                    selectedItemIndex = position;
+                                    buttonCheck();
                                 }
                             }
 
@@ -239,6 +241,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                     currentCopied = projectFiles[selectedItemIndex];
                     isCurrentCopiedCut = false;
                     Toast.makeText(Screen_FileViewer.this, "File Copied", Toast.LENGTH_LONG).show();
+                    refresh();
                 }
             });
 
@@ -249,6 +252,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                     currentCopied = projectFiles[selectedItemIndex];
                     isCurrentCopiedCut = true;
                     Toast.makeText(Screen_FileViewer.this, "File Cut", Toast.LENGTH_LONG).show();
+                    refresh();
                 }
             });
 
@@ -455,7 +459,7 @@ public class Screen_FileViewer extends AppCompatActivity {
         textAdapter.setData(filesList);
     }
 
-    private void buttonCheck(int position){
+    private void buttonCheck(){
         selectionCount = 0;
         for (boolean aSelection : selection) {
             if (aSelection) {
@@ -465,7 +469,6 @@ public class Screen_FileViewer extends AppCompatActivity {
         }
 
         if (selectionCount == 1) {
-            selectedItemIndex = position;
             findViewById(R.id.rename_btt).setVisibility(View.VISIBLE);
             findViewById(R.id.cut_btt).setVisibility(View.VISIBLE);
             findViewById(R.id.copy_btt).setVisibility(View.VISIBLE);
