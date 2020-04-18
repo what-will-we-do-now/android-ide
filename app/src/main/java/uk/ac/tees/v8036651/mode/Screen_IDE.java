@@ -226,8 +226,8 @@ public class Screen_IDE extends AppCompatActivity {
 
                 AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
                 View dialogue = LayoutInflater.from(this).inflate(R.layout.dialog_git, null);
-
                 builder2.setView(dialogue);
+                AlertDialog alertDialog = builder2.create();
                 dialogue.findViewById(R.id.git_branch_new).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -253,16 +253,17 @@ public class Screen_IDE extends AppCompatActivity {
                         });
                         builder.setNeutralButton("Cancel", null);
                         builder.show();
-
+                        alertDialog.dismiss();
                     }
                 });
                 dialogue.findViewById(R.id.git_checkout).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         startActivity(new Intent(Screen_IDE.this, Screen_Git_Branches.class));
+                        alertDialog.dismiss();
                     }
                 });
-                builder2.show();
+                alertDialog.show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
