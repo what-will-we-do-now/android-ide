@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuCompat;
 
+import org.eclipse.jgit.api.CreateBranchCommand;
 import org.eclipse.jgit.api.PullCommand;
 import org.eclipse.jgit.api.PushCommand;
 
@@ -32,6 +33,7 @@ import java.io.OutputStreamWriter;
 
 import uk.ac.tees.v8036651.mode.FileViewer.Screen_FileViewer;
 import uk.ac.tees.v8036651.mode.GUI.NumberedTextView;
+import uk.ac.tees.v8036651.mode.GitTools.GitBranchCreateTask;
 import uk.ac.tees.v8036651.mode.GitTools.GitPullTask;
 import uk.ac.tees.v8036651.mode.GitTools.GitPushTask;
 import uk.ac.tees.v8036651.mode.Projects.Project;
@@ -104,13 +106,19 @@ public class Screen_IDE extends AppCompatActivity {
             subMenu.getItem(3).setVisible(true);
             subMenu.getItem(4).setVisible(true);
             subMenu.getItem(5).setVisible(true);
-            subMenu.getItem(6).setVisible(true);
+            // temporarily disabled
+            subMenu.getItem(6).setVisible(false);
+            subMenu.getItem(7).setVisible(false);
+            // end of temporarily disabled
+            subMenu.getItem(8).setVisible(true);
             subMenu.getItem(2).setVisible(false);
         }else{
             subMenu.getItem(3).setVisible(false);
             subMenu.getItem(4).setVisible(false);
             subMenu.getItem(5).setVisible(false);
             subMenu.getItem(6).setVisible(false);
+            subMenu.getItem(7).setVisible(false);
+            subMenu.getItem(8).setVisible(false);
             subMenu.getItem(2).setVisible(true);
         }
 
@@ -220,6 +228,50 @@ public class Screen_IDE extends AppCompatActivity {
                 }
                 return true;
             case R.id.git_nav:
+
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+                View dialogue = LayoutInflater.from(this).inflate(R.layout.dialog_git, null);
+                builder2.setView(dialogue);
+                AlertDialog alertDialog = builder2.create();
+                dialogue.findViewById(R.id.git_branch_new).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Screen_IDE.this);
+                        View dialogue = LayoutInflater.from(Screen_IDE.this).inflate(R.layout.dialog_git_branch_new, null);
+
+                        builder.setView(dialogue);
+                        builder.setPositiveButton("Create Branch", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                CreateBranchCommand cbc = Project.openedProject.getGit().branchCreate();
+                                try {
+                                    cbc.setStartPoint(Project.openedProject.getGit().getRepository().getFullBranch());
+                                    cbc.setName(((EditText)dialogue.findViewById(R.id.git_branch_name)).getText().toString());
+                                } catch (IOException e) {
+                                    Log.e("Git", "Failed to create new branch", e);
+                                }
+
+                                GitBranchCreateTask gbct = new GitBranchCreateTask(cbc);
+                                gbct.execute();
+                            }
+                        });
+                        builder.setNeutralButton("Cancel", null);
+                        builder.show();
+                        alertDialog.dismiss();
+                    }
+                });
+                dialogue.findViewById(R.id.git_checkout).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(Screen_IDE.this, Screen_Git_Branches.class));
+                        alertDialog.dismiss();
+                    }
+                });
+                alertDialog.show();
+                return true;
+            case R.id.git_checkout:
+                startActivity(new Intent(Screen_IDE.this, Screen_Git_Branches.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

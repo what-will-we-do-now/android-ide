@@ -50,6 +50,18 @@
 
                 <item android:title="@string/git"
                     android:id="@+id/git_nav"
+                    app:showAsAction="never"
+                    android:visible="false"/>
+
+                <item
+                    android:id="@+id/git_branch_new"
+                    android:title="@string/git_branch_create"
+                    app:showAsAction="never"
+                    android:visible="false"/>
+
+                <item
+                    android:id="@+id/git_checkout"
+                    android:title="@string/git_checkout_long"
                     app:showAsAction="never"/>
             </group>
             <!-- To extend with further navigation options like Git -->
