@@ -1,5 +1,6 @@
 package uk.ac.tees.v8036651.mode;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuCompat;
@@ -61,7 +63,7 @@ public class Screen_IDE extends AppCompatActivity {
 
             fileName = getIntent().getStringExtra("OpenFile");
 
-            File file = new File(getIntent().getStringExtra("OpenFile"));
+            File file = new File(fileName);
             txtCode.setFileEdited(file);
             try{
                 txtCode.setText(loadFile(file));
@@ -126,6 +128,34 @@ public class Screen_IDE extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 0){
+            if(resultCode == Activity.RESULT_OK){
+                //open the new file
+
+                NumberedTextView txtCode = findViewById(R.id.txtCode);
+
+                fileName = data.getStringExtra("OpenFile");
+
+                File file = new File(fileName);
+                txtCode.setFileEdited(file);
+                try{
+                    txtCode.setText(loadFile(file));
+                }
+                catch(Exception e){
+                    Log.e("IDE", "Unable to read file", e);
+                    Toast.makeText(this, getResources().getString(R.string.ide_file_open_error), Toast.LENGTH_LONG).show();
+                }
+
+                //there were no changes
+                saveAvailable = false;
+            }
+        }
+    }
+
     //TODO To be extended when more functionality is added
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -138,7 +168,8 @@ public class Screen_IDE extends AppCompatActivity {
                 startActivity(new Intent(Screen_IDE.this, Screen_Preferences.class));
                 return true;
             case R.id.fileview_nav:
-                startActivity(new Intent(Screen_IDE.this, Screen_FileViewer.class));
+                Intent fileManager = new Intent(Screen_IDE.this, Screen_FileViewer.class);
+                startActivityForResult(fileManager, 0);
                 return true;
             case R.id.git_init_nav:
 

@@ -1,5 +1,6 @@
 package uk.ac.tees.v8036651.mode.FileViewer;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -41,7 +42,6 @@ import java.util.Objects;
 import uk.ac.tees.v8036651.mode.GUI.MapAdapter;
 import uk.ac.tees.v8036651.mode.Projects.Project;
 import uk.ac.tees.v8036651.mode.R;
-import uk.ac.tees.v8036651.mode.Screen_IDE;
 import uk.ac.tees.v8036651.mode.plugins.PluginManager;
 
 public class Screen_FileViewer extends AppCompatActivity {
@@ -161,7 +161,6 @@ public class Screen_FileViewer extends AppCompatActivity {
             });
 
 
-            final Intent intent = new Intent(this, Screen_IDE.class);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -180,8 +179,11 @@ public class Screen_FileViewer extends AppCompatActivity {
                             } catch (IOException e) {
                                 Log.e("File Manager", "Failed to save new project configuration file", e);
                             }
-                            intent.putExtra("OpenFile", filesList.get(position).getAbsolutePath());
-                            startActivity(intent);
+
+                            Intent returnIntent = new Intent();
+                            returnIntent.putExtra("OpenFile",filesList.get(position).getAbsolutePath());
+                            setResult(Activity.RESULT_OK, returnIntent);
+                            finish();
                         }
                     }
                 }
