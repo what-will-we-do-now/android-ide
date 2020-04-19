@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import uk.ac.tees.v8036651.mode.GUI.MapAdapter;
 import uk.ac.tees.v8036651.mode.Projects.Project;
 import uk.ac.tees.v8036651.mode.R;
 import uk.ac.tees.v8036651.mode.Screen_IDE;
@@ -376,7 +377,8 @@ public class Screen_FileViewer extends AppCompatActivity {
                 language.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        ArrayAdapter templateContent = new ArrayAdapter<>(Screen_FileViewer.this, android.R.layout.simple_spinner_dropdown_item, new ArrayList<>(PluginManager.getTemplatesFor(language.getSelectedItem().toString()).keySet()));
+                        //ArrayAdapter templateContent = new ArrayAdapter<>(Screen_FileViewer.this, android.R.layout.simple_spinner_dropdown_item, new ArrayList<>(PluginManager.getTemplatesFor(language.getSelectedItem().toString()).keySet()));
+                        MapAdapter templateContent = new MapAdapter(Screen_FileViewer.this, android.R.layout.simple_spinner_dropdown_item, PluginManager.getTemplatesFor(language.getSelectedItem().toString()));
                         template.setAdapter(templateContent);
                     }
 
@@ -395,7 +397,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                             values.put("filename", input.getText().toString());
 
                             String templateData = PluginManager.getTemplate(lang, temp, values);
-                            saveActivity(templateData, input.getText().toString());
+                            saveActivity(templateData, input.getText().toString() + "." + PluginManager.getDefaultFileExtensionFor(lang));
 
                         } catch (Exception e) {
                             e.printStackTrace();
