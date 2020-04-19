@@ -9,20 +9,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="4dp"
-        android:text="@string/file_new_name"
+        android:text="@string/file_manager_new_name"
         />
 
     <EditText
         android:id="@+id/file_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/file_new_name_hint"
+        android:hint="@string/file_manager_new_name_hint"
         android:inputType="text"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/file_language"/>
+        android:text="@string/file_manager_language"/>
 
     <Spinner
         android:id="@+id/file_language_spinner"
@@ -32,7 +32,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/file_template"/>
+        android:text="@string/file_manager_template"/>
 
     <Spinner
         android:id="@+id/file_template_spinner"

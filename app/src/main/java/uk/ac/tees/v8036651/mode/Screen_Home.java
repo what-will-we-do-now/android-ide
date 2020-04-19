@@ -73,7 +73,7 @@ public class Screen_Home extends AppCompatActivity {
         CheckBox mainCreate = dialogue.findViewById(R.id.project_main_make);
         mainCreate.setChecked(true);
         EditText mainName = dialogue.findViewById(R.id.project_main_name);
-        mainName.setText("main");
+        mainName.setText(getResources().getString(R.string.project_new_default_main_name));
 
         ArrayAdapter content = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, PluginManager.getProjectTypes());
 
@@ -81,7 +81,7 @@ public class Screen_Home extends AppCompatActivity {
 
         final EditText projectName = dialogue.findViewById(R.id.project_name);
 
-        builder.setPositiveButton("Create Project", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getResources().getString(R.string.answer_create_project), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -105,7 +105,6 @@ public class Screen_Home extends AppCompatActivity {
 
                     String filename = ((EditText) dialogue.findViewById(R.id.project_main_name)).getText().toString();
 
-                    //TODO remove hardcoded JAVA and get the file extension from Plugin Manager
                     File mainFile = new File(Project.openedProject.getSrc(), filename + "." + PluginManager.getDefaultFileExtensionFor(projectLanguage));
 
                     Map<String, String> values = new HashMap<>();
@@ -132,30 +131,27 @@ public class Screen_Home extends AppCompatActivity {
                     startActivity(screenIDE);
                 }else {
                     //open the file manager
-                    //TODO add change path to where FileViewer is showing
                     startActivity(new Intent(Screen_Home.this, Screen_FileViewer.class));
                 }
             }
         });
 
-        builder.setNegativeButton("Cancel", null);
+        builder.setNegativeButton(getResources().getString(R.string.answer_cancel), null);
 
         final AlertDialog dialog = builder.show();
 
         // add validation for project name already in use
         projectName.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
-                    projectName.setError("Project must have name!");
+                    projectName.setError(getResources().getString(R.string.project_new_error_no_name));
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                 }else if((new File(new File(getExternalFilesDir(null), "MoDE_Code_Directory"), s.toString())).exists()){
-                    projectName.setError("Project already exists!");
+                    projectName.setError(getResources().getString(R.string.project_new_error_already_exists));
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                 }else{
                     projectName.setError(null);
@@ -165,9 +161,7 @@ public class Screen_Home extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) {}
         });
 
 
@@ -201,7 +195,7 @@ public class Screen_Home extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(s.length() == 0){
-                    mainName.setError("Main file must have a name");
+                    mainName.setError(getResources().getString(R.string.project_new_error_main_no_name));
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                 }else{
                     mainName.setError(null);
@@ -254,7 +248,7 @@ public class Screen_Home extends AppCompatActivity {
 
 
 
-        builder.setPositiveButton("Clone", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getResources().getString(R.string.answer_clone), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //clone the git project
@@ -263,12 +257,12 @@ public class Screen_Home extends AppCompatActivity {
                     gt.execute();
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
-                    Toast.makeText(Screen_Home.this, R.string.git_clone_error, Toast.LENGTH_LONG).show();
+                    Toast.makeText(Screen_Home.this, R.string.git_clone_message_error, Toast.LENGTH_LONG).show();
                 }
             }
         });
 
-        builder.setNegativeButton("Cancel", null);
+        builder.setNegativeButton(getResources().getString(R.string.answer_cancel), null);
 
 
         final AlertDialog dialog = builder.show();
@@ -277,14 +271,12 @@ public class Screen_Home extends AppCompatActivity {
         //check that the project name isn't already taken.
         projectName.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(new File(parentFile, s.toString()).exists()){
-                    projectName.setError("Project with this name already exists!");
+                    projectName.setError(getResources().getString(R.string.project_new_error_name_in_use));
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                 }else{
                     projectName.setError(null);
@@ -293,16 +285,8 @@ public class Screen_Home extends AppCompatActivity {
                 }
             }
 
-
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-
-
-
+            public void afterTextChanged(Editable s) {}
         });
-
-
     }
 }

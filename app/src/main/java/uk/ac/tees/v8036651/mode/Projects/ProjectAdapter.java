@@ -52,9 +52,9 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectHolder>{
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(recyclerView.getContext());
 
-                builder.setTitle("Are you sure you want to delete this project?");
+                builder.setTitle(recyclerView.getResources().getString(R.string.project_delete_title));
 
-                builder.setPositiveButton("Delete Project", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(recyclerView.getResources().getString(R.string.answer_yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which){
                         projects.get(position).delete();
@@ -66,7 +66,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectHolder>{
                     }
                 });
 
-                builder.setNegativeButton("Cancel", null);
+                builder.setNegativeButton(recyclerView.getResources().getString(R.string.answer_no), null);
 
                 final AlertDialog dialog = builder.show();
             }
@@ -85,7 +85,6 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectHolder>{
                     ((Activity)recyclerView.getContext()).finish();
 
                 }else {
-                    // TODO add ability to change directory in which file manager is opened
                     recyclerView.getContext().startActivity(new Intent(recyclerView.getContext(), Screen_FileViewer.class));
                     ((Activity)recyclerView.getContext()).finish();
                 }

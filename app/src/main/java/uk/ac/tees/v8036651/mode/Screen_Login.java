@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,7 +24,6 @@ public class Screen_Login extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("mode", Context.MODE_PRIVATE);
         final String pattern1 = pref.getString("pattern", "");
         final Intent intent = new Intent(this, Screen_Home.class);
-        System.out.println("Pattern is: " + pattern1);
         if (pattern1.equals("")) {
             startActivity(intent);
             finish();
@@ -36,32 +34,23 @@ public class Screen_Login extends AppCompatActivity {
             final PatternLockView patternLockView = findViewById(R.id.patternView);
             patternLockView.addPatternLockListener(new PatternLockViewListener() {
 
-                public void onStarted() {
+                public void onStarted() {}
 
-                }
-
-                public void onProgress(List progressPattern) {
-
-                }
+                public void onProgress(List progressPattern) {}
 
                 public void onComplete(List pattern) {
-                    Log.d(getClass().getName(), "Pattern complete: " +
-                            PatternLockUtils.patternToString(patternLockView, pattern));
                     if (PatternLockUtils.patternToString(patternLockView, pattern).equalsIgnoreCase(pattern1.toString())) {
-                        Toast.makeText(Screen_Login.this, "Welcome back!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Screen_Login.this, getResources().getString(R.string.pattern_entry_correct), Toast.LENGTH_LONG).show();
                         startActivity(intent);
                         finish();
                     } else {
-                        Toast.makeText(Screen_Login.this, "Incorrect password", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Screen_Login.this, getResources().getString(R.string.pattern_entry_incorrect), Toast.LENGTH_LONG).show();
                     }
 
                 }
 
-                public void onCleared() {
-
-                }
+                public void onCleared() {}
             });
         }
-
     }
 }

@@ -68,7 +68,7 @@ public class Screen_IDE extends AppCompatActivity {
             }
             catch(Exception e){
                 Log.e("IDE", "Unable to read file", e);
-                Toast.makeText(this, getResources().getString(R.string.ide_file_open_error), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getResources().getString(R.string.ide_message_file_open_error), Toast.LENGTH_LONG).show();
             }
         }
         txtCode.setHorizontallyScrolling(true);
@@ -144,16 +144,16 @@ public class Screen_IDE extends AppCompatActivity {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-                builder.setTitle("Do you want to enable Git version control?");
+                builder.setTitle(getResources().getString(R.string.git_init_message_enable));
 
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(getResources().getString(R.string.answer_yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Project.openedProject.gitInit();
                         invalidateOptionsMenu();
                     }
                 });
-                builder.setNegativeButton("No", null);
+                builder.setNegativeButton(getResources().getString(R.string.answer_no), null);
 
                 builder.show();
                 return true;
@@ -162,15 +162,15 @@ public class Screen_IDE extends AppCompatActivity {
                 if(pref.getString("username", "").equals("") || pref.getString("email", "").equals("")) {
                     //the committer username and email is not set
                     AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
-                    builder2.setTitle(getResources().getString(R.string.git_commit_no_author_title));
-                    builder2.setMessage(getResources().getString(R.string.git_commit_no_author_description));
-                    builder2.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    builder2.setTitle(getResources().getString(R.string.git_commit_message_no_author_title));
+                    builder2.setMessage(getResources().getString(R.string.git_commit_message_no_author_description));
+                    builder2.setPositiveButton(getResources().getString(R.string.answer_yes), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             startActivity(new Intent(Screen_IDE.this, Screen_Preferences.class));
                         }
                     });
-                    builder2.setNegativeButton("No", null);
+                    builder2.setNegativeButton(getResources().getString(R.string.answer_no), null);
                     builder2.show();
 
                 }else{
@@ -187,7 +187,7 @@ public class Screen_IDE extends AppCompatActivity {
                     new AlertDialog.Builder(this)
                             .setTitle(getResources().getString(R.string.ide_continue_save_title))
                             .setMessage(getResources().getString(R.string.ide_continue_save_message))
-                            .setPositiveButton(getResources().getString(R.string.ide_continue_save_save), new DialogInterface.OnClickListener() {
+                            .setPositiveButton(getResources().getString(R.string.answer_save_continue), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     saveChanges();
@@ -200,14 +200,14 @@ public class Screen_IDE extends AppCompatActivity {
                                                 saveAvailable = false;
                                             } catch (IOException e) {
                                                 Log.e("IDE", "Unable to read file", e);
-                                                Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_file_open_error), Toast.LENGTH_LONG).show();
+                                                Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_message_file_open_error), Toast.LENGTH_LONG).show();
                                             }
                                         }
                                     });
                                     gpullt.execute();
                                 }
                             })
-                            .setNegativeButton(getResources().getString(R.string.ide_continue_save_continue), new DialogInterface.OnClickListener() {
+                            .setNegativeButton(getResources().getString(R.string.answer_discard_continue), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     PullCommand gpull = Project.openedProject.getGit().pull();
@@ -219,14 +219,14 @@ public class Screen_IDE extends AppCompatActivity {
                                                 saveAvailable = false;
                                             } catch (IOException e) {
                                                 Log.e("IDE", "Unable to read file", e);
-                                                Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_file_open_error), Toast.LENGTH_LONG).show();
+                                                Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_message_file_open_error), Toast.LENGTH_LONG).show();
                                             }
                                         }
                                     });
                                     gpullt.execute();
                                 }
                             })
-                            .setNeutralButton(getResources().getString(R.string.ide_continue_save_cancel), null)
+                            .setNeutralButton(getResources().getString(R.string.answer_cancel), null)
                             .show();
                 }else {
                     PullCommand gpull = Project.openedProject.getGit().pull();
@@ -238,7 +238,7 @@ public class Screen_IDE extends AppCompatActivity {
                                 saveAvailable = false;
                             } catch (IOException e) {
                                 Log.e("IDE", "Unable to read file", e);
-                                Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_file_open_error), Toast.LENGTH_LONG).show();
+                                Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_message_file_open_error), Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -258,7 +258,7 @@ public class Screen_IDE extends AppCompatActivity {
                         View dialogue = LayoutInflater.from(Screen_IDE.this).inflate(R.layout.dialog_git_branch_new, null);
 
                         builder.setView(dialogue);
-                        builder.setPositiveButton("Create Branch", new DialogInterface.OnClickListener() {
+                        builder.setPositiveButton(getResources().getString(R.string.git_branch_create), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
@@ -274,7 +274,7 @@ public class Screen_IDE extends AppCompatActivity {
                                 gbct.execute();
                             }
                         });
-                        builder.setNeutralButton("Cancel", null);
+                        builder.setNeutralButton(getResources().getString(R.string.answer_cancel), null);
                         builder.show();
                         alertDialog.dismiss();
                     }
@@ -302,18 +302,18 @@ public class Screen_IDE extends AppCompatActivity {
             new AlertDialog.Builder(this)
                     .setTitle(getResources().getString(R.string.ide_close_no_save_title))
                     .setMessage(getResources().getString(R.string.ide_close_no_save_text))
-                    .setPositiveButton(getResources().getString(R.string.ide_close_option_yes_and_save), new DialogInterface.OnClickListener() {
+                    .setPositiveButton(getResources().getString(R.string.answer_save_close), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             saveChanges();
                             finish();
                         }
-                    }).setNegativeButton(getResources().getString(R.string.ide_close_option_yes_and_discard), new DialogInterface.OnClickListener() {
+                    }).setNegativeButton(getResources().getString(R.string.answer_discard_close), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
                         }
-                    }).setNeutralButton(getResources().getString(R.string.ide_close_option_no), null)
+                    }).setNeutralButton(getResources().getString(R.string.answer_cancel), null)
                     .show();
         }else{
             super.onBackPressed();
@@ -322,7 +322,7 @@ public class Screen_IDE extends AppCompatActivity {
 
     private void saveChanges(){
 
-        Toast.makeText(this, "Saving", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getResources().getString(R.string.ide_message_saving), Toast.LENGTH_SHORT).show();
 
         if (fileName == null){
             final AlertDialog.Builder setFileNameDialog = new AlertDialog.Builder(Screen_IDE.this);
@@ -331,7 +331,7 @@ public class Screen_IDE extends AppCompatActivity {
             final EditText input = (EditText) inflater.findViewById(R.id.fileNameEditText);
 
             setFileNameDialog.setView(inflater);
-            setFileNameDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+            setFileNameDialog.setPositiveButton(R.string.answer_save, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     fileName = new File(Project.openedProject.getRoot(), input.getText().toString()).getAbsolutePath();
@@ -342,11 +342,11 @@ public class Screen_IDE extends AppCompatActivity {
                         invalidateOptionsMenu();
                     } catch (Exception e) {
                         Log.e("IDE", "Unable to save file", e);
-                        Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_file_save_error), Toast.LENGTH_LONG).show();
+                        Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_message_file_save_error), Toast.LENGTH_LONG).show();
                     }
                 }
             });
-            setFileNameDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            setFileNameDialog.setNegativeButton(R.string.answer_cancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
@@ -360,7 +360,7 @@ public class Screen_IDE extends AppCompatActivity {
                 invalidateOptionsMenu();
             } catch (Exception e) {
                 Log.e("IDE", "Unable to save file", e);
-                Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_file_save_error), Toast.LENGTH_LONG).show();
+                Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_message_file_save_error), Toast.LENGTH_LONG).show();
             }
         }
     }

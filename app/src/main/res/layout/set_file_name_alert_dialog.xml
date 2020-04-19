@@ -12,7 +12,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:text="@string/enterFileName"/>
+        android:text="@string/file_manager_enter_file_name"/>
 
     <EditText
         android:id="@+id/fileNameEditText"
@@ -23,6 +23,6 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="@string/file_name" />
+        android:hint="@string/file_manager_file_name" />
 
 </LinearLayout>

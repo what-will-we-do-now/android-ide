@@ -1,42 +1,81 @@
 <resources>
+    <!--
+    - I have renamed the strings IDs to follow the conventions listed here
+    - https://github.com/ribot/android-guidelines/blob/master/project_and_code_guidelines.md#2322-strings
+    -->
     <string name="app_name">MoDE</string>
-    <string name="username">Input password</string>
-    <string name="edit_password">Input password</string>
-    <string name="button_login">Log In</string>
-    <string name="google">Search</string>
 
-    <string name="title_activity_ide_screen">IdeScreen</string>
+    <!-- main menu part -->
+    <string name="main_menu_project_new">New project</string>
+    <string name="main_menu_project_open">Open project</string>
+    <string name="main_menu_project_from_qr">Project from QR code</string>
+    <string name="main_menu_title_return_to_code">Return to code</string>
+    <string name="main_menu_title_settings">Settings</string>
+    <string name="main_menu_title_search">Search</string>
 
-    <string name="login_username_text">Login:</string>
-    <string name="login_password_text">Password:</string>
-    <string name="login_username_placeholder">Enter username</string>
-    <string name="login_password_placeholder">Enter password</string>
-    <string name="new_password_placeholder">Enter New Password</string>
-    <string name="confirm_password_placeholder">Confirm New Password</string>
-    <string name="new_username_placeholder">Enter New Username</string>
-    <string name="confirm_username_placeholder">Confirm New Username</string>
+    <!-- answers for popups -->
+    <string name="answer_save">Save</string>
+    <string name="answer_cancel">Cancel</string>
+    <string name="answer_yes">Yes</string>
+    <string name="answer_no">No</string>
+    <string name="answer_save_continue">Save and continue</string>
+    <string name="answer_save_close">Save and close</string>
+    <string name="answer_discard_continue">Discard and continue</string>
+    <string name="answer_discard_close">Close without saving</string>
+    <string name="answer_create_project">Create project</string>
+    <string name="answer_clone">Clone</string>
+    <string name="answer_confirm">Confirm</string>
 
-    <string name="project_new">New project</string>
-    <string name="project_open">Open project</string>
-    <string name="project_from_qr">Project from QR code</string>
-    <string name="code_return">Return to code</string>
+    <!-- file manager part -->
+    <string name="file_manager_enter_file_name">Enter File Name:</string>
+    <string name="file_manager_enter_directory_name">Enter Directory Name:</string>
+    <string name="file_manager_current_file_path">Current Folder: </string>
+    <string name="file_manager_file_name">File Name</string>
+    <string name="file_manager_directory_name">Directory Name</string>
+    <string name="file_manager_new_name">Enter name of the file: </string>
+    <string name="file_manager_new_name_hint">File name</string>
+    <string name="file_manager_language">Choose language type: </string>
+    <string name="file_manager_template">Choose file template: </string>
 
-    <string name="save">Save</string>
-    <string name="settings">Settings</string>
-    <string name="cancel">Cancel</string>
-    <string name="create_file">Create File</string>
-    <string name="create_folder">Create Folder</string>
+    <string name="file_manager_dialog_delete_title">Confirmation</string>
+    <string name="file_manager_dialog_delete_description">Do you want to delete this file?</string>
+    <string name="file_manager_dialog_rename_title">Rename file to:</string>
 
-    <string name="file_path">Current Folder: </string>
-    <string name="file_name">File Name</string>
-    <string name="enterFileName">Enter File Name:</string>
-    <string name="directory_name">Directory Name</string>
-    <string name="enterDirectoryName">Enter Directory Name:</string>
+    <plurals name="file_manager_message_all_file_pasted">
+        <item quantity="one">%1$d file pasted</item>
+        <item quantity="other">%1$d files pasted</item>
+    </plurals>
+    <plurals name="file_manager_message_partial_file_pasted">
+        <item quantity="one">%1$d out of %2$d file pasted successfully</item>
+        <item quantity="other">%1$d out of %2$d files pasted successfully</item>
+    </plurals>
 
+        <!-- file manager content descriptions -->
+
+    <string name="file_manager_description_up_directory">Previous directory</string>
+
+        <!-- file manager menu -->
+
+    <string name="file_manager_menu_refresh">Refresh</string>
+    <string name="file_manager_menu_submenu">More options</string>
+    <string name="file_manager_menu_create_file">Create File</string>
+    <string name="file_manager_menu_create_folder">Create Folder</string>
+
+        <!-- file manager action buttons -->
+    <string name="file_manager_action_delete">Delete</string>
+    <string name="file_manager_action_rename">Rename</string>
+    <string name="file_manager_action_copy">Copy</string>
+    <string name="file_manager_action_cut">Cut</string>
+    <string name="file_manager_action_paste">Paste</string>
+
+    <!-- pattern part -->
     <string name="pattern_update">Update</string>
     <string name="pattern_remove">Remove</string>
+    <string name="pattern_entry_correct">Welcome back!</string>
+    <string name="pattern_entry_incorrect">Incorrect pattern</string>
 
 
+    <!-- git part -->
     <string name="git">Git</string>
     <string name="git_names_branch">Branch</string>
     <string name="git_names_branch_display">Branch: %1$s</string>
@@ -44,12 +83,26 @@
     <string name="git_names_select_all">Select all</string>
     <string name="git_names_deselect_all">Deselect all</string>
 
-    <string name="git_init">Initialise Git</string>
+    <string name="git_file_status_added">Added</string>
+    <string name="git_file_status_changed">Changed</string>
+    <string name="git_file_status_missing">Missing</string>
+    <string name="git_file_status_modified">Modified</string>
+    <string name="git_file_status_removed">Removed</string>
+    <string name="git_file_status_uncommitted_changes">Uncommitted Changes</string>
+    <string name="git_file_status_untracked">Untracked</string>
 
-    <string name="git_commit_short">Commit</string>
+    <string name="git_branch_type_local">Local</string>
+    <string name="git_branch_type_remote">Remote</string>
+        <!-- Git Init -->
+
+    <string name="git_init">Initialise Git</string>
+    <string name="git_init_message_enable">Do you want to enable Git version control?</string>
+
+        <!-- Git Commit -->
+
     <string name="git_commit_long">Git commit</string>
-    <string name="git_commit_commit">Enter commit message</string>
-    <string name="git_commit_files">Choose files to commit</string>
+    <string name="git_commit_commit_message">Enter commit message</string>
+    <string name="git_commit_commit_files">Choose files to commit</string>
     <string name="git_commit_message_successful">Commit successful</string>
     <string name="git_commit_message_failure">Unable to commit; Undefined error</string>
     <string name="git_commit_message_no_head">Unable to commit; repo doesn\'t have HEAD</string>
@@ -59,85 +112,136 @@
     <string name="git_commit_message_wrong_state">Unable to commit; The repository is in wrong state</string>
     <string name="git_commit_message_reject_commit">Unable to commit; The commit was rejected by commit hooks</string>
     <string name="git_commit_message_no_author">Unable to commit; Author not set.</string>
-    <string name="git_commit_no_author_title">No committer username and email set!</string>
-    <string name="git_commit_no_author_description">Would you like to set them now?</string>
+    <string name="git_commit_message_no_author_title">No committer username and email set!</string>
+    <string name="git_commit_message_no_author_description">Would you like to set them now?</string>
+    <string name="git_commit_validation_empty_commit_message">Commit message must not be empty!</string>
+
+        <!-- Git clone -->
 
     <string name="git_clone">Clone from Git</string>
     <string name="git_clone_enter_url">Enter Git URL</string>
     <string name="git_clone_enter_project_name">Enter Project name</string>
-    <string name="git_clone_success">Project successfully cloned.</string>
-    <string name="git_clone_error">Error occurred while trying to clone Git project.</string>
-    <string name="git_clone_error_remote_not_found">Remote repository not found.</string>
+    <string name="git_clone_message_success">Project successfully cloned.</string>
+    <string name="git_clone_message_error">Error occurred while trying to clone Git project.</string>
+    <string name="git_clone_message_remote_not_found">Remote repository not found.</string>
 
-    <string name="git_authentication_message_default">Remote Git repository requires authentication.</string>
+        <!-- Git Authentication -->
+
+    <string name="git_authentication_title">Remote Git repository requires authentication.</string>
     <string name="git_authentication_username">Remote username</string>
     <string name="git_authentication_password">Remote password</string>
 
-    <string name="git_pull_short">Pull</string>
-    <string name="git_pull_long">Git Pull</string>
+        <!-- Git Pull -->
+
+    <string name="git_pull">Git Pull</string>
     <string name="git_pull_message_successful">Pull successful.</string>
     <string name="git_pull_message_failure">Pull unsuccessful.</string>
 
-    <string name="git_push_short">Push</string>
-    <string name="git_push_long">Git Push</string>
+        <!-- Git Push -->
+
+    <string name="git_push">Git Push</string>
     <string name="git_push_message_successful">Push successful.</string>
     <string name="git_push_message_failure">Push unsuccessful</string>
 
+        <!-- Git branch -->
+
     <string name="git_branch_create">Create Branch</string>
-    <string name="git_branch_create_name">Enter name for new branch</string>
+    <string name="git_branch_create_title_name">Enter name for new branch</string>
+
+        <!-- Git Checkout -->
 
     <string name="git_checkout_short">Checkout</string>
     <string name="git_checkout_long">Git Checkout</string>
-    <string name="git_checkout_new_branch_name">Enter name for local branch</string>
-    
+    <string name="git_checkout_enter_new_branch_name">Enter name for local branch</string>
+
+
+    <!-- projects part -->
     <string name="project_new_name">Enter name of the project</string>
     <string name="project_new_name_hint">Project name</string>
     <string name="project_new_type">Choose project type</string>
     <string name="project_new_main_create">Create main file</string>
     <string name="project_new_main_name">Enter main file name</string>
+    <string name="project_new_error_no_name">Project must have name!</string>
+    <string name="project_new_error_already_exists">Project already exists!</string>
+    <string name="project_new_error_main_no_name">Main file must have a name</string>
+    <string name="project_new_error_name_in_use">Project with this name already exists!</string>
+    <string name="project_delete_title">Are you sure you want to delete this project?</string>
+    <string name="project_new_default_main_name">main</string>
 
-    <string name="file_new_name">Enter name of the file: </string>
-    <string name="file_new_name_hint">File name</string>
-    <string name="file_language">Choose language type: </string>
-    <string name="file_template">Choose file template: </string>
-
-    <string name="ide_file_open_error">Unable to open file</string>
-    <string name="ide_file_save_error">Unable to save file</string>
+    <!-- IDE part -->
+    <string name="ide_message_file_open_error">Unable to open file</string>
+    <string name="ide_message_file_save_error">Unable to save file</string>
+    <string name="ide_message_saving">Saving</string>
     <string name="ide_close_no_save_title">Do you want to save your changes?</string>
     <string name="ide_close_no_save_text">All unsaved changes will be lost.</string>
-    <string name="ide_close_option_yes_and_save">Save and close</string>
-    <string name="ide_close_option_yes_and_discard">Close without saving</string>
-    <string name="ide_close_option_no">Cancel</string>
-
     <string name="ide_continue_save_title">Do you want to save your changes?</string>
     <string name="ide_continue_save_message">Unsaved changes will be lost.</string>
-    <string name="ide_continue_save_save">Save and continue</string>
-    <string name="ide_continue_save_continue">Discard and continue</string>
-    <string name="ide_continue_save_cancel">Cancel</string>
 
-    <string name="title_activity_screen__preferences">Settings</string>
+        <!-- IDE menu part -->
+    <string name="ide_menu_submenu">Submenu</string>
+    <string name="ide_menu_settings">Settings</string>
+    <string name="ide_menu_file_manager">File Viewer</string>
+    <!-- NOTE: some of the menu parts are in Git section -->
 
-    <string name="info_restart_required">You will need to restart the application for this to take an effect.</string>
+    <!-- settings part -->
+    <string name="settings_title">Settings</string>
 
-    <!-- Settings Headers -->
-    <string name="pattern_header">Pattern</string>
-    <string name="preferences_header">Preferences</string>
-    <string name="accessibility_header">Accessibility</string>
+        <!-- Settings Headers -->
 
-    <!-- Settings Titles -->
-    <string name="pattern_title">Pattern</string>
-    <string name="light_mode_title">Light Mode</string>
+    <string name="settings_pattern_header">Pattern</string>
+    <string name="settings_preferences_header">Preferences</string>
+    <string name="settings_git_header">Git</string>
 
-    <!-- Settings Information -->
-    <string name="pattern_disabled">Add a pattern to your account</string>
-    <string name="pattern_enabled">Change your pattern</string>
-    <string name="light_mode_disabled">Light Mode Disabled</string>
-    <string name="light_mode_enabled">Light Mode Enabled</string>
-    <string name="settings_git_username_summary">The committer username</string>
-    <string name="settings_git_username_summary_current">The committer username: %1$s</string>
+        <!-- settings messages -->
+
+    <string name="settings_info_restart_required">You will need to restart the application for this to take an effect.</string>
+
+        <!-- settings options -->
+
     <string name="settings_git_username_title">Git Username</string>
     <string name="settings_git_email_title">Git Email</string>
+    <string name="settings_pattern_title">Pattern</string>
+    <string name="settings_theme_title">Light Mode</string>
+
+        <!-- settings summaries -->
+
+    <string name="settings_git_username_summary">The committer username</string>
+    <string name="settings_git_username_summary_current">The committer username: %1$s</string>
     <string name="settings_git_email_summary">Git committer email</string>
     <string name="settings_git_email_summary_current">Git committer email: %1$s</string>
+    <string name="settings_pattern_summary_disabled">Add a pattern to your account</string>
+    <string name="settings_theme_summary_disabled">Light Mode Disabled</string>
+    <string name="settings_theme_summary_enabled">Light Mode Enabled</string>
 
+    <!-- Splash part -->
+    <string name="splash_welcome">Welcome to MoDE</string>
+    <string name="splash_notice">COPYRIGHT © 2020 MoDE. All rights reserved.</string>
+
+    <!-- Plugins -->
+
+    <string name="plugin_generic_empty">Empty file</string>
+
+        <!-- Plugin Java -->
+
+    <string name="plugin_java_template_class_main">Java Class with Main method</string>
+    <string name="plugin_java_template_class">Java Class</string>
+    <string name="plugin_java_template_interface">Java Interface</string>
+    <string name="plugin_java_template_enum">Java Enum</string>
+    <string name="plugin_java_template_exception">Java Exception</string>
+
+        <!-- Plugin Python -->
+
+    <string name="plugin_python_template_empty">Empty python file</string>
+    <string name="plugin_python_template_main">Python with main statement</string>
+
+        <!-- Plugin XML -->
+
+    <string name="plugin_xml_template_empty">Empty file</string>
+    <string name="plugin_xml_template_website">Empty Website Template</string>
+
+
+    <!-- Auto Added -->
+    <string name="dummy">Baka</string>
+    <string name="file_manager_message_file_copied">File Copied</string>
+    <string name="file_manager_message_file_cut">File Cut</string>
 </resources>

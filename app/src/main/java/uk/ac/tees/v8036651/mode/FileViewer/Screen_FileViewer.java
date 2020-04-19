@@ -198,10 +198,10 @@ public class Screen_FileViewer extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     final AlertDialog.Builder deteteDialog = new AlertDialog.Builder(Screen_FileViewer.this);
-                    deteteDialog.setTitle("Confirmation");
-                    deteteDialog.setMessage("Do you want to delete this file?");
+                    deteteDialog.setTitle(getResources().getString(R.string.file_manager_dialog_delete_title));
+                    deteteDialog.setMessage(getResources().getString(R.string.file_manager_dialog_delete_description));
 
-                    deteteDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    deteteDialog.setPositiveButton(getResources().getString(R.string.answer_yes), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             for (int position = 0; position < projectFiles.length; position++){
@@ -215,7 +215,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                         }
                     });
 
-                    deteteDialog.setNegativeButton("No", null);
+                    deteteDialog.setNegativeButton(getResources().getString(R.string.answer_no), null);
 
                     deteteDialog.show();
                 }
@@ -226,7 +226,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                 public void onClick(View v) {
 
                     final AlertDialog.Builder renameDialog = new AlertDialog.Builder(Screen_FileViewer.this);
-                    renameDialog.setTitle("Rename file to: ");
+                    renameDialog.setTitle(getResources().getString(R.string.file_manager_dialog_rename_title));
                     final EditText newNameInput = new EditText(Screen_FileViewer.this);
 
                     String filePath = projectFiles[selectedItemIndex].getAbsolutePath();
@@ -235,7 +235,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                     newNameInput.setInputType(InputType.TYPE_CLASS_TEXT);
                     renameDialog.setView(newNameInput);
 
-                    renameDialog.setPositiveButton("Rename", new DialogInterface.OnClickListener() {
+                    renameDialog.setPositiveButton(getResources().getString(R.string.answer_confirm), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             String newName = new File(filePath).getParent() + '/' + newNameInput.getText();
@@ -252,7 +252,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                         }
                     });
 
-                    renameDialog.setNegativeButton(R.string.cancel, null);
+                    renameDialog.setNegativeButton(R.string.answer_cancel, null);
 
                     renameDialog.show();
                 }
@@ -271,7 +271,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                     }
 
                     isCurrentCopiedCut = false;
-                    Toast.makeText(Screen_FileViewer.this, "File Copied", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Screen_FileViewer.this, getResources().getString(R.string.file_manager_message_file_copied), Toast.LENGTH_LONG).show();
                     refresh();
                 }
             });
@@ -288,7 +288,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                         }
                     }
                     isCurrentCopiedCut = true;
-                    Toast.makeText(Screen_FileViewer.this, "File Cut", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Screen_FileViewer.this, getResources().getString(R.string.file_manager_message_file_cut), Toast.LENGTH_LONG).show();
                     refresh();
                 }
             });
@@ -328,10 +328,10 @@ public class Screen_FileViewer extends AppCompatActivity {
                     totalFiles = filesPasted + filesUnpasted;
 
                     if (filesUnpasted == 0){
-                        Toast.makeText(Screen_FileViewer.this, filesPasted+ " files pasted successfully", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Screen_FileViewer.this, getResources().getQuantityString(R.plurals.file_manager_message_all_file_pasted, filesPasted, filesPasted), Toast.LENGTH_LONG).show();
                     }
                     else {
-                        Toast.makeText(Screen_FileViewer.this, filesPasted + "/" + totalFiles + " files pasted successfully", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Screen_FileViewer.this, getResources().getQuantityString(R.plurals.file_manager_message_all_file_pasted, totalFiles, filesPasted, totalFiles), Toast.LENGTH_LONG).show();
                     }
                 }
             });
@@ -386,7 +386,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                     public void onNothingSelected(AdapterView<?> parent) {}
                 });
 
-                newFileDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+                newFileDialog.setPositiveButton(R.string.answer_save, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         try {
@@ -407,7 +407,7 @@ public class Screen_FileViewer extends AppCompatActivity {
 
                     }
                 });
-                newFileDialog.setNegativeButton(R.string.cancel, null);
+                newFileDialog.setNegativeButton(R.string.answer_cancel, null);
                 newFileDialog.show();
                 return true;
 
@@ -419,7 +419,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                 input = inflater.findViewById(R.id.directoryNameEditText);
 
                 newFoldereDialog.setView(inflater);
-                newFoldereDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+                newFoldereDialog.setPositiveButton(R.string.answer_save, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         try {
@@ -434,7 +434,7 @@ public class Screen_FileViewer extends AppCompatActivity {
 
                     }
                 });
-                newFoldereDialog.setNegativeButton(R.string.cancel, null);
+                newFoldereDialog.setNegativeButton(R.string.answer_cancel, null);
                 newFoldereDialog.show();
                 return true;
 

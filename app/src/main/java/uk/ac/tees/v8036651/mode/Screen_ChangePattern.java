@@ -1,10 +1,8 @@
 package uk.ac.tees.v8036651.mode;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,36 +29,23 @@ public class Screen_ChangePattern extends AppCompatActivity {
         final PatternLockView patternLockView = findViewById(R.id.patternView);
         patternLockView.addPatternLockListener(new PatternLockViewListener() {
 
-            public void onStarted() {
+            public void onStarted() {}
 
-            }
-
-            public void onProgress(List progressPattern) {
-
-            }
+            public void onProgress(List progressPattern) {}
 
             public void onComplete(List pattern) {
-                Log.d(getClass().getName(), "Pattern complete: " +
-                        PatternLockUtils.patternToString(patternLockView, pattern));
                 String textpattern = PatternLockUtils.patternToString(patternLockView, pattern);
-                System.out.println(textpattern);
                 prefEdit.putString("pattern",textpattern);
 
             }
 
-            public void onCleared() {
-
-            }
+            public void onCleared() {}
         });
     }
 
     public void updatePattern (View view)
     {
         prefEdit.commit();
-        System.out.println("Updated");
-
-        Intent intent = new Intent(this,Screen_Home.class);
-        startActivity(intent);
         finish();
     }
 
@@ -68,10 +53,6 @@ public class Screen_ChangePattern extends AppCompatActivity {
     {
         prefEdit.putString("pattern", "");
         prefEdit.commit();
-        System.out.println("Reset");
-
-        Intent intent = new Intent(this,Screen_Home.class);
-        startActivity(intent);
         finish();
     }
 }

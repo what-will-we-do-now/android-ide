@@ -38,7 +38,7 @@ public abstract class Plugin {
 
 
 
-    public abstract ColorInfo[] formatText(String code, String type);
+    public abstract ColorInfo[] formatText(String code);
 
     public abstract String getName();
 

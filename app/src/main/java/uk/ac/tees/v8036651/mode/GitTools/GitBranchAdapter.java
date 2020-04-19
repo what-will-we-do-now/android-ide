@@ -57,7 +57,7 @@ public class GitBranchAdapter extends RecyclerView.Adapter<GitBranchHolder> {
     @Override
     public void onBindViewHolder(@NonNull GitBranchHolder holder, int position) {
         holder.branchName.setText(Repository.shortenRefName(branches.get(position).getName()));
-        holder.location.setText(remoteBranches.contains(branches.get(position)) ? "Remote" : "Local");
+        holder.location.setText(remoteBranches.contains(branches.get(position)) ? recyclerView.getResources().getString(R.string.git_branch_type_remote) : recyclerView.getResources().getString(R.string.git_branch_type_local));
 
         if(remoteBranches.contains(branches.get(position))){
             try {
@@ -106,7 +106,7 @@ public class GitBranchAdapter extends RecyclerView.Adapter<GitBranchHolder> {
 
                     builder.setView(dialogue);
                     ((EditText)dialogue.findViewById(R.id.git_checkout_name)).setText(branches.get(position).getName().replace("ref/remote/origin/", ""));
-                    builder.setPositiveButton("Checkout", new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton(recyclerView.getResources().getString(R.string.git_checkout_short), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
@@ -134,7 +134,7 @@ public class GitBranchAdapter extends RecyclerView.Adapter<GitBranchHolder> {
                             ((Activity) recyclerView.getContext()).finish();
                         }
                     });
-                    builder.setNegativeButton("Cancel", null);
+                    builder.setNegativeButton(recyclerView.getResources().getString(R.string.answer_cancel), null);
                     builder.show();
                 }
             }

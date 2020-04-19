@@ -4,27 +4,27 @@
     >
 
 
-    <androidx.preference.PreferenceCategory app:title="@string/pattern_header">
+    <androidx.preference.PreferenceCategory app:title="@string/settings_pattern_header">
         <androidx.preference.Preference
             android:id="@+id/pcPattern"
             app:key="pattern"
-            app:summary="@string/pattern_disabled"
-            app:title="@string/pattern_title" />
+            app:summary="@string/settings_pattern_summary_disabled"
+            app:title="@string/settings_pattern_title" />
 
     </androidx.preference.PreferenceCategory>
 
-    <androidx.preference.PreferenceCategory app:title="@string/preferences_header">
+    <androidx.preference.PreferenceCategory app:title="@string/settings_preferences_header">
 
         <androidx.preference.SwitchPreferenceCompat
             android:id="@+id/pcLightMode"
             app:key="light_mode"
-            app:summaryOff="@string/light_mode_disabled"
-            app:summaryOn="@string/light_mode_enabled"
-            app:title="@string/light_mode_title"
+            app:summaryOff="@string/settings_theme_summary_disabled"
+            app:summaryOn="@string/settings_theme_summary_enabled"
+            app:title="@string/settings_theme_title"
             />
     </androidx.preference.PreferenceCategory>
 
-    <androidx.preference.PreferenceCategory app:title="Git">
+    <androidx.preference.PreferenceCategory app:title="@string/settings_git_header">
         <androidx.preference.Preference
             android:id="@+id/pcGitUsername"
             app:key="Git_Username"
