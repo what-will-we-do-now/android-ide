@@ -301,7 +301,7 @@ public class Screen_IDE extends AppCompatActivity {
         if(saveAvailable) {
             new AlertDialog.Builder(this)
                     .setTitle(getResources().getString(R.string.ide_close_no_save_title))
-                    .setMessage(getResources().getString(R.string.ide_close_no_save_text))
+                    .setMessage(getResources().getString(R.string.ide_close_no_save_message))
                     .setPositiveButton(getResources().getString(R.string.answer_save_close), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

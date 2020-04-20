@@ -9,14 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="4dp"
-        android:text="@string/file_manager_new_name"
+        android:text="@string/file_manager_enter_file_name"
         />
 
     <EditText
         android:id="@+id/file_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/file_manager_new_name_hint"
+        android:hint="@string/file_manager_file_name"
         android:inputType="text"/>
 
     <TextView
