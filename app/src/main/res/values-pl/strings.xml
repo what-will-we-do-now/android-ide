@@ -39,6 +39,21 @@
     <string name="file_manager_message_file_cut">Plik wycięty</string>
     <string name="file_manager_enter_file_name">Wpisz nazwę pliku</string>
     <string name="file_manager_template">Wybierz szablon</string>
+
+
+    <plurals name="file_manager_message_all_file_pasted">
+        <item quantity="one">%1$d plik wklejono</item>
+        <item quantity="few">%1$d plików wklejono</item>
+        <item quantity="many">%1$d plików wklejono</item>
+        <item quantity="other">%1$d plików wklejono</item>
+    </plurals>
+    <plurals name="file_manager_message_partial_file_pasted">
+        <item quantity="one">%1$d z %2$d plików skopiowano pomyślnie</item>
+        <item quantity="few">%1$d z %2$d plików skopiowano pomyślnie</item>
+        <item quantity="many">%1$d z %2$d plików skopiowano pomyślnie</item>
+        <item quantity="other">%1$d z %2$d plików skopiowano pomyślnie</item>
+    </plurals>
+
     <string name="git">Git</string>
     <string name="git_authentication_password">Hasło</string>
     <string name="git_authentication_title">Repozytorium Git wymaga zalogowania</string>
