@@ -16,7 +16,7 @@
         <activity android:name=".Screen_Git_Branches"></activity>
         <activity
             android:name=".Screen_Preferences"
-            android:label="@string/title_activity_screen__preferences"
+            android:label="@string/settings_title"
             android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

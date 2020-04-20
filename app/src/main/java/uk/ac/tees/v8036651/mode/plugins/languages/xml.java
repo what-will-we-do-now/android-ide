@@ -1,5 +1,6 @@
 package uk.ac.tees.v8036651.mode.plugins.languages;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -7,24 +8,25 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import uk.ac.tees.v8036651.mode.R;
 import uk.ac.tees.v8036651.mode.plugins.ColorInfo;
 import uk.ac.tees.v8036651.mode.plugins.Plugin;
 import uk.ac.tees.v8036651.mode.plugins.PluginManager;
 
 public class xml extends Plugin {
 
-    public xml(){
+    public xml(Context context){
         registerSupportedFiletype("html");
         registerSupportedFiletype("xml");
         registerSupportedFiletype("settings");
 
-        registerTemplate("EMPTY", "Empty file");
-        registerTemplate("WEBSITE", "Empty Website Template");
+        registerTemplate("EMPTY", context.getResources().getString(R.string.plugin_xml_template_empty));
+        registerTemplate("WEBSITE", context.getResources().getString(R.string.plugin_xml_template_website));
 
     }
 
     @Override
-    public ColorInfo[] formatText(String code, String type) {
+    public ColorInfo[] formatText(String code) {
 
         ArrayList<ColorInfo> formattedCode = new ArrayList<>();
 

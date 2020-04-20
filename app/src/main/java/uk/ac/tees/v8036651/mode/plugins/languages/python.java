@@ -1,5 +1,6 @@
 package uk.ac.tees.v8036651.mode.plugins.languages;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import uk.ac.tees.v8036651.mode.R;
 import uk.ac.tees.v8036651.mode.plugins.ColorInfo;
 import uk.ac.tees.v8036651.mode.plugins.Plugin;
 import uk.ac.tees.v8036651.mode.plugins.PluginManager;
@@ -58,14 +60,14 @@ public class python extends Plugin {
         TOKENS.add("assert");
     }
 
-    public python() {
+    public python(Context context) {
         registerSupportedFiletype("py");
-        registerTemplate("EMPTY", "Empty python file");
-        registerTemplate("EMPTY_MAIN", "Python with main statement");
+        registerTemplate("EMPTY", context.getResources().getString(R.string.plugin_python_template_empty));
+        registerTemplate("EMPTY_MAIN", context.getResources().getString(R.string.plugin_python_template_main));
     }
 
     @Override
-    public ColorInfo[] formatText(String code, String type) {
+    public ColorInfo[] formatText(String code) {
         ArrayList<ColorInfo> formattedCode = new ArrayList<>();
 
         for(String token : TOKENS) {

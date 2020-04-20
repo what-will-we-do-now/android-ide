@@ -50,7 +50,6 @@ public class MapAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         return createViewFromResource(LayoutInflater.from(context), position, convertView, parent, resource);
     }
 

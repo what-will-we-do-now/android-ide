@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="4dp"
-        android:text="@string/git_checkout_new_branch_name" />
+        android:text="@string/git_checkout_enter_new_branch_name" />
 
     <EditText
         android:id="@+id/git_checkout_name"

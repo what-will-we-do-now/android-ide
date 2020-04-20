@@ -45,7 +45,5 @@ public class Screen_Git_Branches extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
-
     }
 }

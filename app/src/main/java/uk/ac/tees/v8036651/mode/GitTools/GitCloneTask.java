@@ -65,11 +65,11 @@ public class GitCloneTask extends AsyncTask<Void, Integer, GitTaskStatus> {
                 }
             });
         }else if(status.equals(GitTaskStatus.CLONE_REMOTE_REPOSITORY_NOT_FOUND)){
-            Toast.makeText(context, R.string.git_clone_error_remote_not_found, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, R.string.git_clone_message_remote_not_found, Toast.LENGTH_LONG).show();
         }else if(status.equals(GitTaskStatus.GENERIC_FAILURE)){
-            Toast.makeText(context, R.string.git_clone_error, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, R.string.git_clone_message_error, Toast.LENGTH_LONG).show();
         }else if(status.equals(GitTaskStatus.GENERIC_SUCCESS)){
-            Toast.makeText(context, R.string.git_clone_success, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, R.string.git_clone_message_success, Toast.LENGTH_LONG).show();
         }
     }
 
