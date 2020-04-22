@@ -49,7 +49,7 @@ class FingerprintHandler extends FingerprintManager.AuthenticationCallback
 
         System.out.println("Hits here");
 
-        Intent intent = new Intent(null, Screen_Home.class);
+        Intent intent = new Intent(context, Screen_Home.class);
         context.startActivity(intent);
     }
 
