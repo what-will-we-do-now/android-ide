@@ -1,25 +1,41 @@
 package uk.ac.tees.v8036651.mode.GitTools;
 
+import android.content.Context;
+
+import uk.ac.tees.v8036651.mode.R;
+
 public class GitChangedFile {
 
     public enum FileStatus{
-        ADDED("Added"),
-        CHANGED("Changed"),
-        MISSING("Missing"),
-        MODIFIED("Modified"),
-        REMOVED("Removed"),
-        UNCOMMITTED_CHANGES("Uncommitted changes"),
-        UNTRACKED("Untracked");
+        ADDED("Added", R.string.git_file_status_added),
+        CHANGED("Changed", R.string.git_file_status_changed),
+        MISSING("Missing", R.string.git_file_status_missing),
+        MODIFIED("Modified", R.string.git_file_status_modified),
+        REMOVED("Removed", R.string.git_file_status_removed),
+        UNCOMMITTED_CHANGES("Uncommitted changes", R.string.git_file_status_uncommitted_changes),
+        UNTRACKED("Untracked", R.string.git_file_status_untracked);
 
-        private final String name;
+        private final String fallbackName;
+        private final int resource;
 
-        private FileStatus(String name){
-            this.name = name;
+        private FileStatus(String name, int resource){
+            this.fallbackName = name;
+            this.resource = resource;
         }
 
+        /**
+         * This function should not be used as it will return unlocalized names.
+         * Use toString(Context context) instead
+         * @return unlocalized file status
+         */
+        @Deprecated
         @Override
         public String toString(){
-            return name;
+            return fallbackName;
+        }
+
+        public String toString(Context context){
+            return context.getResources().getString(resource);
         }
     }
 

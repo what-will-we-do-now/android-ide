@@ -3,7 +3,6 @@
     - I have renamed the strings IDs to follow the conventions listed here
     - https://github.com/ribot/android-guidelines/blob/master/project_and_code_guidelines.md#2322-strings
     -->
-    <string name="app_name" translatable="false">MoDE</string>
 
     <!-- main menu part -->
     <string name="main_menu_project_new">New project</string>
@@ -48,18 +47,18 @@
         <item quantity="other">%1$d out of %2$d files pasted successfully</item>
     </plurals>
 
-        <!-- file manager content descriptions -->
+    <!-- file manager content descriptions -->
 
     <string name="file_manager_description_up_directory">Previous directory</string>
 
-        <!-- file manager menu -->
+    <!-- file manager menu -->
 
     <string name="file_manager_menu_refresh">Refresh</string>
     <string name="file_manager_menu_submenu">More options</string>
     <string name="file_manager_menu_create_file">Create File</string>
     <string name="file_manager_menu_create_folder">Create Folder</string>
 
-        <!-- file manager action buttons -->
+    <!-- file manager action buttons -->
     <string name="file_manager_action_delete">Delete</string>
     <string name="file_manager_action_rename">Rename</string>
     <string name="file_manager_action_copy">Copy</string>
@@ -91,30 +90,30 @@
 
     <string name="git_branch_type_local">Local</string>
     <string name="git_branch_type_remote">Remote</string>
-        <!-- Git Init -->
+    <!-- Git Init -->
 
     <string name="git_init">Initialise Git</string>
     <string name="git_init_message_enable">Do you want to enable Git version control?</string>
 
-        <!-- Git Commit -->
+    <!-- Git Commit -->
 
     <string name="git_commit_long">Git commit</string>
     <string name="git_commit_commit_message">Enter commit message</string>
     <string name="git_commit_commit_files">Choose files to commit</string>
-    <string name="git_commit_message_successful">Commit successful</string>
-    <string name="git_commit_message_failure">Unable to commit; Undefined error</string>
-    <string name="git_commit_message_no_head">Unable to commit; repo doesn\'t have HEAD</string>
-    <string name="git_commit_message_no_message">Unable to commit; No commit message</string>
+    <string name="git_commit_message_successful">Commit successful.</string>
+    <string name="git_commit_message_failure">Unable to commit; Undefined error.</string>
+    <string name="git_commit_message_no_head">Unable to commit; repo doesn\'t have HEAD.</string>
+    <string name="git_commit_message_no_message">Unable to commit; No commit message.</string>
     <string name="git_commit_message_unmerged_path">Unable to commit; Unmerged paths in index</string>
-    <string name="git_commit_message_concurrent_update">Unable to commit; HEAD is currently being updated by another process</string>
+    <string name="git_commit_message_concurrent_update">Unable to commit; HEAD is currently being updated by another. process</string>
     <string name="git_commit_message_wrong_state">Unable to commit; The repository is in wrong state</string>
-    <string name="git_commit_message_reject_commit">Unable to commit; The commit was rejected by commit hooks</string>
+    <string name="git_commit_message_reject_commit">Unable to commit; The commit was rejected by commit hooks.</string>
     <string name="git_commit_message_no_author">Unable to commit; Author not set.</string>
     <string name="git_commit_message_no_author_title">No committer username and email set!</string>
     <string name="git_commit_message_no_author_description">Would you like to set them now?</string>
     <string name="git_commit_validation_empty_commit_message">Commit message must not be empty!</string>
 
-        <!-- Git clone -->
+    <!-- Git clone -->
 
     <string name="git_clone">Clone from Git</string>
     <string name="git_clone_enter_url">Enter Git URL</string>
@@ -123,30 +122,30 @@
     <string name="git_clone_message_error">Error occurred while trying to clone Git project.</string>
     <string name="git_clone_message_remote_not_found">Remote repository not found.</string>
 
-        <!-- Git Authentication -->
+    <!-- Git Authentication -->
 
     <string name="git_authentication_title">Remote Git repository requires authentication.</string>
     <string name="git_authentication_username">Remote username</string>
     <string name="git_authentication_password">Remote password</string>
 
-        <!-- Git Pull -->
+    <!-- Git Pull -->
 
     <string name="git_pull">Git Pull</string>
     <string name="git_pull_message_successful">Pull successful.</string>
     <string name="git_pull_message_failure">Pull unsuccessful.</string>
 
-        <!-- Git Push -->
+    <!-- Git Push -->
 
     <string name="git_push">Git Push</string>
     <string name="git_push_message_successful">Push successful.</string>
     <string name="git_push_message_failure">Push unsuccessful</string>
 
-        <!-- Git branch -->
+    <!-- Git branch -->
 
     <string name="git_branch_create">Create Branch</string>
     <string name="git_branch_create_title_name">Enter name for new branch</string>
 
-        <!-- Git Checkout -->
+    <!-- Git Checkout -->
 
     <string name="git_checkout_short">Checkout</string>
     <string name="git_checkout_long">Git Checkout</string>
@@ -169,12 +168,12 @@
     <string name="ide_message_file_open_error">Unable to open file.</string>
     <string name="ide_message_file_save_error">Unable to save file.</string>
     <string name="ide_message_saving">Saving</string>
-    <string name="ide_close_no_save_title">Do you want to save your changes?</string>
+    <string name="ide_close_no_save_title">Do you want to save your changes before closing?</string>
     <string name="ide_close_no_save_message">All unsaved changes will be lost.</string>
     <string name="ide_continue_save_title">Do you want to save your changes?</string>
     <string name="ide_continue_save_message">All unsaved changes will be lost.</string>
 
-        <!-- IDE menu part -->
+    <!-- IDE menu part -->
     <string name="ide_menu_submenu">More options</string>
     <string name="ide_menu_settings">Settings</string>
     <string name="ide_menu_file_manager">File Viewer</string>
@@ -183,24 +182,24 @@
     <!-- settings part -->
     <string name="settings_title">Settings</string>
 
-        <!-- Settings Headers -->
+    <!-- Settings Headers -->
 
     <string name="settings_pattern_header">Pattern</string>
     <string name="settings_preferences_header">Preferences</string>
     <string name="settings_git_header">Git</string>
 
-        <!-- settings messages -->
+    <!-- settings messages -->
 
     <string name="settings_info_restart_required">You will need to restart the application for this to take an effect.</string>
 
-        <!-- settings options -->
+    <!-- settings options -->
 
     <string name="settings_git_username_title">Git Username</string>
     <string name="settings_git_email_title">Git Email</string>
     <string name="settings_pattern_title">Pattern</string>
     <string name="settings_theme_title">Light Mode</string>
 
-        <!-- settings summaries -->
+    <!-- settings summaries -->
 
     <string name="settings_git_username_summary">The committer username</string>
     <string name="settings_git_username_summary_current">The committer username: %1$s</string>
@@ -212,13 +211,12 @@
 
     <!-- Splash part -->
     <string name="splash_welcome">Welcome to MoDE</string>
-    <string name="splash_notice" translatable="false">COPYRIGHT © 2020 MoDE. All rights reserved.</string>
 
     <!-- Plugins -->
 
     <string name="plugin_generic_empty">Empty file</string>
 
-        <!-- Plugin Java -->
+    <!-- Plugin Java -->
 
     <string name="plugin_java_template_class_main">Java Class with Main method</string>
     <string name="plugin_java_template_class">Java Class</string>
@@ -226,19 +224,18 @@
     <string name="plugin_java_template_enum">Java Enum</string>
     <string name="plugin_java_template_exception">Java Exception</string>
 
-        <!-- Plugin Python -->
+    <!-- Plugin Python -->
 
     <string name="plugin_python_template_empty">Empty python file</string>
     <string name="plugin_python_template_main">Python with main statement</string>
 
-        <!-- Plugin XML -->
+    <!-- Plugin XML -->
 
     <string name="plugin_xml_template_empty">Empty file</string>
     <string name="plugin_xml_template_website">Empty Website Template</string>
 
 
     <!-- Auto Added -->
-    <string name="dummy" translatable="false">Baka</string>
     <string name="file_manager_message_file_copied">File Copied</string>
     <string name="file_manager_message_file_cut">File Cut</string>
 </resources>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="26dp"
+        android:layout_marginHorizontal="3dp"
+        android:text="Filename">
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="File Type:"
+            android:layout_marginHorizontal="3dp"
+            android:textSize="18dp">
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="3dp"
+            android:textSize="18dp"
+            android:text="Type">
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="3dp"
+            android:textSize="18dp"
+            android:text="Size:">
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="3dp"
+            android:textSize="18dp"
+            android:text="Size">
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/rename_btt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Rename">
+        </Button>
+
+        <Button
+            android:id="@+id/delete_btt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Delete">
+        </Button>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cut_btt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Cut">
+        </Button>
+
+        <Button
+            android:id="@+id/copy_btt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Copy">
+        </Button>
+
+    </LinearLayout>
+
+</LinearLayout>

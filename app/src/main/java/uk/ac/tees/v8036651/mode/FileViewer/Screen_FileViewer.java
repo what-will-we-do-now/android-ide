@@ -1,20 +1,25 @@
 package uk.ac.tees.v8036651.mode.FileViewer;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,12 +32,17 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
+import uk.ac.tees.v8036651.mode.GUI.MapAdapter;
 import uk.ac.tees.v8036651.mode.Projects.Project;
 import uk.ac.tees.v8036651.mode.R;
-import uk.ac.tees.v8036651.mode.Screen_IDE;
+import uk.ac.tees.v8036651.mode.plugins.PluginManager;
 
 public class Screen_FileViewer extends AppCompatActivity {
 
@@ -56,7 +66,13 @@ public class Screen_FileViewer extends AppCompatActivity {
     private boolean isFileManagerInitialized = false;
 
     private boolean[] selection;
+    private int selectionCount = 0;
     private boolean longClick = false;
+
+    private int selectedItemIndex;
+
+    private ArrayList<File> currentCopied = new ArrayList<>();
+    private boolean isCurrentCopiedCut;
 
     //Runs whenever the view is resumed
     @Override
@@ -87,6 +103,23 @@ public class Screen_FileViewer extends AppCompatActivity {
             for(int i=0; i < filesFoundCount; i++){
                 filesList.add(projectFiles[i]);
             }
+            Collections.sort(filesList, new Comparator<File>() {
+                @Override
+                public int compare(File o1, File o2) {
+                    if((o1.isDirectory() && o2.isDirectory()) || (o1.isFile() && o2.isFile())) {
+                        return o1.getName().compareToIgnoreCase(o2.getName());
+                    }
+                    else if(o1.isDirectory() && o2.isFile()){
+                        return -1;
+                    }
+                    else if(o1.isFile() && o2.isDirectory()){
+                        return 1;
+                    }
+                    //this should never happen
+                    Log.wtf("Sorter", "NOOOO");
+                    return 0;
+                }
+            });
             textAdapter.setData(filesList);
 
             selection = new boolean[filesFoundCount];
@@ -100,122 +133,219 @@ public class Screen_FileViewer extends AppCompatActivity {
                         currentPath = currentPath.substring(0, currentPath.lastIndexOf('/'));
                         dir = new File(currentPath);
                         pathOutput.setText(currentPath.substring(currentPath.lastIndexOf('/') + 1));
-                        refresh();
                     }
+                    refresh();
                 }
             });
 
             listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    longClick = true;
 
                     selection[position] = !selection[position];
                     textAdapter.setSelection(selection);
 
-                    boolean isAnySelected = false;
+                    selectionCount = 0;
                     for (boolean aSelection : selection) {
                         if (aSelection) {
-                            isAnySelected = true;
-                            break;
+                            selectionCount++;
                         }
                     }
 
-                    if (isAnySelected) {
-                        findViewById(R.id.delete_btt).setEnabled(true);
-                    } else {
-                        findViewById(R.id.delete_btt).setEnabled(false);
-                        longClick = false;
-                    }
+                    System.out.println("SELECTION COUNT: " + selectionCount);
+                    selectedItemIndex = position;
+                    buttonCheck();
 
                     return true;
                 }
             });
 
 
-            final Intent intent = new Intent(this, Screen_IDE.class);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                     if (!longClick){
-                        if (projectFiles[position].isDirectory()){
-                            currentPath = (currentPath + '/' + projectFiles[position].getName());
+                        if (filesList.get(position).isDirectory()){
+                            currentPath = (currentPath + '/' +filesList.get(position).getName());
                             dir = new File(currentPath);
                             pathOutput.setText(currentPath.substring(currentPath.lastIndexOf('/') + 1));
                             refresh();
                         }
 
                         else {
-
                             try {
                                 Project.openedProject.setLastFile(filesList.get(position));
                             } catch (IOException e) {
                                 Log.e("File Manager", "Failed to save new project configuration file", e);
                             }
-                            intent.putExtra("OpenFile", filesList.get(position).getAbsolutePath());
-                            startActivity(intent);
+
+                            Intent returnIntent = new Intent();
+                            returnIntent.putExtra("OpenFile",filesList.get(position).getAbsolutePath());
+                            setResult(Activity.RESULT_OK, returnIntent);
+                            finish();
                         }
                     }
                 }
             });
 
             final Button deleteBtt = findViewById(R.id.delete_btt);
+            final Button renameBtt = findViewById(R.id.rename_btt);
+            final Button copyBtt = findViewById(R.id.copy_btt);
+            final Button cutBtt = findViewById(R.id.cut_btt);
+            final Button pasteBtt = findViewById(R.id.paste_btt);
 
-            //TODO Delete Button
+            //Delete Button
             deleteBtt.setOnClickListener((new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
                     final AlertDialog.Builder deteteDialog = new AlertDialog.Builder(Screen_FileViewer.this);
-                    deteteDialog.setTitle("Confirmation");
-                    deteteDialog.setMessage("Do you want to delete this file?");
+                    deteteDialog.setTitle(getResources().getString(R.string.file_manager_dialog_delete_title));
+                    deteteDialog.setMessage(getResources().getString(R.string.file_manager_dialog_delete_description));
 
-                    deteteDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    deteteDialog.setPositiveButton(getResources().getString(R.string.answer_yes), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            for (int i = 0; i < projectFiles.length; i++){
-                                if(selection[i]){
-                                    deleteFileOrFolder(projectFiles[i]);
-                                    selection[i] = false;
-
-                                    boolean isAnySelected = false;
-                                    for (boolean aSelection : selection) {
-                                        if (aSelection) {
-                                            isAnySelected = true;
-                                            break;
-                                        }
-                                    }
-
-                                    if (isAnySelected) {
-                                        findViewById(R.id.delete_btt).setEnabled(true);
-                                    } else {
-                                        findViewById(R.id.delete_btt).setEnabled(false);
-                                    }
+                            for (int position = 0; position < projectFiles.length; position++){
+                                if(selection[position]){
+                                    deleteFileOrFolder(projectFiles[position]);
+                                    selection[position] = false;
+                                    selectedItemIndex = position;
                                 }
                             }
-
                             refresh();
                         }
                     });
 
-                    deteteDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
+                    deteteDialog.setNegativeButton(getResources().getString(R.string.answer_no), null);
 
                     deteteDialog.show();
                 }
             }));
 
+            renameBtt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    final AlertDialog.Builder renameDialog = new AlertDialog.Builder(Screen_FileViewer.this);
+                    renameDialog.setTitle(getResources().getString(R.string.file_manager_dialog_rename_title));
+                    final EditText newNameInput = new EditText(Screen_FileViewer.this);
+
+                    String filePath = projectFiles[selectedItemIndex].getAbsolutePath();
+
+                    newNameInput.setText(filePath.substring(filePath.lastIndexOf('/') + 1));
+                    newNameInput.setInputType(InputType.TYPE_CLASS_TEXT);
+                    renameDialog.setView(newNameInput);
+
+                    renameDialog.setPositiveButton(getResources().getString(R.string.answer_confirm), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String newName = new File(filePath).getParent() + '/' + newNameInput.getText();
+                            File newFile = new File(newName);
+                            if (Project.openedProject.getLastFile().equals(new File(filePath))){
+                                try {
+                                    Project.openedProject.setLastFile(newFile);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            new File(filePath).renameTo(newFile);
+                            refresh();
+                        }
+                    });
+
+                    renameDialog.setNegativeButton(R.string.answer_cancel, null);
+
+                    renameDialog.show();
+                }
+            });
+
+            copyBtt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    findViewById(R.id.paste_btt).setVisibility(View.VISIBLE);
+
+                    for (int position = 0; position < projectFiles.length; position++){
+                        if(selection[position]){
+                            currentCopied.add(projectFiles[position]);
+                            selection[position] = false;
+                        }
+                    }
+
+                    isCurrentCopiedCut = false;
+                    Toast.makeText(Screen_FileViewer.this, getResources().getString(R.string.file_manager_message_file_copied), Toast.LENGTH_LONG).show();
+                    refresh();
+                }
+            });
+
+            cutBtt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    findViewById(R.id.paste_btt).setVisibility(View.VISIBLE);
+
+                    for (int position = 0; position < projectFiles.length; position++){
+                        if(selection[position]){
+                            currentCopied.add(projectFiles[position]);
+                            selection[position] = false;
+                        }
+                    }
+                    isCurrentCopiedCut = true;
+                    Toast.makeText(Screen_FileViewer.this, getResources().getString(R.string.file_manager_message_file_cut), Toast.LENGTH_LONG).show();
+                    refresh();
+                }
+            });
+
+            pasteBtt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int filesUnpasted = 0;
+                    int filesPasted = 0;
+                    int totalFiles = 0;
+
+                    for (File copiedFile : currentCopied){
+
+                        for (File file : projectFiles){
+                            if (file.equals(copiedFile)){
+                                filesUnpasted++;
+                                break;
+                            }
+                        }
+
+                        try {
+                            saveActivity(loadActivity(copiedFile), copiedFile.getName());
+                            filesPasted++;
+                        } catch (Exception e) {
+                            filesUnpasted++;
+                            e.printStackTrace();
+                        }
+
+                        if (isCurrentCopiedCut){
+                            deleteFileOrFolder(copiedFile);
+                        }
+
+                        findViewById(R.id.paste_btt).setVisibility(View.GONE);
+                        refresh();
+                    }
+
+                    totalFiles = filesPasted + filesUnpasted;
+
+                    if (filesUnpasted == 0){
+                        Toast.makeText(Screen_FileViewer.this, getResources().getQuantityString(R.plurals.file_manager_message_all_file_pasted, filesPasted, filesPasted), Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        Toast.makeText(Screen_FileViewer.this, getResources().getQuantityString(R.plurals.file_manager_message_all_file_pasted, totalFiles, filesPasted, totalFiles), Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+
+            currentCopied.clear();
             isFileManagerInitialized = true;
+            refresh();
         }
         else {
             refresh();
         }
     }
-
 
 
     @Override
@@ -235,15 +365,42 @@ public class Screen_FileViewer extends AppCompatActivity {
 
                 final AlertDialog.Builder newFileDialog = new AlertDialog.Builder(Screen_FileViewer.this);
 
-                inflater = LayoutInflater.from(Screen_FileViewer.this).inflate(R.layout.set_file_name_alert_dialog, null);
-                input = inflater.findViewById(R.id.fileNameEditText);
-
+                inflater = LayoutInflater.from(Screen_FileViewer.this).inflate(R.layout.dialog_file_new, null);
                 newFileDialog.setView(inflater);
-                newFileDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+
+                input = inflater.findViewById(R.id.file_name);
+                Spinner language = inflater.findViewById(R.id.file_language_spinner);
+                Spinner template = inflater.findViewById(R.id.file_template_spinner);
+
+                ArrayAdapter languageContent = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, PluginManager.getProjectTypes());
+
+                language.setAdapter(languageContent);
+
+                language.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        //ArrayAdapter templateContent = new ArrayAdapter<>(Screen_FileViewer.this, android.R.layout.simple_spinner_dropdown_item, new ArrayList<>(PluginManager.getTemplatesFor(language.getSelectedItem().toString()).keySet()));
+                        MapAdapter templateContent = new MapAdapter(Screen_FileViewer.this, android.R.layout.simple_spinner_dropdown_item, PluginManager.getTemplatesFor(language.getSelectedItem().toString()));
+                        template.setAdapter(templateContent);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {}
+                });
+
+                newFileDialog.setPositiveButton(R.string.answer_save, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         try {
-                            saveActivity("", input.getText().toString());
+                            String lang = ((Spinner)language.findViewById(R.id.file_language_spinner)).getSelectedItem().toString();
+                            String temp = ((Spinner)template.findViewById(R.id.file_template_spinner)).getSelectedItem().toString();
+
+                            Map<String, String> values = new HashMap<>();
+                            values.put("filename", input.getText().toString());
+
+                            String templateData = PluginManager.getTemplate(lang, temp, values);
+                            saveActivity(templateData, input.getText().toString() + "." + PluginManager.getDefaultFileExtensionFor(lang));
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -252,12 +409,7 @@ public class Screen_FileViewer extends AppCompatActivity {
 
                     }
                 });
-                newFileDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+                newFileDialog.setNegativeButton(R.string.answer_cancel, null);
                 newFileDialog.show();
                 return true;
 
@@ -269,7 +421,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                 input = inflater.findViewById(R.id.directoryNameEditText);
 
                 newFoldereDialog.setView(inflater);
-                newFoldereDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+                newFoldereDialog.setPositiveButton(R.string.answer_save, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         try {
@@ -284,12 +436,7 @@ public class Screen_FileViewer extends AppCompatActivity {
 
                     }
                 });
-                newFoldereDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+                newFoldereDialog.setNegativeButton(R.string.answer_cancel, null);
                 newFoldereDialog.show();
                 return true;
 
@@ -330,10 +477,8 @@ public class Screen_FileViewer extends AppCompatActivity {
         return Project.openedProject.getRoot().getAbsolutePath();
     }
 
-    public String loadActivity(String fileName){
+    public String loadActivity(File file){
         String ret;
-
-        File file = new File(fileName);
 
         try{
             InputStream input = new FileInputStream(file);
@@ -391,9 +536,41 @@ public class Screen_FileViewer extends AppCompatActivity {
             filesList.add(projectFiles[i]);
         }
 
-        textAdapter.emptySelection();
         selection = new boolean[filesFoundCount];
+        textAdapter.setSelection(selection);
         textAdapter.setData(filesList);
+
+        buttonCheck();
+    }
+
+    private void buttonCheck(){
+        selectionCount = 0;
+        for (boolean aSelection : selection) {
+            if (aSelection) {
+                selectionCount++;
+                break;
+            }
+        }
+
+        if (selectionCount == 1) {
+            findViewById(R.id.rename_btt).setVisibility(View.VISIBLE);
+            findViewById(R.id.cut_btt).setVisibility(View.VISIBLE);
+            findViewById(R.id.copy_btt).setVisibility(View.VISIBLE);
+        }
+        else {
+            findViewById(R.id.rename_btt).setVisibility(View.GONE);
+            findViewById(R.id.cut_btt).setVisibility(View.GONE);
+            findViewById(R.id.copy_btt).setVisibility(View.GONE);
+        }
+
+        if (selectionCount >= 1){
+            longClick = true;
+            findViewById(R.id.delete_btt).setVisibility(View.VISIBLE);
+        }
+        else {
+            longClick = false;
+            findViewById(R.id.delete_btt).setVisibility(View.GONE);
+        }
     }
 }
 

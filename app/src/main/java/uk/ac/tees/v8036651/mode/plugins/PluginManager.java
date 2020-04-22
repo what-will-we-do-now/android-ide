@@ -1,5 +1,6 @@
 package uk.ac.tees.v8036651.mode.plugins;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -14,7 +15,10 @@ import java.util.List;
 import java.util.Map;
 
 import uk.ac.tees.v8036651.mode.GUI.NumberedTextView;
+import uk.ac.tees.v8036651.mode.R;
 import uk.ac.tees.v8036651.mode.plugins.languages.java;
+import uk.ac.tees.v8036651.mode.plugins.languages.python;
+import uk.ac.tees.v8036651.mode.plugins.languages.xml;
 
 public class PluginManager {
 
@@ -27,18 +31,24 @@ public class PluginManager {
 
     private static Plugin cachedPlugin;
 
+    private static Context context;
+
     static{
         plugins = new ArrayList<>();
     }
 
-    public static void load(){
-
+    public static void load(Context context){
+        PluginManager.context = context;
         /* PLAN C */
 
-        Plugin pluginJava = new java();
+        Plugin pluginJava = new java(context);
+        Plugin pluginXML = new xml(context);
+        Plugin pluginPython = new python(context);
+
 
         plugins.add(pluginJava);
-
+        plugins.add(pluginXML);
+        plugins.add(pluginPython);
 
         /* PLAN B
         try{
@@ -99,11 +109,13 @@ public class PluginManager {
 
     public static void formatText(View view, File file){
         //check if cached plugin is not defined or if its not matching the file extension
-        if(cachedPlugin == null || !cachedPlugin.getSupportedFiletypes().contains(file.getName().substring(file.getName().lastIndexOf('.') + 1).toLowerCase())){
+        String fileExtension = file.getName().substring(file.getName().lastIndexOf('.') + 1).toLowerCase();
+
+        if(cachedPlugin == null || !cachedPlugin.getSupportedFiletypes().contains(fileExtension)){
             cachedPlugin = null;
             //find the correct plugin to deal with the file
             for(Plugin plugin : plugins){
-                if(plugin.getSupportedFiletypes().contains(file.getName().substring(file.getName().lastIndexOf('.') + 1).toLowerCase())){
+                if(plugin.getSupportedFiletypes().contains(fileExtension)){
                     cachedPlugin = plugin;
                     break;
                 }
@@ -115,7 +127,7 @@ public class PluginManager {
             }
         }
         //format the text
-        ColorInfo[] formattedCode = cachedPlugin.formatText(((NumberedTextView) view).getText().toString(), file.getName().substring(file.getName().lastIndexOf('.') + 1).toLowerCase());
+        ColorInfo[] formattedCode = cachedPlugin.formatText(((NumberedTextView) view).getText().toString());
 
         Spannable span = new SpannableString(((NumberedTextView) view).getText().toString());
         for(ColorInfo color : formattedCode){
@@ -171,7 +183,7 @@ public class PluginManager {
         }
         Log.wtf("Plugin Manager", "No valid plugin found. This may be a bug. Using Fallback...");
         Map<String, String> fallback = new HashMap<>();
-        fallback.put("EMPTY", "Empty file");
+        fallback.put("EMPTY", context.getResources().getString(R.string.plugin_generic_empty));
         return fallback;
     }
 
@@ -189,6 +201,16 @@ public class PluginManager {
         for(Plugin plugin : plugins){
             if(plugin.getName().equalsIgnoreCase(language)){
                 return plugin.getTemplate(plugin.getMainTemplateID(), values);
+            }
+        }
+        Log.wtf("Plugin Manager", "Language not found");
+        return "";
+    }
+
+    public static String getDefaultFileExtensionFor(String language){
+        for(Plugin plugin : plugins){
+            if(plugin.getName().equalsIgnoreCase(language)){
+                return plugin.getDefaultFileExtension();
             }
         }
         Log.wtf("Plugin Manager", "Language not found");
