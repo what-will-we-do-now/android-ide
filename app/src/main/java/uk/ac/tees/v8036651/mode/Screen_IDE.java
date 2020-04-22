@@ -147,7 +147,7 @@ public class Screen_IDE extends AppCompatActivity {
                 }
                 catch(Exception e){
                     Log.e("IDE", "Unable to read file", e);
-                    Toast.makeText(this, getResources().getString(R.string.ide_file_open_error), Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, getResources().getString(R.string.ide_message_file_open_error), Toast.LENGTH_LONG).show();
                 }
 
                 //there were no changes
