@@ -151,7 +151,7 @@ public class Screen_Home extends AppCompatActivity {
                     projectName.setError(getResources().getString(R.string.project_new_error_no_name));
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                 }else if((new File(new File(getExternalFilesDir(null), "MoDE_Code_Directory"), s.toString())).exists()){
-                    projectName.setError(getResources().getString(R.string.project_new_error_already_exists));
+                    projectName.setError(getResources().getString(R.string.project_new_error_name_in_use));
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                 }else{
                     projectName.setError(null);
