@@ -1,6 +1,7 @@
 package uk.ac.tees.v8036651.mode;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.CancellationSignal;
@@ -45,6 +46,11 @@ class FingerprintHandler extends FingerprintManager.AuthenticationCallback
     public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result)
     {
         this.update("You can now access the app.", true);
+
+        System.out.println("Hits here");
+
+        Intent intent = new Intent(null, Screen_Home.class);
+        context.startActivity(intent);
     }
 
     private void update(String s, boolean b)
