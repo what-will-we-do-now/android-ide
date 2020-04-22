@@ -61,8 +61,6 @@ public class Screen_Login extends AppCompatActivity {
 
                 public void onComplete(List pattern)
                 {
-                    Log.d(getClass().getName(), "Pattern complete: " +
-                            PatternLockUtils.patternToString(patternLockView, pattern));
                     if (PatternLockUtils.patternToString(patternLockView, pattern).equalsIgnoreCase(pattern1.toString()))
                     {
                         Toast.makeText(Screen_Login.this, "Welcome back!", Toast.LENGTH_LONG).show();
