@@ -16,10 +16,11 @@ public class Screen_Search extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState){
+        setTheme(getApplicationInfo().theme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_search);
 
-        //Custom Tab Shinanigans
+        //Custom Tab Shenanigans
         openOverflowButton = findViewById(R.id.btnSearchOverflow);
         openGoogleButton = findViewById(R.id.btnSearchGoogle);
 
@@ -30,7 +31,7 @@ public class Screen_Search extends AppCompatActivity {
         openGoogleButton.setOnClickListener((v) -> {openCustomTab(googleUrl);});
     }
 
-    //Custom Tab Shinanigans
+    //Custom Tab Shenanigans
     void openCustomTab(String url)
     {
         // Use CustomeTabsIntent.Builder to configure CustomTabsIntent
