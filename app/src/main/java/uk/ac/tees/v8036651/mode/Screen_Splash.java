@@ -65,12 +65,13 @@ public class Screen_Splash extends AppCompatActivity {
     }
 
     public static boolean checkPref(Context context, String prefKey){
+        changePrefs(context, prefKey);
         return context.getSharedPreferences("prefs",MODE_PRIVATE).getBoolean(prefKey, true);
     }
 
     public static void changePrefs(Context context,String key){
         SharedPreferences.Editor editor = context.getSharedPreferences("prefs",MODE_PRIVATE).edit();
-        editor.putBoolean(key,false);
+        editor.putBoolean(key,true);
         editor.apply();
     }
 }
