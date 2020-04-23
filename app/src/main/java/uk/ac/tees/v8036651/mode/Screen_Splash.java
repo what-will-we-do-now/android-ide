@@ -15,8 +15,10 @@ public class Screen_Splash extends AppCompatActivity {
     private final static int SPLASH_TIME_OUT = 1000;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
 
 
         SharedPreferences pref = getSharedPreferences("light_mode", MODE_PRIVATE);
@@ -48,6 +50,13 @@ public class Screen_Splash extends AppCompatActivity {
             startActivity(splashIntent);
             finish();
         },SPLASH_TIME_OUT);
+
+
+
+
+
     }
+
+
 
 }
