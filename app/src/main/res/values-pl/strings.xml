@@ -40,6 +40,9 @@
     <string name="file_manager_enter_file_name">Wpisz nazwę pliku</string>
     <string name="file_manager_template">Wybierz szablon</string>
 
+    <string name="next_page">Następna strona</string>
+    <string name="prev_page">Poprzednia strona</string>
+    <string name="skip">pomiń</string>
 
     <plurals name="file_manager_message_all_file_pasted">
         <item quantity="one">%1$d plik wklejono</item>
