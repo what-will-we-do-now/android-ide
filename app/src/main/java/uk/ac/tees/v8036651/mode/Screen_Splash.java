@@ -57,8 +57,9 @@ public class Screen_Splash extends AppCompatActivity {
     }
 
     public void launchWelcome(){
-        //Intent welcomeIntent = new Intent(Screen_Splash.this, .class);
-        //startActivity(welcomeIntent);
+        Intent welcomeIntent = new Intent(Screen_Splash.this, Screen_Welcome.class);
+        startActivity(welcomeIntent);
+        changePrefs(this, "first");
         System.out.println("First time");
 
     }
