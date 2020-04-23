@@ -1,26 +1,16 @@
 package uk.ac.tees.v8036651.mode;
 
-import android.Manifest;
-import android.app.KeyguardManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.hardware.fingerprint.FingerprintManager;
-import android.os.Build;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Handler;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import java.io.File;
 
 import uk.ac.tees.v8036651.mode.plugins.PluginManager;
 
-@RequiresApi(api = Build.VERSION_CODES.M)
 public class Screen_Splash extends AppCompatActivity {
     private final static int SPLASH_TIME_OUT = 1000;
 

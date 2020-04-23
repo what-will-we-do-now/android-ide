@@ -33,7 +33,6 @@ public class Screen_Login extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("mode", Context.MODE_PRIVATE);
         final String pattern1 = pref.getString("pattern", "");
         final Intent intent = new Intent(this, Screen_Home.class);
-        System.out.println("Pattern is: " + pattern1);
         if (pattern1.equals(""))
         {
             startActivity(intent);
@@ -90,7 +89,7 @@ public class Screen_Login extends AppCompatActivity {
 
             if(!fingerprintManager.isHardwareDetected())
             {
-                System.out.println("Finger print check unsupported as no ahrdware avalible!");
+                System.out.println("Finger print check unsupported as no hardware available!");
             }
             else if (ContextCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED)
             {
