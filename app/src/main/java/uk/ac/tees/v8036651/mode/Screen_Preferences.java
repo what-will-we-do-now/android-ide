@@ -74,6 +74,7 @@ public class Screen_Preferences extends AppCompatActivity {
                 }
                 return true;
             });
+
             Preference GitUsername = findPreference("Git_Username");
             GitUsername.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
