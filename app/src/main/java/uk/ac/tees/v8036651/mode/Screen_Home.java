@@ -62,9 +62,16 @@ public class Screen_Home extends AppCompatActivity {
     }
 
     public void createProject(View view){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.darkTheme_Dialog);
 
         View dialogue = LayoutInflater.from(this).inflate(R.layout.dialog_project_new, null);
+
+        //TypedValue typedValue = new TypedValue();
+        //getTheme().resolveAttribute(android.R.attr.colorBackground, typedValue, true);
+        //int color = typedValue.data;
+        //dialogue.setBackgroundColor(color);
+
+
 
         builder.setView(dialogue);
 
