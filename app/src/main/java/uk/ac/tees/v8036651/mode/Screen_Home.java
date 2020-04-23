@@ -66,6 +66,8 @@ public class Screen_Home extends AppCompatActivity {
 
         View dialogue = LayoutInflater.from(this).inflate(R.layout.dialog_project_new, null);
 
+
+
         builder.setView(dialogue);
 
         // fill in list of project types
