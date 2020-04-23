@@ -62,13 +62,13 @@ public class Screen_Login extends AppCompatActivity {
                 {
                     if (PatternLockUtils.patternToString(patternLockView, pattern).equalsIgnoreCase(pattern1.toString()))
                     {
-                        Toast.makeText(Screen_Login.this, "Welcome back!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Screen_Login.this, getResources().getString(R.string.pattern_entry_correct), Toast.LENGTH_LONG).show();
                         startActivity(intent);
                         finish();
                     }
                     else
                         {
-                            Toast.makeText(Screen_Login.this, "Incorrect password", Toast.LENGTH_LONG).show();
+                            Toast.makeText(Screen_Login.this, getResources().getString(R.string.pattern_entry_incorrect), Toast.LENGTH_LONG).show();
                         }
 
                 }
