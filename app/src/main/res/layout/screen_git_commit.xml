@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/git_branch_name"
         android:padding="6dp"
-        android:text="@string/git_commit_commit"
+        android:text="@string/git_commit_commit_message"
         app:layout_constraintTop_toBottomOf="@+id/git_branch_name"
         tools:layout_editor_absoluteX="16dp" />
 
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:padding="6dp"
         android:layout_below="@+id/git_commit_message"
-        android:text="@string/git_commit_files"
+        android:text="@string/git_commit_commit_files"
         app:layout_constraintTop_toBottomOf="@+id/git_commit_message" />
 
 

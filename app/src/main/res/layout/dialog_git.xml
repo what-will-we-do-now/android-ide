@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/btnSearchOverflow"
+        android:id="@+id/git_branch_new"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="loadStackOverflow"
-        android:text="Stack Overflow Search" />
+        android:text="@string/git_branch_create" />
 
     <Button
-        android:id="@+id/btnSearchGoogle"
+        android:id="@+id/git_checkout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="loadGoogle"
-        android:text="Google Search" />
+        android:text="@string/git_checkout_short" />
 </LinearLayout>

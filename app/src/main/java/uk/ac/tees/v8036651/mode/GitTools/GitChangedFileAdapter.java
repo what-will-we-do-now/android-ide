@@ -44,7 +44,7 @@ public class GitChangedFileAdapter extends RecyclerView.Adapter<GitChangedFileHo
     @Override
     public void onBindViewHolder(@NonNull GitChangedFileHolder holder, int position) {
         holder.file.setText(changedFiles.get(position).getFile());
-        holder.status.setText(changedFiles.get(position).getStatus().toString());
+        holder.status.setText(changedFiles.get(position).getStatus().toString(recyclerView.getContext()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

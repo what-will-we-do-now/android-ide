@@ -114,8 +114,10 @@ public class Project {
     }
 
     public void delete(){
-        if(openedProject.getName().equals(this.name)){
-            openedProject = null;
+        if(openedProject != null) {
+            if (openedProject.getName().equals(this.name)) {
+                openedProject = null;
+            }
         }
         purge(root);
     }

@@ -1,7 +1,9 @@
 package uk.ac.tees.v8036651.mode;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,10 +16,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuCompat;
 
+import org.eclipse.jgit.api.CreateBranchCommand;
 import org.eclipse.jgit.api.PullCommand;
 import org.eclipse.jgit.api.PushCommand;
 
@@ -25,12 +29,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 import uk.ac.tees.v8036651.mode.FileViewer.Screen_FileViewer;
 import uk.ac.tees.v8036651.mode.GUI.NumberedTextView;
+import uk.ac.tees.v8036651.mode.GitTools.GitBranchCreateTask;
 import uk.ac.tees.v8036651.mode.GitTools.GitPullTask;
 import uk.ac.tees.v8036651.mode.GitTools.GitPushTask;
 import uk.ac.tees.v8036651.mode.Projects.Project;
@@ -53,40 +59,19 @@ public class Screen_IDE extends AppCompatActivity {
 
         NumberedTextView txtCode = findViewById(R.id.txtCode);
 
-        txtCode.setLanguage("java");
         if(getIntent().getExtras() != null && getIntent().getExtras().containsKey("OpenFile")){
 
             fileName = getIntent().getStringExtra("OpenFile");
 
-            String ret;
-
-            File file = new File(getIntent().getStringExtra("OpenFile"));
-
+            File file = new File(fileName);
+            txtCode.setFileEdited(file);
             try{
-                InputStream input = new FileInputStream(file);
-
-                InputStreamReader inp = new InputStreamReader(input);
-                BufferedReader reader = new BufferedReader(inp);
-                String receiveString;
-                StringBuilder str = new StringBuilder();
-
-                while( (receiveString = reader.readLine()) != null){
-                    str.append(receiveString).append("\n");
-                }
-
-                ret = str.toString();
-
-
-                input.close();
-                inp.close();
-                reader.close();
+                txtCode.setText(loadFile(file));
             }
             catch(Exception e){
                 Log.e("IDE", "Unable to read file", e);
-                Toast.makeText(this, getResources().getString(R.string.ide_file_open_error), Toast.LENGTH_LONG).show();
-                ret = "";
+                Toast.makeText(this, getResources().getString(R.string.ide_message_file_open_error), Toast.LENGTH_LONG).show();
             }
-            txtCode.setText(ret);
         }
         txtCode.setHorizontallyScrolling(true);
 
@@ -124,17 +109,51 @@ public class Screen_IDE extends AppCompatActivity {
             subMenu.getItem(3).setVisible(true);
             subMenu.getItem(4).setVisible(true);
             subMenu.getItem(5).setVisible(true);
-            subMenu.getItem(6).setVisible(true);
+            // temporarily disabled
+            subMenu.getItem(6).setVisible(false);
+            subMenu.getItem(7).setVisible(false);
+            // end of temporarily disabled
+            subMenu.getItem(8).setVisible(true);
             subMenu.getItem(2).setVisible(false);
         }else{
             subMenu.getItem(3).setVisible(false);
             subMenu.getItem(4).setVisible(false);
             subMenu.getItem(5).setVisible(false);
             subMenu.getItem(6).setVisible(false);
+            subMenu.getItem(7).setVisible(false);
+            subMenu.getItem(8).setVisible(false);
             subMenu.getItem(2).setVisible(true);
         }
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 0){
+            if(resultCode == Activity.RESULT_OK){
+                //open the new file
+
+                NumberedTextView txtCode = findViewById(R.id.txtCode);
+
+                fileName = data.getStringExtra("OpenFile");
+
+                File file = new File(fileName);
+                txtCode.setFileEdited(file);
+                try{
+                    txtCode.setText(loadFile(file));
+                }
+                catch(Exception e){
+                    Log.e("IDE", "Unable to read file", e);
+                    Toast.makeText(this, getResources().getString(R.string.ide_message_file_open_error), Toast.LENGTH_LONG).show();
+                }
+
+                //there were no changes
+                saveAvailable = false;
+            }
+        }
     }
 
     //TODO To be extended when more functionality is added
@@ -149,27 +168,45 @@ public class Screen_IDE extends AppCompatActivity {
                 startActivity(new Intent(Screen_IDE.this, Screen_Preferences.class));
                 return true;
             case R.id.fileview_nav:
-                startActivity(new Intent(Screen_IDE.this, Screen_FileViewer.class));
+                Intent fileManager = new Intent(Screen_IDE.this, Screen_FileViewer.class);
+                startActivityForResult(fileManager, 0);
                 return true;
             case R.id.git_init_nav:
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-                builder.setTitle("Do you want to enable Git version control?");
+                builder.setTitle(getResources().getString(R.string.git_init_message_enable));
 
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(getResources().getString(R.string.answer_yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Project.openedProject.gitInit();
                         invalidateOptionsMenu();
                     }
                 });
-                builder.setNegativeButton("No", null);
+                builder.setNegativeButton(getResources().getString(R.string.answer_no), null);
 
                 builder.show();
                 return true;
             case R.id.git_commit:
-                startActivity(new Intent(Screen_IDE.this, Screen_Git_Commit.class));
+                SharedPreferences pref = getSharedPreferences("git", MODE_PRIVATE);
+                if(pref.getString("username", "").equals("") || pref.getString("email", "").equals("")) {
+                    //the committer username and email is not set
+                    AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+                    builder2.setTitle(getResources().getString(R.string.git_commit_message_no_author_title));
+                    builder2.setMessage(getResources().getString(R.string.git_commit_message_no_author_description));
+                    builder2.setPositiveButton(getResources().getString(R.string.answer_yes), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(Screen_IDE.this, Screen_Preferences.class));
+                        }
+                    });
+                    builder2.setNegativeButton(getResources().getString(R.string.answer_no), null);
+                    builder2.show();
+
+                }else{
+                    startActivity(new Intent(Screen_IDE.this, Screen_Git_Commit.class));
+                }
                 return true;
             case R.id.git_push:
                 PushCommand gpush = Project.openedProject.getGit().push();
@@ -177,11 +214,113 @@ public class Screen_IDE extends AppCompatActivity {
                 gpusht.execute();
                 return true;
             case R.id.git_pull:
-                PullCommand gpull = Project.openedProject.getGit().pull();
-                GitPullTask gpullt = new GitPullTask(this, gpull);
-                gpullt.execute();
+                if(saveAvailable){
+                    new AlertDialog.Builder(this)
+                            .setTitle(getResources().getString(R.string.ide_continue_save_title))
+                            .setMessage(getResources().getString(R.string.ide_continue_save_message))
+                            .setPositiveButton(getResources().getString(R.string.answer_save_continue), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    saveChanges();
+                                    PullCommand gpull = Project.openedProject.getGit().pull();
+                                    GitPullTask gpullt = new GitPullTask(Screen_IDE.this, gpull, new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                ((NumberedTextView)Screen_IDE.this.findViewById(R.id.txtCode)).setText(loadFile(new File(fileName)));
+                                                saveAvailable = false;
+                                            } catch (IOException e) {
+                                                Log.e("IDE", "Unable to read file", e);
+                                                Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_message_file_open_error), Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    });
+                                    gpullt.execute();
+                                }
+                            })
+                            .setNegativeButton(getResources().getString(R.string.answer_discard_continue), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    PullCommand gpull = Project.openedProject.getGit().pull();
+                                    GitPullTask gpullt = new GitPullTask(Screen_IDE.this, gpull, new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                ((NumberedTextView)Screen_IDE.this.findViewById(R.id.txtCode)).setText(loadFile(new File(fileName)));
+                                                saveAvailable = false;
+                                            } catch (IOException e) {
+                                                Log.e("IDE", "Unable to read file", e);
+                                                Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_message_file_open_error), Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    });
+                                    gpullt.execute();
+                                }
+                            })
+                            .setNeutralButton(getResources().getString(R.string.answer_cancel), null)
+                            .show();
+                }else {
+                    PullCommand gpull = Project.openedProject.getGit().pull();
+                    GitPullTask gpullt = new GitPullTask(this, gpull, new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                ((NumberedTextView)Screen_IDE.this.findViewById(R.id.txtCode)).setText(loadFile(new File(fileName)));
+                                saveAvailable = false;
+                            } catch (IOException e) {
+                                Log.e("IDE", "Unable to read file", e);
+                                Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_message_file_open_error), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                    gpullt.execute();
+                }
                 return true;
             case R.id.git_nav:
+
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+                View dialogue = LayoutInflater.from(this).inflate(R.layout.dialog_git, null);
+                builder2.setView(dialogue);
+                AlertDialog alertDialog = builder2.create();
+                dialogue.findViewById(R.id.git_branch_new).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Screen_IDE.this);
+                        View dialogue = LayoutInflater.from(Screen_IDE.this).inflate(R.layout.dialog_git_branch_new, null);
+
+                        builder.setView(dialogue);
+                        builder.setPositiveButton(getResources().getString(R.string.git_branch_create), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                CreateBranchCommand cbc = Project.openedProject.getGit().branchCreate();
+                                try {
+                                    cbc.setStartPoint(Project.openedProject.getGit().getRepository().getFullBranch());
+                                    cbc.setName(((EditText)dialogue.findViewById(R.id.git_branch_name)).getText().toString());
+                                } catch (IOException e) {
+                                    Log.e("Git", "Failed to create new branch", e);
+                                }
+
+                                GitBranchCreateTask gbct = new GitBranchCreateTask(cbc);
+                                gbct.execute();
+                            }
+                        });
+                        builder.setNeutralButton(getResources().getString(R.string.answer_cancel), null);
+                        builder.show();
+                        alertDialog.dismiss();
+                    }
+                });
+                dialogue.findViewById(R.id.git_checkout).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(Screen_IDE.this, Screen_Git_Branches.class));
+                        alertDialog.dismiss();
+                    }
+                });
+                alertDialog.show();
+                return true;
+            case R.id.git_checkout:
+                startActivity(new Intent(Screen_IDE.this, Screen_Git_Branches.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -193,19 +332,19 @@ public class Screen_IDE extends AppCompatActivity {
         if(saveAvailable) {
             new AlertDialog.Builder(this)
                     .setTitle(getResources().getString(R.string.ide_close_no_save_title))
-                    .setMessage(getResources().getString(R.string.ide_close_no_save_text))
-                    .setPositiveButton(getResources().getString(R.string.ide_close_option_yes_and_save), new DialogInterface.OnClickListener() {
+                    .setMessage(getResources().getString(R.string.ide_close_no_save_message))
+                    .setPositiveButton(getResources().getString(R.string.answer_save_close), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             saveChanges();
                             finish();
                         }
-                    }).setNegativeButton(getResources().getString(R.string.ide_close_option_yes_and_discard), new DialogInterface.OnClickListener() {
+                    }).setNegativeButton(getResources().getString(R.string.answer_discard_close), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
                         }
-                    }).setNeutralButton(getResources().getString(R.string.ide_close_option_no), null)
+                    }).setNeutralButton(getResources().getString(R.string.answer_cancel), null)
                     .show();
         }else{
             super.onBackPressed();
@@ -214,7 +353,7 @@ public class Screen_IDE extends AppCompatActivity {
 
     private void saveChanges(){
 
-        Toast.makeText(this, "Saving", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getResources().getString(R.string.ide_message_saving), Toast.LENGTH_SHORT).show();
 
         if (fileName == null){
             final AlertDialog.Builder setFileNameDialog = new AlertDialog.Builder(Screen_IDE.this);
@@ -223,7 +362,7 @@ public class Screen_IDE extends AppCompatActivity {
             final EditText input = (EditText) inflater.findViewById(R.id.fileNameEditText);
 
             setFileNameDialog.setView(inflater);
-            setFileNameDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+            setFileNameDialog.setPositiveButton(R.string.answer_save, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     fileName = new File(Project.openedProject.getRoot(), input.getText().toString()).getAbsolutePath();
@@ -234,11 +373,11 @@ public class Screen_IDE extends AppCompatActivity {
                         invalidateOptionsMenu();
                     } catch (Exception e) {
                         Log.e("IDE", "Unable to save file", e);
-                        Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_file_save_error), Toast.LENGTH_LONG).show();
+                        Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_message_file_save_error), Toast.LENGTH_LONG).show();
                     }
                 }
             });
-            setFileNameDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            setFileNameDialog.setNegativeButton(R.string.answer_cancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
@@ -252,9 +391,30 @@ public class Screen_IDE extends AppCompatActivity {
                 invalidateOptionsMenu();
             } catch (Exception e) {
                 Log.e("IDE", "Unable to save file", e);
-                Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_file_save_error), Toast.LENGTH_LONG).show();
+                Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_message_file_save_error), Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    private String loadFile(File file) throws IOException {
+        InputStream input = new FileInputStream(file);
+
+        InputStreamReader inp = new InputStreamReader(input);
+        BufferedReader reader = new BufferedReader(inp);
+        String receiveString;
+        StringBuilder str = new StringBuilder();
+
+        while( (receiveString = reader.readLine()) != null){
+            str.append(receiveString).append("\n");
+        }
+
+        String ret = str.toString();
+
+
+        input.close();
+        inp.close();
+        reader.close();
+        return ret;
     }
 
     //Saves files to specified directory

@@ -116,7 +116,7 @@ public class Screen_Git_Commit extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(s.length() == 0){
-                    commitMessage.setError("Commit message must not be empty!");
+                    commitMessage.setError(getResources().getString(R.string.git_commit_validation_empty_commit_message));
                     commit.setEnabled(false);
                 }else{
                     commitMessage.setError(null);
@@ -131,7 +131,7 @@ public class Screen_Git_Commit extends AppCompatActivity {
         });
 
         //by default the commit message would be empty
-        commitMessage.setError("Commit message must not be empty!");
+        commitMessage.setError(getResources().getString(R.string.git_commit_validation_empty_commit_message));
         commit.setEnabled(false);
     }
 

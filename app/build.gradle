@@ -16,6 +16,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            pseudoLocalesEnabled true
+        }
     }
 
     compileOptions {
@@ -70,6 +73,8 @@ dependencies {
     //JGit
     implementation 'org.eclipse.jgit:org.eclipse.jgit:3.7.1.201504261725-r'
 
+    //Custom Tabs
+    implementation "com.android.support:customtabs:28.0.0"
 
     allprojects {
         repositories {

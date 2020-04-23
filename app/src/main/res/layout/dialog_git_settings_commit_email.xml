@@ -4,17 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnSearchOverflow"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="loadStackOverflow"
-        android:text="Stack Overflow Search" />
+        android:text="@string/settings_git_email_summary" />
 
-    <Button
-        android:id="@+id/btnSearchGoogle"
+    <EditText
+        android:id="@+id/git_committer_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="loadGoogle"
-        android:text="Google Search" />
+        android:ems="10"
+        android:inputType="textPersonName"/>
 </LinearLayout>
