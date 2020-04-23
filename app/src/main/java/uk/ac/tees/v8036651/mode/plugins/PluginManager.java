@@ -33,11 +33,8 @@ public class PluginManager {
 
     private static Context context;
 
-    static{
-        plugins = new ArrayList<>();
-    }
-
     public static void load(Context context){
+        plugins = new ArrayList<>();
         PluginManager.context = context;
         /* PLAN C */
 
