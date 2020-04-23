@@ -8,13 +8,15 @@
 
     <!-- Light Theme colours -->
     <color name="light_background">#ffffff</color>
-    <color name="light_text">#211f22</color>
     <color name="light_selection">#CCCCCC</color>
+    <color name="light_text">#211f22</color>
+    <color name="light_hint">#999999</color>
 
     <!-- Dark Theme colours -->
     <color name="dark_background">#0D1F2D</color>
     <color name="dark_text">#E8CA82</color>
     <color name="dark_selection">#224159</color>
+    <color name="dark_hint">#6f828c</color>
 
     <color name="lightText">#EEEEEE</color>
     <color name="black">#000000</color>
