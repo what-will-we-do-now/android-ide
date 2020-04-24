@@ -1,5 +1,6 @@
 package uk.ac.tees.v8036651.mode;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -46,8 +47,13 @@ public class Screen_Splash extends AppCompatActivity {
         }
 
         new Handler().postDelayed(() -> {
-            Intent splashIntent = new Intent(Screen_Splash.this, Screen_Login.class);
-            startActivity(splashIntent);
+            if (checkPref(this, "first")){
+                launchWelcome();
+            }
+            else {
+                Intent splashIntent = new Intent(Screen_Splash.this, Screen_Login.class);
+                startActivity(splashIntent);
+            }
             finish();
         },SPLASH_TIME_OUT);
 
@@ -57,6 +63,20 @@ public class Screen_Splash extends AppCompatActivity {
 
     }
 
+    public void launchWelcome(){
+        Intent welcomeIntent = new Intent(Screen_Splash.this, Screen_Welcome.class);
+        startActivity(welcomeIntent);
+        changePrefs(this, "first");
+        finish();
+    }
 
+    public static boolean checkPref(Context context, String prefKey){
+        return context.getSharedPreferences("prefs",MODE_PRIVATE).getBoolean(prefKey, true);
+    }
 
+    public static void changePrefs(Context context,String key){
+        SharedPreferences.Editor editor = context.getSharedPreferences("prefs",MODE_PRIVATE).edit();
+        editor.putBoolean(key,false);
+        editor.apply();
+    }
 }

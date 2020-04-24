@@ -32,6 +32,7 @@
         <activity android:name=".Screen_ChangePattern" />
         <activity android:name=".Screen_Search" />
         <activity android:name=".Screen_Home" />
+        <activity android:name=".Screen_Welcome"/>
         <activity android:name=".Screen_Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

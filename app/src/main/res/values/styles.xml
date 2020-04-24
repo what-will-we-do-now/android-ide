@@ -23,6 +23,7 @@
         <item name="android:textColorHint">@color/light_hint</item>
     </style>
 
+
     <!-- Tweak to checkbox -->
     <style name="lightTheme.CheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
         <item name="android:textColor">@color/light_text</item>
