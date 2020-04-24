@@ -5,6 +5,7 @@
  */
 package uk.ac.tees.v8036651.mode.plugins.languages;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import uk.ac.tees.v8036651.mode.R;
 import uk.ac.tees.v8036651.mode.plugins.ColorInfo;
 import uk.ac.tees.v8036651.mode.plugins.Plugin;
 import uk.ac.tees.v8036651.mode.plugins.PluginManager;
@@ -86,17 +88,17 @@ public class java extends Plugin{
         TOKENS.add("goto");
     }
 
-    public java() {
+    public java(Context context) {
         registerSupportedFiletype("java");
-        registerTemplate("EMPTY_CLASS_MAIN", "Java Class with Main method");
-        registerTemplate("EMPTY_CLASS","Java Class");
-        registerTemplate("EMPTY_INTERFACE", "Java Interface");
-        registerTemplate("EMPTY_ENUM", "Java Enum");
-        registerTemplate("EXCEPTION", "Java Exception");
+        registerTemplate("EMPTY_CLASS_MAIN", context.getResources().getString(R.string.plugin_java_template_class_main));
+        registerTemplate("EMPTY_CLASS", context.getResources().getString(R.string.plugin_java_template_class));
+        registerTemplate("EMPTY_INTERFACE", context.getResources().getString(R.string.plugin_java_template_interface));
+        registerTemplate("EMPTY_ENUM", context.getResources().getString(R.string.plugin_java_template_enum));
+        registerTemplate("EXCEPTION", context.getResources().getString(R.string.plugin_java_template_exception));
     }
 
     @Override
-    public ColorInfo[] formatText(String code, String type) {
+    public ColorInfo[] formatText(String code) {
 
         ArrayList<ColorInfo> formattedCode = new ArrayList<>();
 
@@ -168,49 +170,49 @@ public class java extends Plugin{
     @Override
     public String getTemplate(String templateID, Map<String, String> values) {
         if("EMPTY_CLASS_MAIN".equals(templateID)){
-            return (values.containsKey("package") ? "package " + values.get("package") + ";\n" : "") +
-                    "\n" +
+            return (values.containsKey("package") ? "package " + values.get("package") + ";\n\n" : "") +
                     "public class " + values.get("filename") + "{\n" +
                     "\n" +
-                    "    public static void main(String[] args){\n" +
+                    "  public static void main(String[] args){\n" +
                     "\n" +
-                    "        //TODO implement main code\n" +
+                    "    //TODO implement main code\n" +
                     "\n" +
-                    "    }\n" +
+                    "  }\n" +
                     "}";
         }else if("EMPTY_CLASS".equals(templateID)){
-            return (values.containsKey("package") ? "package " + values.get("package") + ";\n" : "") +
-                    "\n" +
+            return (values.containsKey("package") ? "package " + values.get("package") + ";\n\n" : "") +
                     "public class " + values.get("filename") + "{\n" +
                     "\n" +
                     "}";
         }else if("EMPTY_INTERFACE".equals(templateID)){
-            return (values.containsKey("package") ? "package " + values.get("package") + ";\n" : "") +
-                    "\n" +
+            return (values.containsKey("package") ? "package " + values.get("package") + ";\n\n" : "") +
                     "public interface " + values.get("filename") + "{\n" +
                     "\n" +
                     "}";
         }else if("EMPTY_ENUM".equals(templateID)){
-            return (values.containsKey("package") ? "package " + values.get("package") + ";\n" : "") +
-                    "\n" +
+            return (values.containsKey("package") ? "package " + values.get("package") + ";\n\n" : "") +
                     "public enum " + values.get("filename") + "{\n" +
                     "\n" +
                     "}";
         }else if("EXCEPTION".equals(templateID)){
-            return (values.containsKey("package") ? "package " + values.get("package") + ";\n" : "") +
-                    "\n" +
+            return (values.containsKey("package") ? "package " + values.get("package") + ";\n\n" : "") +
                     "public class " + values.get("filename") + " extends Exception{\n" +
                     "\n" +
-                    "    public " + values.get("filename") + "() {\n" +
-                    "    }\n" +
+                    "  public " + values.get("filename") + "() {\n" +
+                    "  }\n" +
                     "\n" +
-                    "    public " + values.get("filename") + "(String msg) {\n" +
-                    "        super(msg);\n" +
-                    "    }\n" +
+                    "  public " + values.get("filename") + "(String msg) {\n" +
+                    "    super(msg);\n" +
+                    "  }\n" +
                     "}";
         }
         Log.wtf("Plugin Java", "TemplateID not found");
         return "";
+    }
+
+    @Override
+    public String getDefaultFileExtension() {
+        return "java";
     }
 
     private ArrayList<Integer> getOffsetsFor(String code, String findRegex){

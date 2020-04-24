@@ -38,7 +38,7 @@ public abstract class Plugin {
 
 
 
-    public abstract ColorInfo[] formatText(String code, String type);
+    public abstract ColorInfo[] formatText(String code);
 
     public abstract String getName();
 
@@ -53,4 +53,6 @@ public abstract class Plugin {
      * @return
      */
     public abstract String getTemplate(String templateID, Map<String, String> values);
+
+    public abstract String getDefaultFileExtension();
 }

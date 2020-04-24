@@ -3,6 +3,7 @@
     package="uk.ac.tees.v8036651.mode">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -13,13 +14,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/darkTheme">
+        <activity android:name=".Screen_Git_Branches"></activity>
         <activity
             android:name=".Screen_Preferences"
-            android:label="@string/title_activity_screen__preferences"
+            android:label="@string/settings_title"
             android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Screen_Home"/>
+                android:value=".Screen_Home" />
         </activity>
         <activity android:name=".Screen_Git_Commit" />
         <activity android:name=".Screen_Project_Choose" />
@@ -30,6 +32,7 @@
         <activity android:name=".Screen_ChangePattern" />
         <activity android:name=".Screen_Search" />
         <activity android:name=".Screen_Home" />
+        <activity android:name=".Screen_Welcome"/>
         <activity android:name=".Screen_Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

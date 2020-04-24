@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -20,9 +21,9 @@ import uk.ac.tees.v8036651.mode.plugins.PluginManager;
 public class NumberedTextView extends AppCompatEditText {
 
     private Paint paint;
-    private String language;
     private boolean autoHighlight;
     private boolean autoClose;
+    private File fileEdited;
 
     private AutoFormatter autoHighlightWatcher;
     private AutoClose autoCloseWatcher;
@@ -34,6 +35,8 @@ public class NumberedTextView extends AppCompatEditText {
         paint.setStyle(Paint.Style.FILL);
         paint.setTextSize(getTextSize());
         setWillNotDraw(false);
+
+        setTypeface(Typeface.MONOSPACE);
 
         TypedValue typedValue = new TypedValue();
 
@@ -54,6 +57,8 @@ public class NumberedTextView extends AppCompatEditText {
         paint.setTextSize(getTextSize());
         setWillNotDraw(false);
 
+        setTypeface(Typeface.MONOSPACE);
+
         TypedValue typedValue = new TypedValue();
 
         context.getTheme().resolveAttribute(android.R.attr.textColor, typedValue, true);
@@ -70,6 +75,8 @@ public class NumberedTextView extends AppCompatEditText {
         paint.setTextSize(getTextSize());
         setWillNotDraw(false);
 
+        setTypeface(Typeface.MONOSPACE);
+
         TypedValue typedValue = new TypedValue();
 
         context.getTheme().resolveAttribute(android.R.attr.textColor, typedValue, true);
@@ -80,7 +87,6 @@ public class NumberedTextView extends AppCompatEditText {
     }
 
     private final void postInit(){
-        language = "";
         autoHighlight = true;
         autoHighlightWatcher = new AutoFormatter(this);
         addTextChangedListener(autoHighlightWatcher);
@@ -137,14 +143,13 @@ public class NumberedTextView extends AppCompatEditText {
         return autoClose;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    public void setFileEdited(File file){
+        this.fileEdited = file;
     }
 
-    public String getLanguage() {
-        return language;
+    public File getFileEdited(){
+        return this.fileEdited;
     }
-
 
     public class AutoFormatter implements TextWatcher {
 
@@ -166,7 +171,9 @@ public class NumberedTextView extends AppCompatEditText {
         public void afterTextChanged(Editable s) {
             if(!ignore) {
                 ignore = true;
-                PluginManager.formatText(edit, new File("code." + edit.getLanguage()));
+                if(getFileEdited() != null) {
+                    PluginManager.formatText(edit, getFileEdited());
+                }
                 ignore = false;
             }
         }
@@ -184,9 +191,7 @@ public class NumberedTextView extends AppCompatEditText {
 
 
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -264,9 +269,7 @@ public class NumberedTextView extends AppCompatEditText {
         }
 
         @Override
-        public void afterTextChanged(Editable s) {
-
-        }
+        public void afterTextChanged(Editable s) {}
     }
 
     public class HardwareKeyboardListener implements OnKeyListener{
@@ -275,7 +278,7 @@ public class NumberedTextView extends AppCompatEditText {
         public boolean onKey(View v, int keyCode, KeyEvent event) {
             if(!event.isCanceled() && keyCode == KeyEvent.KEYCODE_TAB && event.getAction() == KeyEvent.ACTION_UP){
                 NumberedTextView txtCode = ((NumberedTextView) v);
-                txtCode.getText().insert(txtCode.getSelectionStart(), "    ");
+                txtCode.getText().insert(txtCode.getSelectionStart(), "  ");
                 return true;
             }
             return false;
