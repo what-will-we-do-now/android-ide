@@ -18,12 +18,20 @@
         <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless</item>
         <item name="backgroundSelected">@color/light_selection</item>
         <item name="android:checkboxStyle">@style/lightTheme.CheckBox</item>
+        <item name="tintColor">@color/light_text</item>
+        <item name="alertDialogTheme">@style/lightTheme.Dialog</item>
+        <item name="android:textColorHint">@color/light_hint</item>
     </style>
 
 
     <!-- Tweak to checkbox -->
     <style name="lightTheme.CheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
         <item name="android:textColor">@color/light_text</item>
+    </style>
+
+
+    <style name="lightTheme.Dialog" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:background">@color/light_background</item>
     </style>
 
     <style name="darkTheme" parent="AppTheme">
@@ -37,6 +45,9 @@
         <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless</item>
         <item name="backgroundSelected">@color/dark_selection</item>
         <item name="android:checkboxStyle">@style/darkTheme.CheckBox</item>
+        <item name="tintColor">@color/dark_text</item>
+        <item name="alertDialogTheme">@style/darkTheme.Dialog</item>
+        <item name="android:textColorHint">@color/dark_hint</item>
     </style>
 
     <!-- Tweak to checkbox -->
@@ -44,6 +55,11 @@
         <item name="android:textColor">@color/dark_text</item>
         <item name="android:buttonTint">@color/colorAccent</item>
     </style>
+
+    <style name="darkTheme.Dialog" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:background">@color/dark_background</item>
+    </style>
+
 
     <style name="FullscreenTheme" parent="AppTheme">
         <item name="actionBarStyle">@style/FullscreenActionBarStyle</item>
