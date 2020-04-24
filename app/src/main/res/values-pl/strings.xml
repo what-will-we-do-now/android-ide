@@ -40,9 +40,12 @@
     <string name="file_manager_enter_file_name">Wpisz nazwę pliku</string>
     <string name="file_manager_template">Wybierz szablon</string>
 
-    <string name="next_page">Następna strona</string>
-    <string name="prev_page">Poprzednia strona</string>
-    <string name="skip">pomiń</string>
+    <!-- Welcome screen -->
+    <string name="title_a">Witamy w MoDE </string>
+    <string name="title_b">Jak zacząć</string>
+    <string name="text_a">MoDE to mobilne środowisko programowania, które pozwala programować gdziekolwiek jesteś! Obecnie wspieramy Jave, XML oraz Python!</string>
+    <string name="text_b">Aby zacząć używać MoDE, naciśnij przycisk Stwórz Nowy Projekt albo Sklonuj z Git w menu głównym.</string>
+    <string name="start">Zacznij</string>
 
     <plurals name="file_manager_message_all_file_pasted">
         <item quantity="one">%1$d plik wklejono</item>

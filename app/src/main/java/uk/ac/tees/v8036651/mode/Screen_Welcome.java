@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 
 public class Screen_Welcome extends AppCompatActivity {
 
@@ -15,23 +14,6 @@ public class Screen_Welcome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_welcome);
 
-        ViewPager viewPager = findViewById(R.id.vp);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
 
     }
 

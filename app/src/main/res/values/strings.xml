@@ -14,9 +14,11 @@
     <string name="main_menu_title_search">Search</string>
 
     <!-- Welcome screen -->
-    <string name="prev_page">Previous Page</string>
-    <string name="next_page">Next Page</string>
-    <string name="skip">Skip</string>
+    <string name="title_a">Welcome to MoDE</string>
+    <string name="title_b">How to get Started</string>
+    <string name="text_a">This is a Mobile Development Environment, which allows you to program on the go! Currently Java, XML, and Python are all supported!</string>
+    <string name="text_b">To start using MoDE you can click the New Project, or Clone From Git button on the main menu.</string>
+    <string name="start">Start</string>
 
     <!-- answers for popups -->
     <string name="answer_save">Save</string>
