@@ -60,7 +60,7 @@ public class Screen_Splash extends AppCompatActivity {
         Intent welcomeIntent = new Intent(Screen_Splash.this, Screen_Welcome.class);
         startActivity(welcomeIntent);
         changePrefs(this, "first");
-
+        finish();
     }
 
     public static boolean checkPref(Context context, String prefKey){
