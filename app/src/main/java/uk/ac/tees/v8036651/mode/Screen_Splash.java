@@ -60,18 +60,16 @@ public class Screen_Splash extends AppCompatActivity {
         Intent welcomeIntent = new Intent(Screen_Splash.this, Screen_Welcome.class);
         startActivity(welcomeIntent);
         changePrefs(this, "first");
-        System.out.println("First time");
 
     }
 
     public static boolean checkPref(Context context, String prefKey){
-        changePrefs(context, prefKey);
         return context.getSharedPreferences("prefs",MODE_PRIVATE).getBoolean(prefKey, true);
     }
 
     public static void changePrefs(Context context,String key){
         SharedPreferences.Editor editor = context.getSharedPreferences("prefs",MODE_PRIVATE).edit();
-        editor.putBoolean(key,true);
+        editor.putBoolean(key,false);
         editor.apply();
     }
 }
