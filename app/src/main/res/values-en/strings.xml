@@ -245,4 +245,7 @@
     <!-- Auto Added -->
     <string name="file_manager_message_file_copied">File Copied</string>
     <string name="file_manager_message_file_cut">File Cut</string>
+    <string name="answer_ok">OK</string>
+    <string name="git_checkout_message_unclean_message">Please either commit your changes or reset to HEAD</string>
+    <string name="git_checkout_message_unclean_title">You can not checkout branch with unclean state</string>
 </resources>
