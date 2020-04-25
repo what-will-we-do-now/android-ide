@@ -163,4 +163,7 @@
     <string name="settings_theme_summary_enabled">Jasny styl włączony</string>
     <string name="settings_theme_title">Jasny styl</string>
     <string name="settings_title">Ustawienia</string>
+    <string name="answer_ok">OK</string>
+    <string name="git_checkout_message_unclean_message">Proszę stworzyć commit ze zmianami, albo zresetować gałąź do HEAD</string>
+    <string name="git_checkout_message_unclean_title">Nie można zmienić gałęzi z zmianami</string>
 </resources>

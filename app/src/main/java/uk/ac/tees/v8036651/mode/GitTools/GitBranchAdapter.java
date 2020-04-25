@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.eclipse.jgit.api.CheckoutCommand;
 import org.eclipse.jgit.api.CreateBranchCommand;
 import org.eclipse.jgit.api.DeleteBranchCommand;
+import org.eclipse.jgit.api.Status;
+import org.eclipse.jgit.api.StatusCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
@@ -91,51 +93,66 @@ public class GitBranchAdapter extends RecyclerView.Adapter<GitBranchHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(localBranches.contains(branches.get(position))) {
-                    // change the branch
-                    CheckoutCommand checkout = Project.openedProject.getGit().checkout();
-                    checkout.setName(branches.get(position).getName());
-                    GitCheckoutTask gct = new GitCheckoutTask(checkout);
-                    gct.execute();
-                    ((Activity) recyclerView.getContext()).finish();
-                }else{
-                    //checkout requires downloading new branch
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(recyclerView.getContext());
-                    View dialogue = LayoutInflater.from(recyclerView.getContext()).inflate(R.layout.dialog_git_branch_checkout_remote, null);
 
-                    builder.setView(dialogue);
-                    ((EditText)dialogue.findViewById(R.id.git_checkout_name)).setText(branches.get(position).getName().replace("ref/remote/origin/", ""));
-                    builder.setPositiveButton(recyclerView.getResources().getString(R.string.git_checkout_short), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                StatusCommand sc = Project.openedProject.getGit().status();
+                try {
 
+                    Status status = sc.call();
+
+
+                    if(status.isClean()) {
+                        if (localBranches.contains(branches.get(position))) {
+                            // change the branch
                             CheckoutCommand checkout = Project.openedProject.getGit().checkout();
-                            checkout.setCreateBranch(true);
-                            checkout.setName(((EditText)dialogue.findViewById(R.id.git_checkout_name)).getText().toString());
-                            checkout.setUpstreamMode(CreateBranchCommand.SetupUpstreamMode.TRACK);
-                            checkout.setStartPoint(branches.get(position).getName());
-                            GitCheckoutTask gct = new GitCheckoutTask(checkout, new Runnable() {
+                            checkout.setName(branches.get(position).getName());
+                            GitCheckoutTask gct = new GitCheckoutTask(checkout);
+                            gct.execute();
+                            ((Activity)recyclerView.getContext()).setResult(Activity.RESULT_OK);
+                            ((Activity) recyclerView.getContext()).finish();
+                        } else {
+                            //checkout requires downloading new branch
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(recyclerView.getContext());
+                            View dialogue = LayoutInflater.from(recyclerView.getContext()).inflate(R.layout.dialog_git_branch_checkout_remote, null);
+
+                            builder.setView(dialogue);
+                            ((EditText) dialogue.findViewById(R.id.git_checkout_name)).setText(branches.get(position).getName().replace("ref/remote/origin/", ""));
+                            builder.setPositiveButton(recyclerView.getResources().getString(R.string.git_checkout_short), new DialogInterface.OnClickListener() {
                                 @Override
-                                public void run() {
-                                    //for some bloody reason checking out remote branch only downloads it then detaches head
-                                    //so lets check it out again, shall we
+                                public void onClick(DialogInterface dialog, int which) {
 
                                     CheckoutCommand checkout = Project.openedProject.getGit().checkout();
-                                    checkout.setName(((EditText)dialogue.findViewById(R.id.git_checkout_name)).getText().toString());
-                                    try {
-                                        checkout.call();
-                                    } catch (GitAPIException e) {
-                                        e.printStackTrace();
-                                    }
+                                    checkout.setCreateBranch(true);
+                                    checkout.setName(((EditText) dialogue.findViewById(R.id.git_checkout_name)).getText().toString());
+                                    checkout.setUpstreamMode(CreateBranchCommand.SetupUpstreamMode.TRACK);
+                                    checkout.setStartPoint(branches.get(position).getName());
+                                    GitCheckoutTask gct = new GitCheckoutTask(checkout, new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            //for some bloody reason checking out remote branch only downloads it then detaches head
+                                            //so lets check it out again, shall we
+
+                                            CheckoutCommand checkout = Project.openedProject.getGit().checkout();
+                                            checkout.setName(((EditText) dialogue.findViewById(R.id.git_checkout_name)).getText().toString());
+                                            try {
+                                                checkout.call();
+                                            } catch (GitAPIException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    });
+                                    gct.execute();
+                                    ((Activity)recyclerView.getContext()).setResult(Activity.RESULT_OK);
+                                    ((Activity) recyclerView.getContext()).finish();
                                 }
                             });
-                            gct.execute();
-                            ((Activity) recyclerView.getContext()).finish();
+                            builder.setNegativeButton(recyclerView.getResources().getString(R.string.answer_cancel), null);
+                            builder.show();
                         }
-                    });
-                    builder.setNegativeButton(recyclerView.getResources().getString(R.string.answer_cancel), null);
-                    builder.show();
+                    }
+                } catch (GitAPIException e) {
+                    Log.e("Git", "Error when trying to get repository status", e);
                 }
             }
         });

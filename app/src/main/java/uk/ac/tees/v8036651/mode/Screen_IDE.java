@@ -24,6 +24,9 @@ import androidx.core.view.MenuCompat;
 import org.eclipse.jgit.api.CreateBranchCommand;
 import org.eclipse.jgit.api.PullCommand;
 import org.eclipse.jgit.api.PushCommand;
+import org.eclipse.jgit.api.Status;
+import org.eclipse.jgit.api.StatusCommand;
+import org.eclipse.jgit.api.errors.GitAPIException;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -139,6 +142,25 @@ public class Screen_IDE extends AppCompatActivity {
                 NumberedTextView txtCode = findViewById(R.id.txtCode);
 
                 fileName = data.getStringExtra("OpenFile");
+
+                File file = new File(fileName);
+                txtCode.setFileEdited(file);
+                try{
+                    txtCode.setText(loadFile(file));
+                }
+                catch(Exception e){
+                    Log.e("IDE", "Unable to read file", e);
+                    Toast.makeText(this, getResources().getString(R.string.ide_message_file_open_error), Toast.LENGTH_LONG).show();
+                }
+
+                //there were no changes
+                saveAvailable = false;
+            }
+        }else if(requestCode == 1){
+            if(resultCode == Activity.RESULT_OK){
+                //refresh the file
+
+                NumberedTextView txtCode = findViewById(R.id.txtCode);
 
                 File file = new File(fileName);
                 txtCode.setFileEdited(file);
@@ -320,7 +342,17 @@ public class Screen_IDE extends AppCompatActivity {
                 alertDialog.show();
                 return true;
             case R.id.git_checkout:
-                startActivity(new Intent(Screen_IDE.this, Screen_Git_Branches.class));
+                StatusCommand sc = Project.openedProject.getGit().status();
+                try {
+                    Status status = sc.call();
+                    if(status.isClean()){
+                        startActivityForResult(new Intent(Screen_IDE.this, Screen_Git_Branches.class), 1);
+                    }else{
+                        new AlertDialog.Builder(this).setTitle(getResources().getString(R.string.git_checkout_message_unclean_title)).setMessage(getResources().getString(R.string.git_checkout_message_unclean_message)).setPositiveButton(getResources().getString(R.string.answer_ok), null).show();
+                    }
+                } catch (GitAPIException e) {
+                    Log.e("Git", "Error when getting branch status", e);
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -421,7 +453,9 @@ public class Screen_IDE extends AppCompatActivity {
     public void saveActivity(String data, String fileName) throws Exception{
 
         File file = new File(fileName);
-
+        if(!file.getParentFile().exists()){
+            file.getParentFile().mkdirs();
+        }
         FileOutputStream output = new FileOutputStream(file);
         OutputStreamWriter out = new OutputStreamWriter(output);
         out.write(data);
