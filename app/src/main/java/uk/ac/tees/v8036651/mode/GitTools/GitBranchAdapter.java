@@ -108,6 +108,7 @@ public class GitBranchAdapter extends RecyclerView.Adapter<GitBranchHolder> {
                             checkout.setName(branches.get(position).getName());
                             GitCheckoutTask gct = new GitCheckoutTask(checkout);
                             gct.execute();
+                            ((Activity)recyclerView.getContext()).setResult(Activity.RESULT_OK);
                             ((Activity) recyclerView.getContext()).finish();
                         } else {
                             //checkout requires downloading new branch
@@ -142,6 +143,7 @@ public class GitBranchAdapter extends RecyclerView.Adapter<GitBranchHolder> {
                                         }
                                     });
                                     gct.execute();
+                                    ((Activity)recyclerView.getContext()).setResult(Activity.RESULT_OK);
                                     ((Activity) recyclerView.getContext()).finish();
                                 }
                             });

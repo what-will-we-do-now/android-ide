@@ -156,6 +156,25 @@ public class Screen_IDE extends AppCompatActivity {
                 //there were no changes
                 saveAvailable = false;
             }
+        }else if(requestCode == 1){
+            if(resultCode == Activity.RESULT_OK){
+                //refresh the file
+
+                NumberedTextView txtCode = findViewById(R.id.txtCode);
+
+                File file = new File(fileName);
+                txtCode.setFileEdited(file);
+                try{
+                    txtCode.setText(loadFile(file));
+                }
+                catch(Exception e){
+                    Log.e("IDE", "Unable to read file", e);
+                    Toast.makeText(this, getResources().getString(R.string.ide_message_file_open_error), Toast.LENGTH_LONG).show();
+                }
+
+                //there were no changes
+                saveAvailable = false;
+            }
         }
     }
 
@@ -327,7 +346,7 @@ public class Screen_IDE extends AppCompatActivity {
                 try {
                     Status status = sc.call();
                     if(status.isClean()){
-                        startActivity(new Intent(Screen_IDE.this, Screen_Git_Branches.class));
+                        startActivityForResult(new Intent(Screen_IDE.this, Screen_Git_Branches.class), 1);
                     }else{
                         new AlertDialog.Builder(this).setTitle(getResources().getString(R.string.git_checkout_message_unclean_title)).setMessage(getResources().getString(R.string.git_checkout_message_unclean_message)).setPositiveButton(getResources().getString(R.string.answer_ok), null).show();
                     }
