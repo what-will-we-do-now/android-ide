@@ -1,5 +1,6 @@
 package uk.ac.tees.v8036651.mode;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.fingerprint.FingerprintManager;
@@ -51,6 +52,7 @@ class FingerprintHandler extends FingerprintManager.AuthenticationCallback
 
         Intent intent = new Intent(context, Screen_Home.class);
         context.startActivity(intent);
+        ((Activity)context).finish();
     }
 
     private void update(String s, boolean b)
