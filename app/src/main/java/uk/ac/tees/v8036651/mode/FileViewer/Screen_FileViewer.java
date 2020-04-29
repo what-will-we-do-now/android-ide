@@ -536,6 +536,24 @@ public class Screen_FileViewer extends AppCompatActivity {
             filesList.add(projectFiles[i]);
         }
 
+        Collections.sort(filesList, new Comparator<File>() {
+            @Override
+            public int compare(File o1, File o2) {
+                if((o1.isDirectory() && o2.isDirectory()) || (o1.isFile() && o2.isFile())) {
+                    return o1.getName().compareToIgnoreCase(o2.getName());
+                }
+                else if(o1.isDirectory() && o2.isFile()){
+                    return -1;
+                }
+                else if(o1.isFile() && o2.isDirectory()){
+                    return 1;
+                }
+                //this should never happen
+                Log.wtf("Sorter", "NOOOO");
+                return 0;
+            }
+        });
+
         selection = new boolean[filesFoundCount];
         textAdapter.setSelection(selection);
         textAdapter.setData(filesList);
