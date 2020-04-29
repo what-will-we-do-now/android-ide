@@ -272,7 +272,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                     }
 
                     isCurrentCopiedCut = false;
-                    Toast.makeText(Screen_FileViewer.this, getResources().getString(R.string.file_manager_message_file_copied), Toast.LENGTH_LONG).show();
+                    Toast.makeText(Screen_FileViewer.this, getResources().getString(R.string.file_manager_message_file_copied), Toast.LENGTH_SHORT).show();
                     refresh();
                 }
             });
@@ -289,7 +289,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                         }
                     }
                     isCurrentCopiedCut = true;
-                    Toast.makeText(Screen_FileViewer.this, getResources().getString(R.string.file_manager_message_file_cut), Toast.LENGTH_LONG).show();
+                    Toast.makeText(Screen_FileViewer.this, getResources().getString(R.string.file_manager_message_file_cut), Toast.LENGTH_SHORT).show();
                     refresh();
                 }
             });
@@ -323,17 +323,18 @@ public class Screen_FileViewer extends AppCompatActivity {
                         }
 
                         findViewById(R.id.paste_btt).setVisibility(View.GONE);
-                        refresh();
                     }
 
                     totalFiles = filesPasted + filesUnpasted;
+                    refresh();
 
                     if (filesUnpasted == 0){
-                        Toast.makeText(Screen_FileViewer.this, getResources().getQuantityString(R.plurals.file_manager_message_all_file_pasted, filesPasted, filesPasted), Toast.LENGTH_LONG).show();
+                        Toast.makeText(Screen_FileViewer.this, getResources().getQuantityString(R.plurals.file_manager_message_all_file_pasted, filesPasted, filesPasted), Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        Toast.makeText(Screen_FileViewer.this, getResources().getQuantityString(R.plurals.file_manager_message_all_file_pasted, totalFiles, filesPasted, totalFiles), Toast.LENGTH_LONG).show();
+                        Toast.makeText(Screen_FileViewer.this, getResources().getQuantityString(R.plurals.file_manager_message_all_file_pasted, totalFiles, filesPasted, totalFiles), Toast.LENGTH_SHORT).show();
                     }
+                    currentCopied.clear();
                 }
             });
 
