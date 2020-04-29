@@ -57,7 +57,6 @@ public class Screen_FileViewer extends AppCompatActivity {
     }
 
     private String currentPath;
-    private File[] projectFiles;
     private List<File> filesList;
     private int filesFoundCount;
     private File dir;
@@ -82,7 +81,7 @@ public class Screen_FileViewer extends AppCompatActivity {
         if (!isFileManagerInitialized) {
             currentPath = rootPath;
             dir = new File(rootPath);
-            projectFiles = dir.listFiles();
+            File[] projectFiles = dir.listFiles();
 
             final TextView pathOutput = findViewById(R.id.dir_name);
             pathOutput.setText(currentPath.substring(currentPath.lastIndexOf('/') + 1));
@@ -206,9 +205,9 @@ public class Screen_FileViewer extends AppCompatActivity {
                     deteteDialog.setPositiveButton(getResources().getString(R.string.answer_yes), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            for (int position = 0; position < projectFiles.length; position++){
+                            for (int position = 0; position < filesList.size(); position++){
                                 if(selection[position]){
-                                    deleteFileOrFolder(projectFiles[position]);
+                                    deleteFileOrFolder(filesList.get(position));
                                     selection[position] = false;
                                     selectedItemIndex = position;
                                 }
@@ -231,7 +230,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                     renameDialog.setTitle(getResources().getString(R.string.file_manager_dialog_rename_title));
                     final EditText newNameInput = new EditText(Screen_FileViewer.this);
 
-                    String filePath = projectFiles[selectedItemIndex].getAbsolutePath();
+                    String filePath = filesList.get(selectedItemIndex).getAbsolutePath();
 
                     newNameInput.setText(filePath.substring(filePath.lastIndexOf('/') + 1));
                     newNameInput.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -265,15 +264,15 @@ public class Screen_FileViewer extends AppCompatActivity {
                 public void onClick(View v) {
                     findViewById(R.id.paste_btt).setVisibility(View.VISIBLE);
 
-                    for (int position = 0; position < projectFiles.length; position++){
+                    for (int position = 0; position < filesList.size(); position++){
                         if(selection[position]){
-                            currentCopied.add(projectFiles[position]);
+                            currentCopied.add(filesList.get(position));
                             selection[position] = false;
                         }
                     }
 
                     isCurrentCopiedCut = false;
-                    Toast.makeText(Screen_FileViewer.this, getResources().getString(R.string.file_manager_message_file_copied), Toast.LENGTH_LONG).show();
+                    Toast.makeText(Screen_FileViewer.this, getResources().getString(R.string.file_manager_message_file_copied), Toast.LENGTH_SHORT).show();
                     refresh();
                 }
             });
@@ -283,14 +282,14 @@ public class Screen_FileViewer extends AppCompatActivity {
                 public void onClick(View v) {
                     findViewById(R.id.paste_btt).setVisibility(View.VISIBLE);
 
-                    for (int position = 0; position < projectFiles.length; position++){
+                    for (int position = 0; position < filesList.size(); position++){
                         if(selection[position]){
-                            currentCopied.add(projectFiles[position]);
+                            currentCopied.add(filesList.get(position));
                             selection[position] = false;
                         }
                     }
                     isCurrentCopiedCut = true;
-                    Toast.makeText(Screen_FileViewer.this, getResources().getString(R.string.file_manager_message_file_cut), Toast.LENGTH_LONG).show();
+                    Toast.makeText(Screen_FileViewer.this, getResources().getString(R.string.file_manager_message_file_cut), Toast.LENGTH_SHORT).show();
                     refresh();
                 }
             });
@@ -304,7 +303,7 @@ public class Screen_FileViewer extends AppCompatActivity {
 
                     for (File copiedFile : currentCopied){
 
-                        for (File file : projectFiles){
+                        for (File file : filesList){
                             if (file.equals(copiedFile)){
                                 filesUnpasted++;
                                 break;
@@ -324,17 +323,18 @@ public class Screen_FileViewer extends AppCompatActivity {
                         }
 
                         findViewById(R.id.paste_btt).setVisibility(View.GONE);
-                        refresh();
                     }
 
                     totalFiles = filesPasted + filesUnpasted;
+                    refresh();
 
                     if (filesUnpasted == 0){
-                        Toast.makeText(Screen_FileViewer.this, getResources().getQuantityString(R.plurals.file_manager_message_all_file_pasted, filesPasted, filesPasted), Toast.LENGTH_LONG).show();
+                        Toast.makeText(Screen_FileViewer.this, getResources().getQuantityString(R.plurals.file_manager_message_all_file_pasted, filesPasted, filesPasted), Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        Toast.makeText(Screen_FileViewer.this, getResources().getQuantityString(R.plurals.file_manager_message_all_file_pasted, totalFiles, filesPasted, totalFiles), Toast.LENGTH_LONG).show();
+                        Toast.makeText(Screen_FileViewer.this, getResources().getQuantityString(R.plurals.file_manager_message_all_file_pasted, totalFiles, filesPasted, totalFiles), Toast.LENGTH_SHORT).show();
                     }
+                    currentCopied.clear();
                 }
             });
 
@@ -522,7 +522,7 @@ public class Screen_FileViewer extends AppCompatActivity {
     }
 
     private void refresh (){
-        projectFiles = dir.listFiles();
+        File[] projectFiles = dir.listFiles();
 
         if (projectFiles == null) {
             filesFoundCount = 0;
@@ -535,6 +535,24 @@ public class Screen_FileViewer extends AppCompatActivity {
         for(int i=0; i < filesFoundCount; i++){
             filesList.add(projectFiles[i]);
         }
+
+        Collections.sort(filesList, new Comparator<File>() {
+            @Override
+            public int compare(File o1, File o2) {
+                if((o1.isDirectory() && o2.isDirectory()) || (o1.isFile() && o2.isFile())) {
+                    return o1.getName().compareToIgnoreCase(o2.getName());
+                }
+                else if(o1.isDirectory() && o2.isFile()){
+                    return -1;
+                }
+                else if(o1.isFile() && o2.isDirectory()){
+                    return 1;
+                }
+                //this should never happen
+                Log.wtf("Sorter", "NOOOO");
+                return 0;
+            }
+        });
 
         selection = new boolean[filesFoundCount];
         textAdapter.setSelection(selection);
