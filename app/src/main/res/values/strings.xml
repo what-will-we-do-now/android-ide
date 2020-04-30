@@ -253,4 +253,6 @@
     <!-- Dummy value just so auto add happens after this comment -->
     <string name="dummy" translatable="false">Baka</string>
     <string name="plugin_cpp_main">Main method</string>
+    <string name="plugin_php_class">PHP Class</string>
+    <string name="plugin_php_interface">PHP Interface</string>
 </resources>
