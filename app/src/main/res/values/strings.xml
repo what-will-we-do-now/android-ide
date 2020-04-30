@@ -252,4 +252,5 @@
     <!-- Auto Added -->
     <!-- Dummy value just so auto add happens after this comment -->
     <string name="dummy" translatable="false">Baka</string>
+    <string name="plugin_cpp_main">Main method</string>
 </resources>

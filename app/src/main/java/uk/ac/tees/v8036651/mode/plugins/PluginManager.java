@@ -16,6 +16,7 @@ import java.util.Map;
 
 import uk.ac.tees.v8036651.mode.GUI.NumberedTextView;
 import uk.ac.tees.v8036651.mode.R;
+import uk.ac.tees.v8036651.mode.plugins.languages.ccpp;
 import uk.ac.tees.v8036651.mode.plugins.languages.java;
 import uk.ac.tees.v8036651.mode.plugins.languages.python;
 import uk.ac.tees.v8036651.mode.plugins.languages.xml;
@@ -41,11 +42,13 @@ public class PluginManager {
         Plugin pluginJava = new java(context);
         Plugin pluginXML = new xml(context);
         Plugin pluginPython = new python(context);
+        Plugin pluginCCpp = new ccpp(context);
 
 
         plugins.add(pluginJava);
         plugins.add(pluginXML);
         plugins.add(pluginPython);
+        plugins.add(pluginCCpp);
 
         /* PLAN B
         try{
