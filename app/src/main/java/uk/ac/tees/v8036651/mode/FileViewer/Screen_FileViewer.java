@@ -145,14 +145,6 @@ public class Screen_FileViewer extends AppCompatActivity {
                     selection[position] = !selection[position];
                     textAdapter.setSelection(selection);
 
-                    selectionCount = 0;
-                    for (boolean aSelection : selection) {
-                        if (aSelection) {
-                            selectionCount++;
-                        }
-                    }
-
-                    System.out.println("SELECTION COUNT: " + selectionCount);
                     selectedItemIndex = position;
                     buttonCheck();
 
@@ -554,22 +546,22 @@ public class Screen_FileViewer extends AppCompatActivity {
 
         if (selectionCount == 1) {
             findViewById(R.id.rename_btt).setVisibility(View.VISIBLE);
-            findViewById(R.id.cut_btt).setVisibility(View.VISIBLE);
-            findViewById(R.id.copy_btt).setVisibility(View.VISIBLE);
         }
         else {
             findViewById(R.id.rename_btt).setVisibility(View.GONE);
-            findViewById(R.id.cut_btt).setVisibility(View.GONE);
-            findViewById(R.id.copy_btt).setVisibility(View.GONE);
         }
 
         if (selectionCount >= 1){
             longClick = true;
             findViewById(R.id.delete_btt).setVisibility(View.VISIBLE);
+            findViewById(R.id.cut_btt).setVisibility(View.VISIBLE);
+            findViewById(R.id.copy_btt).setVisibility(View.VISIBLE);
         }
         else {
             longClick = false;
             findViewById(R.id.delete_btt).setVisibility(View.GONE);
+            findViewById(R.id.cut_btt).setVisibility(View.GONE);
+            findViewById(R.id.copy_btt).setVisibility(View.GONE);
         }
     }
 }
