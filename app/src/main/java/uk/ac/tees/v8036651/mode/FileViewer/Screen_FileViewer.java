@@ -540,7 +540,6 @@ public class Screen_FileViewer extends AppCompatActivity {
         for (boolean aSelection : selection) {
             if (aSelection) {
                 selectionCount++;
-                break;
             }
         }
 
