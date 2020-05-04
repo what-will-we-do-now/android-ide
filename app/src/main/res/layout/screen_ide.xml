@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".Screen_IDE">
 
-    <uk.ac.tees.v8036651.mode.GUI.NumberedTextView
+    <uk.ac.tees.cis2003.froyo.GUI.NumberedTextView
         android:id="@+id/txtCode"
         android:layout_width="0dp"
         android:layout_height="0dp"

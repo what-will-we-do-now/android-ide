@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="uk.ac.tees.v8036651.mode">
+    package="uk.ac.tees.cis2003.froyo">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT"  android:required="false"/>
@@ -14,26 +14,26 @@
         android:roundIcon="@mipmap/ic_app_round"
         android:supportsRtl="true"
         android:theme="@style/darkTheme">
-        <activity android:name=".Screen_Git_Branches"></activity>
+        <activity android:name="uk.ac.tees.cis2003.froyo.Screen_Git_Branches"></activity>
         <activity
-            android:name=".Screen_Preferences"
+            android:name="uk.ac.tees.cis2003.froyo.Screen_Preferences"
             android:label="@string/settings_title"
             android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Screen_Home" />
+                android:value="uk.ac.tees.cis2003.froyo.Screen_Home" />
         </activity>
-        <activity android:name=".Screen_Git_Commit" />
-        <activity android:name=".Screen_Project_Choose" />
-        <activity android:name=".Screen_IDE" />
-        <activity android:name=".FileViewer.Screen_FileViewer" />
-        <activity android:name=".Screen_QR" />
-        <activity android:name=".Screen_Login" />
-        <activity android:name=".Screen_ChangePattern" />
-        <activity android:name=".Screen_Search" />
-        <activity android:name=".Screen_Home" />
-        <activity android:name=".Screen_Welcome"/>
-        <activity android:name=".Screen_Splash">
+        <activity android:name="uk.ac.tees.cis2003.froyo.Screen_Git_Commit" />
+        <activity android:name="uk.ac.tees.cis2003.froyo.Screen_Project_Choose" />
+        <activity android:name="uk.ac.tees.cis2003.froyo.Screen_IDE" />
+        <activity android:name="uk.ac.tees.cis2003.froyo.FileViewer.Screen_FileViewer" />
+        <activity android:name="uk.ac.tees.cis2003.froyo.Screen_QR" />
+        <activity android:name="uk.ac.tees.cis2003.froyo.Screen_Login" />
+        <activity android:name="uk.ac.tees.cis2003.froyo.Screen_ChangePattern" />
+        <activity android:name="uk.ac.tees.cis2003.froyo.Screen_Search" />
+        <activity android:name="uk.ac.tees.cis2003.froyo.Screen_Home" />
+        <activity android:name="uk.ac.tees.cis2003.froyo.Screen_Welcome"/>
+        <activity android:name="uk.ac.tees.cis2003.froyo.Screen_Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

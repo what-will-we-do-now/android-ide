@@ -26,7 +26,7 @@
         app:layout_constraintTop_toBottomOf="@+id/git_branch_name"
         tools:layout_editor_absoluteX="16dp" />
 
-    <uk.ac.tees.v8036651.mode.GUI.NumberedTextView
+    <uk.ac.tees.cis2003.froyo.GUI.NumberedTextView
         android:id="@+id/git_commit_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
