@@ -14,7 +14,7 @@ public class ProjectHolder extends RecyclerView.ViewHolder{
 
     public ProjectHolder(View itemView) {
         super(itemView);
-        projectName = (TextView) itemView.findViewById(R.id.project_name);
-        projectPath = (TextView) itemView.findViewById(R.id.project_location);
+        projectName = (TextView) itemView.findViewById(R.id.fragment_project_new_name);
+        projectPath = (TextView) itemView.findViewById(R.id.fragment_project_location);
     }
 }

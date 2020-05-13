@@ -20,7 +20,7 @@ public class Screen_Project_Choose extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_project_choose);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.project_list);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.screen_project_choose_project_list);
 
         recyclerView.setHasFixedSize(true);
 

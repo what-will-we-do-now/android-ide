@@ -62,7 +62,7 @@ public class Screen_IDE extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_ide);
 
-        SearchView search = findViewById(R.id.txtSearch);
+        SearchView search = findViewById(R.id.screen_ide_search);
         search.setIconified(false);
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -95,7 +95,7 @@ public class Screen_IDE extends AppCompatActivity {
 
         projectsDirectory = getExternalFilesDir(null).getAbsolutePath() + "/MoDE_Code_Directory";
 
-        NumberedTextView txtCode = findViewById(R.id.txtCode);
+        NumberedTextView txtCode = findViewById(R.id.screen_ide_code);
 
         if(getIntent().getExtras() != null && getIntent().getExtras().containsKey("OpenFile")){
 
@@ -174,7 +174,7 @@ public class Screen_IDE extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 //open the new file
 
-                NumberedTextView txtCode = findViewById(R.id.txtCode);
+                NumberedTextView txtCode = findViewById(R.id.screen_ide_code);
 
                 fileName = data.getStringExtra("OpenFile");
 
@@ -195,7 +195,7 @@ public class Screen_IDE extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 //refresh the file
 
-                NumberedTextView txtCode = findViewById(R.id.txtCode);
+                NumberedTextView txtCode = findViewById(R.id.screen_ide_code);
 
                 File file = new File(fileName);
                 txtCode.setFileEdited(file);
@@ -245,7 +245,7 @@ public class Screen_IDE extends AppCompatActivity {
 
                 builder.show();
                 return true;
-            case R.id.git_commit:
+            case R.id.screen_commit_commit:
                 SharedPreferences pref = getSharedPreferences("git", MODE_PRIVATE);
                 if(pref.getString("username", "").equals("") || pref.getString("email", "").equals("")) {
                     //the committer username and email is not set
@@ -284,7 +284,7 @@ public class Screen_IDE extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             try {
-                                                ((NumberedTextView)Screen_IDE.this.findViewById(R.id.txtCode)).setText(loadFile(new File(fileName)));
+                                                ((NumberedTextView)Screen_IDE.this.findViewById(R.id.screen_ide_code)).setText(loadFile(new File(fileName)));
                                                 saveAvailable = false;
                                             } catch (IOException e) {
                                                 Log.e("IDE", "Unable to read file", e);
@@ -303,7 +303,7 @@ public class Screen_IDE extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             try {
-                                                ((NumberedTextView)Screen_IDE.this.findViewById(R.id.txtCode)).setText(loadFile(new File(fileName)));
+                                                ((NumberedTextView)Screen_IDE.this.findViewById(R.id.screen_ide_code)).setText(loadFile(new File(fileName)));
                                                 saveAvailable = false;
                                             } catch (IOException e) {
                                                 Log.e("IDE", "Unable to read file", e);
@@ -322,7 +322,7 @@ public class Screen_IDE extends AppCompatActivity {
                         @Override
                         public void run() {
                             try {
-                                ((NumberedTextView)Screen_IDE.this.findViewById(R.id.txtCode)).setText(loadFile(new File(fileName)));
+                                ((NumberedTextView)Screen_IDE.this.findViewById(R.id.screen_ide_code)).setText(loadFile(new File(fileName)));
                                 saveAvailable = false;
                             } catch (IOException e) {
                                 Log.e("IDE", "Unable to read file", e);
@@ -339,7 +339,7 @@ public class Screen_IDE extends AppCompatActivity {
                 View dialogue = LayoutInflater.from(this).inflate(R.layout.dialog_git, null);
                 builder2.setView(dialogue);
                 AlertDialog alertDialog = builder2.create();
-                dialogue.findViewById(R.id.git_branch_new).setOnClickListener(new View.OnClickListener() {
+                dialogue.findViewById(R.id.dialog_git_branch_new).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(Screen_IDE.this);
@@ -353,7 +353,7 @@ public class Screen_IDE extends AppCompatActivity {
                                 CreateBranchCommand cbc = Project.openedProject.getGit().branchCreate();
                                 try {
                                     cbc.setStartPoint(Project.openedProject.getGit().getRepository().getFullBranch());
-                                    cbc.setName(((EditText)dialogue.findViewById(R.id.git_branch_name)).getText().toString());
+                                    cbc.setName(((EditText)dialogue.findViewById(R.id.dialog_git_branch_new_name)).getText().toString());
                                 } catch (IOException e) {
                                     Log.e("Git", "Failed to create new branch", e);
                                 }
@@ -367,7 +367,7 @@ public class Screen_IDE extends AppCompatActivity {
                         alertDialog.dismiss();
                     }
                 });
-                dialogue.findViewById(R.id.git_checkout).setOnClickListener(new View.OnClickListener() {
+                dialogue.findViewById(R.id.dialog_git_checkout).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         startActivity(new Intent(Screen_IDE.this, Screen_Git_Branches.class));
@@ -376,7 +376,7 @@ public class Screen_IDE extends AppCompatActivity {
                 });
                 alertDialog.show();
                 return true;
-            case R.id.git_checkout:
+            case R.id.dialog_git_checkout:
                 StatusCommand sc = Project.openedProject.getGit().status();
                 try {
                     Status status = sc.call();
@@ -390,9 +390,9 @@ public class Screen_IDE extends AppCompatActivity {
                 }
                 return true;
             case R.id.search:
-                findViewById(R.id.txtSearch).setVisibility(View.VISIBLE);
-                findViewById(R.id.txtSearch).requestFocus();
-                findViewById(R.id.txtSearch).requestFocusFromTouch();
+                findViewById(R.id.screen_ide_search).setVisibility(View.VISIBLE);
+                findViewById(R.id.screen_ide_search).requestFocus();
+                findViewById(R.id.screen_ide_search).requestFocusFromTouch();
 
                 return true;
             default:
@@ -430,9 +430,9 @@ public class Screen_IDE extends AppCompatActivity {
 
         if (fileName == null){
             final AlertDialog.Builder setFileNameDialog = new AlertDialog.Builder(Screen_IDE.this);
-            View inflater = LayoutInflater.from(this).inflate(R.layout.set_file_name_alert_dialog, null);
+            View inflater = LayoutInflater.from(this).inflate(R.layout.dialog_set_file_name, null);
 
-            final EditText input = (EditText) inflater.findViewById(R.id.fileNameEditText);
+            final EditText input = (EditText) inflater.findViewById(R.id.dialog_set_file_name_new_name);
 
             setFileNameDialog.setView(inflater);
             setFileNameDialog.setPositiveButton(R.string.answer_save, new DialogInterface.OnClickListener() {
@@ -441,7 +441,7 @@ public class Screen_IDE extends AppCompatActivity {
                     fileName = new File(Project.openedProject.getRoot(), input.getText().toString()).getAbsolutePath();
 
                     try {
-                        saveActivity(((NumberedTextView) findViewById(R.id.txtCode)).getText().toString(), fileName);
+                        saveActivity(((NumberedTextView) findViewById(R.id.screen_ide_code)).getText().toString(), fileName);
                         saveAvailable = false;
                         invalidateOptionsMenu();
                     } catch (Exception e) {
@@ -459,7 +459,7 @@ public class Screen_IDE extends AppCompatActivity {
             setFileNameDialog.show();
         }else{
             try {
-                saveActivity(((NumberedTextView) findViewById(R.id.txtCode)).getText().toString(), fileName);
+                saveActivity(((NumberedTextView) findViewById(R.id.screen_ide_code)).getText().toString(), fileName);
                 saveAvailable = false;
                 invalidateOptionsMenu();
             } catch (Exception e) {

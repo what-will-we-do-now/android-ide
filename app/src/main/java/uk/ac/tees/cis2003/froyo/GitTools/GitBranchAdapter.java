@@ -1,7 +1,6 @@
 package uk.ac.tees.cis2003.froyo.GitTools;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.eclipse.jgit.api.CheckoutCommand;
@@ -117,14 +117,14 @@ public class GitBranchAdapter extends RecyclerView.Adapter<GitBranchHolder> {
                             View dialogue = LayoutInflater.from(recyclerView.getContext()).inflate(R.layout.dialog_git_branch_checkout_remote, null);
 
                             builder.setView(dialogue);
-                            ((EditText) dialogue.findViewById(R.id.git_checkout_name)).setText(branches.get(position).getName().replace("ref/remote/origin/", ""));
+                            ((EditText) dialogue.findViewById(R.id.dialog_git_branch_checkout_remote_branch_name)).setText(branches.get(position).getName().replace("ref/remote/origin/", ""));
                             builder.setPositiveButton(recyclerView.getResources().getString(R.string.git_checkout_short), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
 
                                     CheckoutCommand checkout = Project.openedProject.getGit().checkout();
                                     checkout.setCreateBranch(true);
-                                    checkout.setName(((EditText) dialogue.findViewById(R.id.git_checkout_name)).getText().toString());
+                                    checkout.setName(((EditText) dialogue.findViewById(R.id.dialog_git_branch_checkout_remote_branch_name)).getText().toString());
                                     checkout.setUpstreamMode(CreateBranchCommand.SetupUpstreamMode.TRACK);
                                     checkout.setStartPoint(branches.get(position).getName());
                                     GitCheckoutTask gct = new GitCheckoutTask(checkout, new Runnable() {
@@ -134,7 +134,7 @@ public class GitBranchAdapter extends RecyclerView.Adapter<GitBranchHolder> {
                                             //so lets check it out again, shall we
 
                                             CheckoutCommand checkout = Project.openedProject.getGit().checkout();
-                                            checkout.setName(((EditText) dialogue.findViewById(R.id.git_checkout_name)).getText().toString());
+                                            checkout.setName(((EditText) dialogue.findViewById(R.id.dialog_git_branch_checkout_remote_branch_name)).getText().toString());
                                             try {
                                                 checkout.call();
                                             } catch (GitAPIException e) {

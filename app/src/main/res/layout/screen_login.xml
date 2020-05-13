@@ -11,7 +11,7 @@
 
 
     <com.andrognito.patternlockview.PatternLockView
-        android:id="@+id/patternView"
+        android:id="@+id/screen_login_pattern"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:normalStateColor="@color/colorAccent"

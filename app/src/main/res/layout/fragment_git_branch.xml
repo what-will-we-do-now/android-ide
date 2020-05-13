@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/git_branch_choose_name"
+            android:id="@+id/fragment_git_branch_choose_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="5dp"
@@ -19,7 +19,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/git_branch_choose_location"
+            android:id="@+id/fragment_git_branch_choose_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="5dp"
@@ -28,10 +28,10 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/git_branch_delete"
+        android:id="@+id/fragment_git_branch_button_delete"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_weight="1"
         android:background="@android:color/transparent"
-        android:src="@drawable/ic_delete_black_24dp" />
+        android:src="@drawable/ic_delete_24dp" />
 </LinearLayout>

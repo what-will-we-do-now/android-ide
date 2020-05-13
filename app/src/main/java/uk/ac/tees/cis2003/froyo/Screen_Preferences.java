@@ -97,7 +97,7 @@ public class Screen_Preferences extends AppCompatActivity {
                     builder.setPositiveButton(getResources().getString(R.string.answer_confirm), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            EditText username = dialogue.findViewById(R.id.git_committer_username);
+                            EditText username = dialogue.findViewById(R.id.dialog_git_settings_commit_username_username);
                             SharedPreferences.Editor gitSettings = getActivity().getSharedPreferences("git", Activity.MODE_PRIVATE).edit();
                             gitSettings.putString("username", username.getText().toString());
                             gitSettings.commit();
@@ -122,7 +122,7 @@ public class Screen_Preferences extends AppCompatActivity {
                     builder.setPositiveButton(getResources().getString(R.string.answer_confirm), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            EditText email = dialogue.findViewById(R.id.git_committer_email);
+                            EditText email = dialogue.findViewById(R.id.dialog_git_settings_commit_email_email);
                             SharedPreferences.Editor gitSettings = getActivity().getSharedPreferences("git", Activity.MODE_PRIVATE).edit();
                             gitSettings.putString("email", email.getText().toString());
                             gitSettings.commit();

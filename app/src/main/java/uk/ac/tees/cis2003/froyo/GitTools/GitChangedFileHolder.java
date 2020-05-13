@@ -17,8 +17,8 @@ public class GitChangedFileHolder extends RecyclerView.ViewHolder {
 
     public GitChangedFileHolder(@NonNull View itemView) {
         super(itemView);
-        checkBox = (CheckBox) itemView.findViewById(R.id.checkBox);
-        file = (TextView) itemView.findViewById(R.id.git_changed_path);
-        status = (TextView) itemView.findViewById(R.id.git_changed_status);
+        checkBox = (CheckBox) itemView.findViewById(R.id.fragment_git_add_file_selection);
+        file = (TextView) itemView.findViewById(R.id.fragment_git_add_file_changed_path);
+        status = (TextView) itemView.findViewById(R.id.fragment_git_add_file_changed_status);
     }
 }

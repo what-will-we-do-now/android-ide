@@ -26,7 +26,7 @@ public class Screen_ChangePattern extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_changepattern);
 
-        final PatternLockView patternLockView = findViewById(R.id.patternView);
+        final PatternLockView patternLockView = findViewById(R.id.screen_login_pattern);
         patternLockView.addPatternLockListener(new PatternLockViewListener() {
 
             public void onStarted() {}

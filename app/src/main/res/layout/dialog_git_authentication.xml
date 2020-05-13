@@ -18,7 +18,7 @@
         android:text="@string/git_authentication_username" />
 
     <EditText
-        android:id="@+id/git_authentication_username"
+        android:id="@+id/dialog_git_authentication_username"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:hint="@string/git_authentication_username"
@@ -31,7 +31,7 @@
         android:text="@string/git_authentication_password" />
 
     <EditText
-        android:id="@+id/git_authentication_password"
+        android:id="@+id/dialog_git_authentication_password"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:hint="@string/git_authentication_password"

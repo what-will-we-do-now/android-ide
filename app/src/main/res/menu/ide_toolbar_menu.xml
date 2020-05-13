@@ -6,30 +6,30 @@
     <item
         android:title="Search"
         android:id="@+id/search"
-        android:icon="@drawable/ic_search_black_24dp"
+        android:icon="@drawable/ic_search_24dp"
         app:showAsAction="ifRoom"/>
 
     <item
         android:title="@string/answer_save"
         android:id="@+id/save_code"
-        android:icon="@drawable/ic_save_black_24dp"
+        android:icon="@drawable/ic_save_24dp"
         app:showAsAction="ifRoom" />
 
     <item
         android:title="@string/ide_menu_submenu"
         app:showAsAction="always"
-        android:icon="@drawable/ic_more_vert_black_24dp"
+        android:icon="@drawable/ic_more_vert_24dp"
         >
 
         <menu>
             <item
                 android:title="@string/ide_menu_settings"
-                android:icon="@drawable/ic_settings_black_24dp"
+                android:icon="@drawable/ic_settings_24dp"
                 android:id="@+id/settings_nav"
                 app:showAsAction="never"/>
             <item
                 android:title="@string/ide_menu_file_manager"
-                android:icon="@drawable/ic_description_black_24dp"
+                android:icon="@drawable/ic_description_24dp"
                 android:id="@+id/fileview_nav"
                 app:showAsAction="never"/>
 
@@ -40,7 +40,7 @@
                     android:visible="false"/>
 
                 <item android:title="@string/git_commit_long"
-                    android:id="@+id/git_commit"
+                    android:id="@+id/screen_commit_commit"
                     app:showAsAction="never"/>
 
                 <item
@@ -59,13 +59,13 @@
                     android:visible="false"/>
 
                 <item
-                    android:id="@+id/git_branch_new"
+                    android:id="@+id/dialog_git_branch_new"
                     android:title="@string/git_branch_create"
                     app:showAsAction="never"
                     android:visible="false"/>
 
                 <item
-                    android:id="@+id/git_checkout"
+                    android:id="@+id/dialog_git_checkout"
                     android:title="@string/git_checkout_long"
                     app:showAsAction="never"/>
             </group>

@@ -27,7 +27,6 @@
         <activity android:name="uk.ac.tees.cis2003.froyo.Screen_Project_Choose" />
         <activity android:name="uk.ac.tees.cis2003.froyo.Screen_IDE" />
         <activity android:name="uk.ac.tees.cis2003.froyo.FileViewer.Screen_FileViewer" />
-        <activity android:name="uk.ac.tees.cis2003.froyo.Screen_QR" />
         <activity android:name="uk.ac.tees.cis2003.froyo.Screen_Login" />
         <activity android:name="uk.ac.tees.cis2003.froyo.Screen_ChangePattern" />
         <activity android:name="uk.ac.tees.cis2003.froyo.Screen_Home" />

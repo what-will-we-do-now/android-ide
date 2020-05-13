@@ -1,6 +1,5 @@
 package uk.ac.tees.cis2003.froyo.GitTools;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
@@ -9,6 +8,8 @@ import android.net.NetworkInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AlertDialog;
 
 import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
@@ -24,8 +25,8 @@ public class GitTools {
         View dialogue = LayoutInflater.from(context).inflate(R.layout.dialog_git_authentication, null);
         builder.setView(dialogue);
 
-        final EditText username = dialogue.findViewById(R.id.git_authentication_username);
-        final EditText password = dialogue.findViewById(R.id.git_authentication_password);
+        final EditText username = dialogue.findViewById(R.id.dialog_git_authentication_username);
+        final EditText password = dialogue.findViewById(R.id.dialog_git_authentication_password);
 
         builder.setPositiveButton("Login", new DialogInterface.OnClickListener() {
             @Override

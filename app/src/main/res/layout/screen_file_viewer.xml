@@ -12,9 +12,9 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/up_directory"
+            android:id="@+id/screen_file_viewer_up_directory"
             android:background="@null"
-            android:src="@drawable/ic_up_directory_white_24dp"
+            android:src="@drawable/ic_up_directory_24dp"
             android:contentDescription="@string/file_manager_description_up_directory"
             android:layout_margin="2dp"
             android:rotation="90"/>
@@ -25,7 +25,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/dir_name_text"
+                android:id="@+id/screen_file_viewer_dir_name_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
@@ -33,7 +33,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/dir_name"
+                android:id="@+id/screen_file_viewer_dir_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
@@ -47,21 +47,21 @@
     <View style="@style/Divider"/>
 
     <ListView
-        android:id="@+id/file_list"
+        android:id="@+id/screen_file_viewer_file_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
     </ListView>
 
     <LinearLayout
-        android:id="@+id/file_manager_button_bar"
+        android:id="@+id/screen_file_viewer_button_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginBottom="6dp"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/delete_btt"
+            android:id="@+id/screen_file_viewer_button_delete"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -69,7 +69,7 @@
             android:visibility="gone"/>
 
         <Button
-            android:id="@+id/rename_btt"
+            android:id="@+id/screen_file_viewer_button_rename"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -77,7 +77,7 @@
             android:visibility="gone"/>
 
         <Button
-            android:id="@+id/copy_btt"
+            android:id="@+id/screen_file_viewer_button_copy"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -85,7 +85,7 @@
             android:visibility="gone"/>
 
         <Button
-            android:id="@+id/cut_btt"
+            android:id="@+id/screen_file_viewer_button_cut"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -93,7 +93,7 @@
             android:visibility="gone"/>
 
         <Button
-            android:id="@+id/paste_btt"
+            android:id="@+id/screen_file_viewer_button_paste"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

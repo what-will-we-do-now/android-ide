@@ -11,7 +11,7 @@
         android:text="@string/git_checkout_enter_new_branch_name" />
 
     <EditText
-        android:id="@+id/git_checkout_name"
+        android:id="@+id/dialog_git_branch_checkout_remote_branch_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:inputType="text" />

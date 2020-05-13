@@ -39,9 +39,9 @@ public class Screen_Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_home);
         if(Project.openedProject == null){
-            findViewById(R.id.btnGotoCode).setVisibility(View.GONE);
+            findViewById(R.id.screen_home_return_project).setVisibility(View.GONE);
         }else{
-            findViewById(R.id.btnGotoCode).setVisibility(View.VISIBLE);
+            findViewById(R.id.screen_home_return_project).setVisibility(View.VISIBLE);
         }
     }
 
@@ -49,9 +49,9 @@ public class Screen_Home extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(Project.openedProject == null || Project.openedProject.getLastFile() == null){
-            findViewById(R.id.btnGotoCode).setVisibility(View.GONE);
+            findViewById(R.id.screen_home_return_project).setVisibility(View.GONE);
         }else{
-            findViewById(R.id.btnGotoCode).setVisibility(View.VISIBLE);
+            findViewById(R.id.screen_home_return_project).setVisibility(View.VISIBLE);
         }
 
     }
@@ -71,17 +71,17 @@ public class Screen_Home extends AppCompatActivity {
         builder.setView(dialogue);
 
         // fill in list of project types
-        Spinner projectTypes = dialogue.findViewById(R.id.project_type);
-        CheckBox mainCreate = dialogue.findViewById(R.id.project_main_make);
+        Spinner projectTypes = dialogue.findViewById(R.id.fragment_project_new_type);
+        CheckBox mainCreate = dialogue.findViewById(R.id.fragment_project_new_main_make);
         mainCreate.setChecked(true);
-        EditText mainName = dialogue.findViewById(R.id.project_main_name);
+        EditText mainName = dialogue.findViewById(R.id.fragment_project_new_main_name);
         mainName.setText(getResources().getString(R.string.project_new_default_main_name));
 
         ArrayAdapter content = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, PluginManager.getProjectTypes());
 
         projectTypes.setAdapter(content);
 
-        final EditText projectName = dialogue.findViewById(R.id.project_name);
+        final EditText projectName = dialogue.findViewById(R.id.fragment_project_new_name);
 
         builder.setPositiveButton(getResources().getString(R.string.answer_create_project), new DialogInterface.OnClickListener() {
             @Override
@@ -93,7 +93,7 @@ public class Screen_Home extends AppCompatActivity {
 
                 Project.openedProject = new Project(projectName.getText().toString(), projectFile);
 
-                String projectLanguage = ((Spinner)dialogue.findViewById(R.id.project_type)).getSelectedItem().toString();
+                String projectLanguage = ((Spinner)dialogue.findViewById(R.id.fragment_project_new_type)).getSelectedItem().toString();
 
                 try {
                     Project.openedProject.setLanguage(projectLanguage);
@@ -101,11 +101,11 @@ public class Screen_Home extends AppCompatActivity {
                     Log.e("Project", "Unable to set language", e);
                 }
 
-                boolean createMain = ((CheckBox) dialogue.findViewById(R.id.project_main_make)).isChecked();
+                boolean createMain = ((CheckBox) dialogue.findViewById(R.id.fragment_project_new_main_make)).isChecked();
 
                 if(createMain){
 
-                    String filename = ((EditText) dialogue.findViewById(R.id.project_main_name)).getText().toString();
+                    String filename = ((EditText) dialogue.findViewById(R.id.fragment_project_new_main_name)).getText().toString();
 
                     File mainFile = new File(Project.openedProject.getSrc(), filename + "." + PluginManager.getDefaultFileExtensionFor(projectLanguage));
 
@@ -171,13 +171,13 @@ public class Screen_Home extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(!isChecked) {
-                    dialog.findViewById(R.id.project_main_name_text).setVisibility(View.GONE);
+                    dialog.findViewById(R.id.fragment_project_new_main_name_text).setVisibility(View.GONE);
                     mainName.setError(null);
                     mainName.setVisibility(View.GONE);
                     //trigger text watcher to check if main name is allowed
                     projectName.setText(projectName.getText());
                 }else{
-                    dialog.findViewById(R.id.project_main_name_text).setVisibility(View.VISIBLE);
+                    dialog.findViewById(R.id.fragment_project_new_main_name_text).setVisibility(View.VISIBLE);
                     mainName.setVisibility(View.VISIBLE);
                     //trigger text watcher to check if main name is allowed
                     mainName.setText(mainName.getText());
@@ -220,11 +220,6 @@ public class Screen_Home extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openQRScreen(View view){
-        Intent qrIntent = new Intent(this, Screen_QR.class);
-        startActivity(qrIntent);
-    }
-
     public void openSettings(View view){
         Intent settingsIntent = new Intent(this, Screen_Preferences.class);
         startActivity(settingsIntent);
@@ -237,8 +232,8 @@ public class Screen_Home extends AppCompatActivity {
 
         builder.setView(dialogue);
 
-        final EditText projectName = dialogue.findViewById(R.id.git_clone_project_name);
-        final EditText gitLink = dialogue.findViewById(R.id.git_clone_url);
+        final EditText projectName = dialogue.findViewById(R.id.dialog_git_clone_project_name);
+        final EditText gitLink = dialogue.findViewById(R.id.dialog_git_clone_url);
 
         final File parentFile = new File(getExternalFilesDir(null), "MoDE_Code_Directory");
 

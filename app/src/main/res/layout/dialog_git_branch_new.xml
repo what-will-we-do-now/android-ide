@@ -11,7 +11,7 @@
         android:text="@string/git_branch_create_title_name" />
 
     <EditText
-        android:id="@+id/git_branch_name"
+        android:id="@+id/dialog_git_branch_new_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:inputType="text" />

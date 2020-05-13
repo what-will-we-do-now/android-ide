@@ -7,61 +7,61 @@
 
 
     <TextView
-        android:id="@+id/titleA"
+        android:id="@+id/screen_welcome_title_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/title_a"
         android:textAlignment="center"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/textA"
+        app:layout_constraintBottom_toTopOf="@+id/screen_welcome_text_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textA"
+        android:id="@+id/screen_welcome_text_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/text_a"
         android:textAlignment="center"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/titleB"
+        app:layout_constraintBottom_toTopOf="@+id/screen_welcome_title_2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleA" />
+        app:layout_constraintTop_toBottomOf="@+id/screen_welcome_title_1" />
 
     <TextView
-        android:id="@+id/titleB"
+        android:id="@+id/screen_welcome_title_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/title_b"
         android:textAlignment="center"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/textB"
+        app:layout_constraintBottom_toTopOf="@+id/screen_welcome_text_2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textA" />
+        app:layout_constraintTop_toBottomOf="@+id/screen_welcome_text_1" />
 
     <TextView
-        android:id="@+id/textB"
+        android:id="@+id/screen_welcome_text_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/text_b"
         android:textAlignment="center"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/start"
+        app:layout_constraintBottom_toTopOf="@+id/screen_welcome_button_start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleB" />
+        app:layout_constraintTop_toBottomOf="@+id/screen_welcome_title_2" />
 
     <Button
-        android:id="@+id/start"
+        android:id="@+id/screen_welcome_button_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"

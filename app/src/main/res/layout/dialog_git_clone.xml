@@ -11,7 +11,7 @@
         android:text="@string/git_clone_enter_project_name" />
 
     <EditText
-        android:id="@+id/git_clone_project_name"
+        android:id="@+id/dialog_git_clone_project_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/git_clone_enter_project_name"
@@ -24,7 +24,7 @@
         android:text="@string/git_clone_enter_url" />
 
     <EditText
-        android:id="@+id/git_clone_url"
+        android:id="@+id/dialog_git_clone_url"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/git_clone_enter_url"

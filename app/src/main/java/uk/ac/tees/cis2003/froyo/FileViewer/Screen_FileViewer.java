@@ -1,7 +1,6 @@
 package uk.ac.tees.cis2003.froyo.FileViewer;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
@@ -83,7 +83,7 @@ public class Screen_FileViewer extends AppCompatActivity {
             dir = new File(rootPath);
             File[] projectFiles = dir.listFiles();
 
-            final TextView pathOutput = findViewById(R.id.dir_name);
+            final TextView pathOutput = findViewById(R.id.screen_file_viewer_dir_name);
             pathOutput.setText(currentPath.substring(currentPath.lastIndexOf('/') + 1));
 
             if (projectFiles != null){
@@ -93,7 +93,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                 filesFoundCount = 0;
             }
 
-            final ListView listView = findViewById(R.id.file_list);
+            final ListView listView = findViewById(R.id.screen_file_viewer_file_list);
 
             listView.setAdapter(textAdapter);
 
@@ -124,7 +124,7 @@ public class Screen_FileViewer extends AppCompatActivity {
             selection = new boolean[filesFoundCount];
 
             //Button to go upwards in directory
-            final ImageButton upDirectoryButton = findViewById(R.id.up_directory);
+            final ImageButton upDirectoryButton = findViewById(R.id.screen_file_viewer_up_directory);
             upDirectoryButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -180,11 +180,11 @@ public class Screen_FileViewer extends AppCompatActivity {
                 }
             });
 
-            final Button deleteBtt = findViewById(R.id.delete_btt);
-            final Button renameBtt = findViewById(R.id.rename_btt);
-            final Button copyBtt = findViewById(R.id.copy_btt);
-            final Button cutBtt = findViewById(R.id.cut_btt);
-            final Button pasteBtt = findViewById(R.id.paste_btt);
+            final Button deleteBtt = findViewById(R.id.screen_file_viewer_button_delete);
+            final Button renameBtt = findViewById(R.id.screen_file_viewer_button_rename);
+            final Button copyBtt = findViewById(R.id.screen_file_viewer_button_copy);
+            final Button cutBtt = findViewById(R.id.screen_file_viewer_button_cut);
+            final Button pasteBtt = findViewById(R.id.screen_file_viewer_button_paste);
 
             //Delete Button
             deleteBtt.setOnClickListener((new View.OnClickListener(){
@@ -254,7 +254,7 @@ public class Screen_FileViewer extends AppCompatActivity {
             copyBtt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    findViewById(R.id.paste_btt).setVisibility(View.VISIBLE);
+                    findViewById(R.id.screen_file_viewer_button_paste).setVisibility(View.VISIBLE);
 
                     for (int position = 0; position < filesList.size(); position++){
                         if(selection[position]){
@@ -272,7 +272,7 @@ public class Screen_FileViewer extends AppCompatActivity {
             cutBtt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    findViewById(R.id.paste_btt).setVisibility(View.VISIBLE);
+                    findViewById(R.id.screen_file_viewer_button_paste).setVisibility(View.VISIBLE);
 
                     for (int position = 0; position < filesList.size(); position++){
                         if(selection[position]){
@@ -314,7 +314,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                             deleteFileOrFolder(copiedFile);
                         }
 
-                        findViewById(R.id.paste_btt).setVisibility(View.GONE);
+                        findViewById(R.id.screen_file_viewer_button_paste).setVisibility(View.GONE);
                     }
 
                     totalFiles = filesPasted + filesUnpasted;
@@ -360,9 +360,9 @@ public class Screen_FileViewer extends AppCompatActivity {
                 inflater = LayoutInflater.from(Screen_FileViewer.this).inflate(R.layout.dialog_file_new, null);
                 newFileDialog.setView(inflater);
 
-                input = inflater.findViewById(R.id.file_name);
-                Spinner language = inflater.findViewById(R.id.file_language_spinner);
-                Spinner template = inflater.findViewById(R.id.file_template_spinner);
+                input = inflater.findViewById(R.id.dialog_file_new_name);
+                Spinner language = inflater.findViewById(R.id.dialog_file_new_lang_type);
+                Spinner template = inflater.findViewById(R.id.dialog_file_new_template);
 
                 ArrayAdapter languageContent = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, PluginManager.getProjectTypes());
 
@@ -384,8 +384,8 @@ public class Screen_FileViewer extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         try {
-                            String lang = ((Spinner)language.findViewById(R.id.file_language_spinner)).getSelectedItem().toString();
-                            String temp = ((Spinner)template.findViewById(R.id.file_template_spinner)).getSelectedItem().toString();
+                            String lang = ((Spinner)language.findViewById(R.id.dialog_file_new_lang_type)).getSelectedItem().toString();
+                            String temp = ((Spinner)template.findViewById(R.id.dialog_file_new_template)).getSelectedItem().toString();
 
                             Map<String, String> values = new HashMap<>();
                             values.put("filename", input.getText().toString());
@@ -409,8 +409,8 @@ public class Screen_FileViewer extends AppCompatActivity {
 
                 final AlertDialog.Builder newFoldereDialog = new AlertDialog.Builder(Screen_FileViewer.this);
 
-                inflater = LayoutInflater.from(Screen_FileViewer.this).inflate(R.layout.set_directory_name_alret_dialog, null);
-                input = inflater.findViewById(R.id.directoryNameEditText);
+                inflater = LayoutInflater.from(Screen_FileViewer.this).inflate(R.layout.dialog_set_directory_name, null);
+                input = inflater.findViewById(R.id.dialog_set_directory_name_new_name);
 
                 newFoldereDialog.setView(inflater);
                 newFoldereDialog.setPositiveButton(R.string.answer_save, new DialogInterface.OnClickListener() {
@@ -562,23 +562,23 @@ public class Screen_FileViewer extends AppCompatActivity {
         }
 
         if (selectionCount == 1) {
-            findViewById(R.id.rename_btt).setVisibility(View.VISIBLE);
+            findViewById(R.id.screen_file_viewer_button_rename).setVisibility(View.VISIBLE);
         }
         else {
-            findViewById(R.id.rename_btt).setVisibility(View.GONE);
+            findViewById(R.id.screen_file_viewer_button_rename).setVisibility(View.GONE);
         }
 
         if (selectionCount >= 1){
             longClick = true;
-            findViewById(R.id.delete_btt).setVisibility(View.VISIBLE);
-            findViewById(R.id.cut_btt).setVisibility(View.VISIBLE);
-            findViewById(R.id.copy_btt).setVisibility(View.VISIBLE);
+            findViewById(R.id.screen_file_viewer_button_delete).setVisibility(View.VISIBLE);
+            findViewById(R.id.screen_file_viewer_button_cut).setVisibility(View.VISIBLE);
+            findViewById(R.id.screen_file_viewer_button_copy).setVisibility(View.VISIBLE);
         }
         else {
             longClick = false;
-            findViewById(R.id.delete_btt).setVisibility(View.GONE);
-            findViewById(R.id.cut_btt).setVisibility(View.GONE);
-            findViewById(R.id.copy_btt).setVisibility(View.GONE);
+            findViewById(R.id.screen_file_viewer_button_delete).setVisibility(View.GONE);
+            findViewById(R.id.screen_file_viewer_button_cut).setVisibility(View.GONE);
+            findViewById(R.id.screen_file_viewer_button_copy).setVisibility(View.GONE);
         }
     }
 }
