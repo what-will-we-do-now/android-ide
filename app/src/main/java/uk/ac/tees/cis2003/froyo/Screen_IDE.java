@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -19,6 +20,9 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuCompat;
 
 import org.eclipse.jgit.api.CreateBranchCommand;
@@ -57,6 +61,37 @@ public class Screen_IDE extends AppCompatActivity {
         setTheme(getApplicationInfo().theme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_ide);
+
+        SearchView search = findViewById(R.id.txtSearch);
+        search.setIconified(false);
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                SharedPreferences pref = getSharedPreferences("search_engine", MODE_PRIVATE);
+                if(pref.getString("engine", "google.com").equalsIgnoreCase("google.com")){
+                    openCustomTab("https://google.com/search?q=" + query);
+                }else {
+                    openCustomTab("https://stackoverflow.com/search?q=" + query);
+                }
+
+                search.setVisibility(View.GONE);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        search.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                search.setVisibility(View.GONE);
+                return false;
+            }
+        });
 
         projectsDirectory = getExternalFilesDir(null).getAbsolutePath() + "/MoDE_Code_Directory";
 
@@ -103,10 +138,10 @@ public class Screen_IDE extends AppCompatActivity {
 
         MenuCompat.setGroupDividerEnabled(menu, true);
 
-        menu.getItem(0).setVisible(saveAvailable);
-        menu.getItem(0).setEnabled(saveAvailable);
+        menu.getItem(1).setVisible(saveAvailable);
+        menu.getItem(1).setEnabled(saveAvailable);
 
-        Menu subMenu = menu.getItem(1).getSubMenu();
+        Menu subMenu = menu.getItem(2).getSubMenu();
 
         if(Project.openedProject.hasGitSupport()){
             subMenu.getItem(3).setVisible(true);
@@ -354,6 +389,12 @@ public class Screen_IDE extends AppCompatActivity {
                     Log.e("Git", "Error when getting branch status", e);
                 }
                 return true;
+            case R.id.search:
+                findViewById(R.id.txtSearch).setVisibility(View.VISIBLE);
+                findViewById(R.id.txtSearch).requestFocus();
+                findViewById(R.id.txtSearch).requestFocusFromTouch();
+
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -465,15 +506,17 @@ public class Screen_IDE extends AppCompatActivity {
         output.close();
     }
 
-    //Stackoverflow search
-    public void stackOverflowSearch ()
+    //Custom Tab Shenanigans
+    void openCustomTab(String url)
     {
-
-    }
-
-    //Google Search
-    public void searchUsingGoogle()
-    {
-
+        // Use CustomeTabsIntent.Builder to configure CustomTabsIntent
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+        // set toolabr color and/or setting custom actions before invoking build()
+        builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        builder.addDefaultShareMenuItem();
+        // Once ready, call CustomTabsIntent.Builder.build() to create a CustomTabsIntent
+        CustomTabsIntent customeTabsIntent = builder.build();
+        //and launch the desired url with CustomeTabsIntent.launchUrl()
+        customeTabsIntent.launchUrl(this, Uri.parse(url));
     }
 }

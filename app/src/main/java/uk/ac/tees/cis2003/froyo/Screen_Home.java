@@ -230,12 +230,6 @@ public class Screen_Home extends AppCompatActivity {
         startActivity(settingsIntent);
     }
 
-    public void openSearch(View view){
-
-        Intent intentSearch = new Intent(this, Screen_Search.class);
-        startActivity(intentSearch);
-    }
-
     public void gitClone(View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 

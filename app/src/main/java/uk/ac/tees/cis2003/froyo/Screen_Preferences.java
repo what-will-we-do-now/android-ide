@@ -16,6 +16,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
+import androidx.preference.DropDownPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
@@ -57,6 +58,17 @@ public class Screen_Preferences extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
+
+            DropDownPreference searchEngine = findPreference("search_engine");
+            searchEngine.setOnPreferenceChangeListener((preference, newValue) -> {
+                if(preference.getKey().equalsIgnoreCase("search_engine")){
+                    SharedPreferences.Editor pref = getContext().getSharedPreferences("search_engine", MODE_PRIVATE).edit();
+                    pref.putString("engine", newValue.toString());
+                    pref.commit();
+                }
+                return true;
+            });
+
             Preference pattern = findPreference("pattern");
             SwitchPreferenceCompat lightMode = findPreference("light_mode");
             lightMode.setOnPreferenceChangeListener((preference, newValue) -> {

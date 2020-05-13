@@ -30,7 +30,6 @@
         <activity android:name="uk.ac.tees.cis2003.froyo.Screen_QR" />
         <activity android:name="uk.ac.tees.cis2003.froyo.Screen_Login" />
         <activity android:name="uk.ac.tees.cis2003.froyo.Screen_ChangePattern" />
-        <activity android:name="uk.ac.tees.cis2003.froyo.Screen_Search" />
         <activity android:name="uk.ac.tees.cis2003.froyo.Screen_Home" />
         <activity android:name="uk.ac.tees.cis2003.froyo.Screen_Welcome"/>
         <activity android:name="uk.ac.tees.cis2003.froyo.Screen_Splash">
