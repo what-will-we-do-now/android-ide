@@ -22,6 +22,15 @@
             app:summaryOn="@string/settings_theme_summary_enabled"
             app:title="@string/settings_theme_title"
             />
+
+        <androidx.preference.DropDownPreference
+            android:id="@+id/pcSearchEngine"
+            app:key="search_engine"
+            app:title="Search Engine"
+            app:entries="@array/setting_search_engine"
+            app:useSimpleSummaryProvider="true"
+            app:entryValues="@array/setting_search_engine"
+            />
     </androidx.preference.PreferenceCategory>
 
     <androidx.preference.PreferenceCategory app:title="@string/settings_git_header">

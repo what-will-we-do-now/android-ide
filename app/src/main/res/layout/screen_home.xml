@@ -88,23 +88,9 @@
         android:baselineAligned="false"
         android:onClick="openSettings"
         android:text="@string/main_menu_title_settings"
-        app:layout_constraintBottom_toTopOf="@+id/btnSearch"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnGotoCode" />
-
-    <Button
-        android:id="@+id/btnSearch"
-        android:layout_width="377dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:baselineAligned="false"
-        android:onClick="openSearch"
-        android:text="@string/main_menu_title_search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSettings" />
+        app:layout_constraintTop_toBottomOf="@+id/btnGotoCode" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

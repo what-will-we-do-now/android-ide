@@ -8,6 +8,19 @@
     android:layout_height="match_parent"
     tools:context=".Screen_IDE">
 
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/txtSearch"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/txtCode"
+        app:layout_constraintEnd_toStartOf="@+id/txtCode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <uk.ac.tees.cis2003.froyo.GUI.NumberedTextView
         android:id="@+id/txtCode"
         android:layout_width="0dp"
@@ -22,13 +35,8 @@
         android:textIsSelectable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/txtSearch"
+        app:layout_constraintTop_toBottomOf="@+id/txtSearch" />
         <!--- android:layout_marginTop="50dp" -->
 
-    <!--- <SearchView
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp" /> -->
 </androidx.constraintlayout.widget.ConstraintLayout>
