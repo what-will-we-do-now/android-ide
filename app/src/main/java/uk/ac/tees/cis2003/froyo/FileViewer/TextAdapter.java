@@ -68,7 +68,7 @@ public class TextAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView == null){
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.file_viewer_item, parent, false);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_file_viewer_item, parent, false);
             convertView.setTag(R.id.fileViewerItem, new ViewHolder((TextView) convertView.findViewById(R.id.fileViewerItem)));
             convertView.setTag(R.id.icon, new ViewHolder((ImageView) convertView.findViewById(R.id.icon)));
         }
@@ -95,10 +95,10 @@ public class TextAdapter extends BaseAdapter {
         holder = (ViewHolder) convertView.getTag(R.id.icon);
 
         if (item.isDirectory()){
-            holder.imageInfo.setImageResource(R.drawable.ic_folder_black_24dp);
+            holder.imageInfo.setImageResource(R.drawable.ic_folder_24dp);
         }
         else {
-            holder.imageInfo.setImageResource(R.drawable.ic_file_black_24dp);
+            holder.imageInfo.setImageResource(R.drawable.ic_file_24dp);
         }
 
         return convertView;

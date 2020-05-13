@@ -24,8 +24,8 @@ public class GitTools {
         View dialogue = LayoutInflater.from(context).inflate(R.layout.dialog_git_authentication, null);
         builder.setView(dialogue);
 
-        final EditText username = dialogue.findViewById(R.id.git_authentication_username);
-        final EditText password = dialogue.findViewById(R.id.git_authentication_password);
+        final EditText username = dialogue.findViewById(R.id.dialog_git_authentication_username);
+        final EditText password = dialogue.findViewById(R.id.dialog_git_authentication_password);
 
         builder.setPositiveButton("Login", new DialogInterface.OnClickListener() {
             @Override

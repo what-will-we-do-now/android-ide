@@ -45,7 +45,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectHolder>{
         holder.projectName.setText(projects.get(position).getName());
         holder.projectPath.setText(projects.get(position).getRoot().getAbsolutePath());
 
-        holder.itemView.findViewById(R.id.project_delete).setOnClickListener(new View.OnClickListener() {
+        holder.itemView.findViewById(R.id.fragment_project_button_delete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

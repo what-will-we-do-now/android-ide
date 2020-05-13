@@ -13,7 +13,7 @@
         />
 
     <EditText
-        android:id="@+id/project_name"
+        android:id="@+id/fragment_project_new_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/project_new_name_hint"
@@ -25,24 +25,24 @@
         android:text="@string/project_new_type"/>
 
     <Spinner
-        android:id="@+id/project_type"
+        android:id="@+id/fragment_project_new_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <CheckBox
-        android:id="@+id/project_main_make"
+        android:id="@+id/fragment_project_new_main_make"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/project_new_main_create"/>
 
     <TextView
-        android:id="@+id/project_main_name_text"
+        android:id="@+id/fragment_project_new_main_name_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/project_new_main_name"/>
 
     <EditText
-        android:id="@+id/project_main_name"
+        android:id="@+id/fragment_project_new_main_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

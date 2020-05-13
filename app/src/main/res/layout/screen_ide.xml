@@ -10,19 +10,19 @@
 
 
     <androidx.appcompat.widget.SearchView
-        android:id="@+id/txtSearch"
+        android:id="@+id/screen_ide_search"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/txtCode"
-        app:layout_constraintEnd_toStartOf="@+id/txtCode"
+        app:layout_constraintBottom_toTopOf="@+id/screen_ide_code"
+        app:layout_constraintEnd_toStartOf="@+id/screen_ide_code"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <uk.ac.tees.cis2003.froyo.GUI.NumberedTextView
-        android:id="@+id/txtCode"
+        android:id="@+id/screen_ide_code"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:bufferType="spannable"
@@ -35,8 +35,8 @@
         android:textIsSelectable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/txtSearch"
-        app:layout_constraintTop_toBottomOf="@+id/txtSearch" />
+        app:layout_constraintStart_toStartOf="@+id/screen_ide_search"
+        app:layout_constraintTop_toBottomOf="@+id/screen_ide_search" />
         <!--- android:layout_marginTop="50dp" -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

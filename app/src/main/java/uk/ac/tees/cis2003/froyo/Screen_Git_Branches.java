@@ -23,7 +23,7 @@ public class Screen_Git_Branches extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_git_branches);
 
-        RecyclerView recyclerView = findViewById(R.id.git_branch_choose);
+        RecyclerView recyclerView = findViewById(R.id.screen_branch_branch_choose);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);

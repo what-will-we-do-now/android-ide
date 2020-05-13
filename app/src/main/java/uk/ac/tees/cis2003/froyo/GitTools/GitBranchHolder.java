@@ -16,8 +16,8 @@ public class GitBranchHolder extends RecyclerView.ViewHolder {
 
     public GitBranchHolder(View itemView){
         super(itemView);
-        branchName = itemView.findViewById(R.id.git_branch_choose_name);
-        location = itemView.findViewById(R.id.git_branch_choose_location);
-        delete = itemView.findViewById(R.id.git_branch_delete);
+        branchName = itemView.findViewById(R.id.fragment_git_branch_choose_name);
+        location = itemView.findViewById(R.id.fragment_git_branch_choose_location);
+        delete = itemView.findViewById(R.id.fragment_git_branch_button_delete);
     }
 }

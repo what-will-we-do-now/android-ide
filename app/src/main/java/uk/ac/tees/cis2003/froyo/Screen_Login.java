@@ -45,7 +45,7 @@ public class Screen_Login extends AppCompatActivity {
             {
             setContentView(R.layout.screen_login);
 
-            final PatternLockView patternLockView = findViewById(R.id.patternView);
+            final PatternLockView patternLockView = findViewById(R.id.screen_login_pattern);
             patternLockView.addPatternLockListener(new PatternLockViewListener() {
 
                 public void onStarted()

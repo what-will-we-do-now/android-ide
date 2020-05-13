@@ -10,7 +10,7 @@
         android:text="@string/settings_git_email_summary" />
 
     <EditText
-        android:id="@+id/git_committer_email"
+        android:id="@+id/dialog_git_settings_commit_email_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"

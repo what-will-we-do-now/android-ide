@@ -9,5 +9,5 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/git_branch_choose"/>
+        android:id="@+id/screen_branch_branch_choose"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

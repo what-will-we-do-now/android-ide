@@ -10,7 +10,7 @@
     >
 
     <com.andrognito.patternlockview.PatternLockView
-        android:id="@+id/patternView"
+        android:id="@+id/screen_login_pattern"
         android:layout_width="wrap_content"
         android:layout_height="550dp"
         android:layout_marginBottom="250dp"
@@ -41,7 +41,7 @@
             android:text="@string/pattern_update"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/patternView" />
+            app:layout_constraintTop_toBottomOf="@+id/screen_login_pattern" />
 
         <Button
             android:id="@+id/Reset"
@@ -53,7 +53,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/update"
-            app:layout_constraintTop_toBottomOf="@+id/patternView" />
+            app:layout_constraintTop_toBottomOf="@+id/screen_login_pattern" />
 
     </LinearLayout>
 

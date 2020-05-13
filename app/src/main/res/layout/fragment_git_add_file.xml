@@ -6,21 +6,21 @@
 
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/fragment_git_add_file_selection"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <TextView
-        android:id="@+id/git_changed_path"
+        android:id="@+id/fragment_git_add_file_changed_path"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/checkBox"/>
+        android:layout_toEndOf="@+id/fragment_git_add_file_selection"/>
 
     <TextView
-        android:id="@+id/git_changed_status"
+        android:id="@+id/fragment_git_add_file_changed_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/git_changed_path"
-        android:layout_toEndOf="@+id/checkBox"
+        android:layout_below="@+id/fragment_git_add_file_changed_path"
+        android:layout_toEndOf="@+id/fragment_git_add_file_selection"
         android:textSize="12sp"/>
 </RelativeLayout>

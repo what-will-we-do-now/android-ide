@@ -36,14 +36,14 @@ public class Screen_Git_Commit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_git_commit);
 
-        TextView branchName = findViewById(R.id.git_branch_name);
+        TextView branchName = findViewById(R.id.dialog_git_branch_new_name);
         try {
             branchName.setText(getResources().getString(R.string.git_names_branch_display, Project.openedProject.getGit().getRepository().getBranch()));
         } catch (IOException e) {
             Log.e("git", "Unable to retrieve branch name", e);
         }
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.git_files_changed);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.screen_commit_files_changed);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -103,8 +103,8 @@ public class Screen_Git_Commit extends AppCompatActivity {
             Log.e("git", "Could not get status", e);
         }
 
-        Button commit = (Button)findViewById(R.id.git_commit);
-        NumberedTextView commitMessage = (NumberedTextView) findViewById(R.id.git_commit_message);
+        Button commit = (Button)findViewById(R.id.screen_commit_commit);
+        NumberedTextView commitMessage = (NumberedTextView) findViewById(R.id.screen_commit_commit_message);
 
 
         commitMessage.addTextChangedListener(new TextWatcher() {
@@ -137,14 +137,14 @@ public class Screen_Git_Commit extends AppCompatActivity {
 
 
     public void selectAll(View view){
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.git_files_changed);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.screen_commit_files_changed);
         for(int x = 0; x < recyclerView.getChildCount(); x++){
             ((GitChangedFileHolder)recyclerView.getChildViewHolder(recyclerView.getChildAt(x))).checkBox.setChecked(true);
         }
     }
 
     public void deselectAll(View view){
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.git_files_changed);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.screen_commit_files_changed);
         for(int x = 0; x < recyclerView.getChildCount(); x++){
             ((GitChangedFileHolder)recyclerView.getChildViewHolder(recyclerView.getChildAt(x))).checkBox.setChecked(false);
         }
@@ -152,7 +152,7 @@ public class Screen_Git_Commit extends AppCompatActivity {
 
     public void commit(View view){
         CommitCommand gcommit = Project.openedProject.getGit().commit();
-        gcommit.setMessage(((NumberedTextView) findViewById(R.id.git_commit_message)).getText().toString());
+        gcommit.setMessage(((NumberedTextView) findViewById(R.id.screen_commit_commit_message)).getText().toString());
         GitCommitTask gct = new GitCommitTask(Screen_Git_Commit.this, gcommit);
         gct.execute();
         finish();

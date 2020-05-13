@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/btnNewProject"
+        android:id="@+id/screen_home_project_new"
         android:layout_width="377dp"
         android:layout_height="42dp"
         android:layout_marginStart="16dp"
@@ -15,13 +15,13 @@
         android:baselineAligned="false"
         android:onClick="createProject"
         android:text="@string/main_menu_project_new"
-        app:layout_constraintBottom_toTopOf="@+id/btnOpenProject"
+        app:layout_constraintBottom_toTopOf="@+id/screen_home_project_open"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnOpenProject"
+        android:id="@+id/screen_home_project_open"
         android:layout_width="377dp"
         android:layout_height="42dp"
         android:layout_marginStart="16dp"
@@ -30,28 +30,13 @@
         android:onClick="openProjects"
         android:text="@string/main_menu_project_open"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/btnCreateQRCode"
+        app:layout_constraintBottom_toTopOf="@+id/screen_home_git_clone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnNewProject" />
+        app:layout_constraintTop_toBottomOf="@+id/screen_home_project_new" />
 
     <Button
-        android:visibility="gone"
-        android:id="@+id/btnCreateQRCode"
-        android:layout_width="377dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:baselineAligned="false"
-        android:onClick="openQRScreen"
-        android:text="@string/main_menu_project_from_qr"
-        app:layout_constraintBottom_toTopOf="@+id/btnGit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnOpenProject" />
-
-    <Button
-        android:id="@+id/btnGit"
+        android:id="@+id/screen_home_git_clone"
         android:layout_width="377dp"
         android:layout_height="42dp"
         android:layout_marginStart="16dp"
@@ -59,13 +44,13 @@
         android:baselineAligned="false"
         android:onClick="gitClone"
         android:text="@string/git_clone"
-        app:layout_constraintBottom_toTopOf="@+id/btnGotoCode"
+        app:layout_constraintBottom_toTopOf="@+id/screen_home_return_project"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCreateQRCode" />
+        app:layout_constraintTop_toBottomOf="@+id/screen_home_project_open" />
 
     <Button
-        android:id="@+id/btnGotoCode"
+        android:id="@+id/screen_home_return_project"
         android:layout_width="377dp"
         android:layout_height="42dp"
         android:layout_marginStart="16dp"
@@ -74,13 +59,13 @@
         android:onClick="openIDE"
         android:text="@string/main_menu_title_return_to_code"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/btnSettings"
+        app:layout_constraintBottom_toTopOf="@+id/screen_home_settings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnGit" />
+        app:layout_constraintTop_toBottomOf="@+id/screen_home_git_clone" />
 
     <Button
-        android:id="@+id/btnSettings"
+        android:id="@+id/screen_home_settings"
         android:layout_width="377dp"
         android:layout_height="42dp"
         android:layout_marginStart="16dp"
@@ -91,6 +76,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnGotoCode" />
+        app:layout_constraintTop_toBottomOf="@+id/screen_home_return_project" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
