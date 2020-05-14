@@ -3,17 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:title="Search"
-        android:id="@+id/search"
-        android:icon="@drawable/ic_search_24dp"
-        app:showAsAction="ifRoom"/>
 
+
+    <item
+        android:title="Undo"
+        android:id="@+id/undo"
+        android:icon="@drawable/ic_undo_24dp"
+        app:showAsAction="ifRoom"
+        />
     <item
         android:title="@string/answer_save"
         android:id="@+id/save_code"
         android:icon="@drawable/ic_save_24dp"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
     <item
         android:title="@string/ide_menu_submenu"
@@ -22,6 +24,20 @@
         >
 
         <menu>
+            <group android:id="@+id/edit">
+                <item
+                    android:title="Search"
+                    android:id="@+id/search"
+                    android:icon="@drawable/ic_search_24dp"
+                    app:showAsAction="never"/>
+                <item
+                    android:title="Redo"
+                    android:id="@+id/redo"
+                    android:icon="@drawable/ic_redo_24dp"
+                    app:showAsAction="never"
+                    />
+            </group>
+
             <item
                 android:title="@string/ide_menu_settings"
                 android:icon="@drawable/ic_settings_24dp"

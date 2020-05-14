@@ -15,6 +15,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 
 import java.io.File;
 
+import uk.ac.tees.cis2003.froyo.GUI.UndoManagers.SimpleUndoManager;
 import uk.ac.tees.cis2003.froyo.plugins.PluginManager;
 
 public class NumberedTextView extends AppCompatEditText {
@@ -26,6 +27,8 @@ public class NumberedTextView extends AppCompatEditText {
 
     private AutoFormatter autoHighlightWatcher;
     private AutoClose autoCloseWatcher;
+
+    private UndoManager undoManager;
 
 
     public NumberedTextView(Context context) {
@@ -95,6 +98,41 @@ public class NumberedTextView extends AppCompatEditText {
 
         //compatibility with physical keyboard
         setOnKeyListener(new HardwareKeyboardListener());
+
+        //register default undoManager
+        undoManager = new SimpleUndoManager(this);
+        addTextChangedListener(undoManager);
+
+    }
+
+    public void undo(){
+        if(undoManager != null){
+            undoManager.undo();
+        }
+    }
+
+    public void redo(){
+        if(undoManager != null){
+            undoManager.redo();
+        }
+    }
+
+    public void setUndoManager(UndoManager manager){
+        undoManager = manager;
+        addTextChangedListener(undoManager);
+    }
+
+    public void clearUndoHistory(){
+        if(undoManager != null){
+            undoManager.clearHistory();
+        }
+    }
+
+    public boolean isUndoAvailable(){
+        return undoManager != null && undoManager.canUndo();
+    }
+    public boolean isRedoAvailable(){
+        return undoManager != null && undoManager.canRedo();
     }
 
     @Override
@@ -282,5 +320,13 @@ public class NumberedTextView extends AppCompatEditText {
             }
             return false;
         }
+    }
+
+    public interface UndoManager extends TextWatcher{
+        public void undo();
+        public void redo();
+        public void clearHistory();
+        public boolean canUndo();
+        public boolean canRedo();
     }
 }
