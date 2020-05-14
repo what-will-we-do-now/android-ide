@@ -14,6 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import uk.ac.tees.cis2003.froyo.R;
+import uk.ac.tees.cis2003.froyo.Utils.StringUtils;
 import uk.ac.tees.cis2003.froyo.plugins.ColorInfo;
 import uk.ac.tees.cis2003.froyo.plugins.Plugin;
 import uk.ac.tees.cis2003.froyo.plugins.PluginManager;
@@ -103,7 +104,7 @@ public class java extends Plugin{
         ArrayList<ColorInfo> formattedCode = new ArrayList<>();
 
         for(String token : TOKENS) {
-            ArrayList<Integer> offsets = getOffsetsFor(code, "\\b" + token + "\\b");
+            ArrayList<Integer> offsets = StringUtils.getIndexesOf(code, "\\b" + token + "\\b");
             for(int off : offsets){
                 formattedCode.add(new ColorInfo(off, token.length(), PluginManager.COLOR_KEYWORD, 5));
             }
@@ -213,16 +214,5 @@ public class java extends Plugin{
     @Override
     public String getDefaultFileExtension() {
         return "java";
-    }
-
-    private ArrayList<Integer> getOffsetsFor(String code, String findRegex){
-        Matcher matcher = Pattern.compile(findRegex).matcher(code);
-        ArrayList<Integer> offsets = new ArrayList<>();
-        while(matcher.find()){
-            int offset = matcher.start();
-
-            offsets.add(offset);
-        }
-        return offsets;
     }
 }

@@ -105,6 +105,7 @@ public class Screen_IDE extends AppCompatActivity {
             txtCode.setFileEdited(file);
             try{
                 txtCode.setText(loadFile(file));
+                txtCode.clearUndoHistory();
             }
             catch(Exception e){
                 Log.e("IDE", "Unable to read file", e);
@@ -138,29 +139,31 @@ public class Screen_IDE extends AppCompatActivity {
 
         MenuCompat.setGroupDividerEnabled(menu, true);
 
+        menu.getItem(0).setVisible(((NumberedTextView)findViewById(R.id.screen_ide_code)).isUndoAvailable());
+
         menu.getItem(1).setVisible(saveAvailable);
         menu.getItem(1).setEnabled(saveAvailable);
 
         Menu subMenu = menu.getItem(2).getSubMenu();
-
+        subMenu.getItem(1).setVisible(((NumberedTextView)findViewById(R.id.screen_ide_code)).isRedoAvailable());
         if(Project.openedProject.hasGitSupport()){
-            subMenu.getItem(3).setVisible(true);
-            subMenu.getItem(4).setVisible(true);
             subMenu.getItem(5).setVisible(true);
+            subMenu.getItem(6).setVisible(true);
+            subMenu.getItem(7).setVisible(true);
             // temporarily disabled
-            subMenu.getItem(6).setVisible(false);
-            subMenu.getItem(7).setVisible(false);
+            subMenu.getItem(8).setVisible(false);
+            subMenu.getItem(9).setVisible(false);
             // end of temporarily disabled
-            subMenu.getItem(8).setVisible(true);
-            subMenu.getItem(2).setVisible(false);
-        }else{
-            subMenu.getItem(3).setVisible(false);
+            subMenu.getItem(10).setVisible(true);
             subMenu.getItem(4).setVisible(false);
+        }else{
             subMenu.getItem(5).setVisible(false);
             subMenu.getItem(6).setVisible(false);
             subMenu.getItem(7).setVisible(false);
             subMenu.getItem(8).setVisible(false);
-            subMenu.getItem(2).setVisible(true);
+            subMenu.getItem(9).setVisible(false);
+            subMenu.getItem(10).setVisible(false);
+            subMenu.getItem(4).setVisible(true);
         }
 
         return super.onCreateOptionsMenu(menu);
@@ -394,6 +397,12 @@ public class Screen_IDE extends AppCompatActivity {
                 findViewById(R.id.screen_ide_search).requestFocus();
                 findViewById(R.id.screen_ide_search).requestFocusFromTouch();
 
+                return true;
+            case R.id.undo:
+                ((NumberedTextView)findViewById(R.id.screen_ide_code)).undo();
+                return true;
+            case R.id.redo:
+                ((NumberedTextView)findViewById(R.id.screen_ide_code)).redo();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
