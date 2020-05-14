@@ -23,14 +23,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -42,6 +36,7 @@ import java.util.Objects;
 import uk.ac.tees.cis2003.froyo.GUI.MapAdapter;
 import uk.ac.tees.cis2003.froyo.Projects.Project;
 import uk.ac.tees.cis2003.froyo.R;
+import uk.ac.tees.cis2003.froyo.Utils.FileUtils;
 import uk.ac.tees.cis2003.froyo.plugins.PluginManager;
 
 public class Screen_FileViewer extends AppCompatActivity {
@@ -65,7 +60,6 @@ public class Screen_FileViewer extends AppCompatActivity {
     private boolean isFileManagerInitialized = false;
 
     private boolean[] selection;
-    private int selectionCount = 0;
     private boolean longClick = false;
 
     private int selectedItemIndex;
@@ -303,7 +297,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                         }
 
                         try {
-                            saveActivity(loadActivity(copiedFile), copiedFile.getName());
+                            FileUtils.saveToFile(copiedFile.getName(), FileUtils.loadFromFile(copiedFile));
                             filesPasted++;
                         } catch (Exception e) {
                             filesUnpasted++;
@@ -391,7 +385,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                             values.put("filename", input.getText().toString());
 
                             String templateData = PluginManager.getTemplate(lang, temp, values);
-                            saveActivity(templateData, input.getText().toString() + "." + PluginManager.getDefaultFileExtensionFor(lang));
+                            FileUtils.saveToFile(input.getText().toString() + "." + PluginManager.getDefaultFileExtensionFor(lang), templateData);
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -469,50 +463,6 @@ public class Screen_FileViewer extends AppCompatActivity {
         return Project.openedProject.getRoot().getAbsolutePath();
     }
 
-    public String loadActivity(File file){
-        String ret;
-
-        try{
-            InputStream input = new FileInputStream(file);
-
-            InputStreamReader inp = new InputStreamReader(input);
-            BufferedReader reader = new BufferedReader(inp);
-            String receiveString;
-            StringBuilder str = new StringBuilder();
-
-            while( (receiveString = reader.readLine()) != null){
-                str.append(receiveString).append("\n");
-            }
-
-            ret = str.toString();
-
-
-            input.close();
-            inp.close();
-            reader.close();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            ret = null;
-        }
-
-        return ret;
-    }
-
-    //Saves files to specified directory
-    public void saveActivity(String data, String fileName) throws Exception{
-
-        File file = new File(currentPath, fileName);
-
-        FileOutputStream output = new FileOutputStream(file);
-        OutputStreamWriter out = new OutputStreamWriter(output);
-        out.write(data);
-        out.flush();
-        out.close();
-        output.flush();
-        output.close();
-    }
-
     private void refresh (){
         File[] projectFiles = dir.listFiles();
 
@@ -554,7 +504,7 @@ public class Screen_FileViewer extends AppCompatActivity {
     }
 
     private void buttonCheck(){
-        selectionCount = 0;
+        int selectionCount = 0;
         for (boolean aSelection : selection) {
             if (aSelection) {
                 selectionCount++;

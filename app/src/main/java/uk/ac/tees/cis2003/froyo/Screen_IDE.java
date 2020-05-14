@@ -32,14 +32,8 @@ import org.eclipse.jgit.api.Status;
 import org.eclipse.jgit.api.StatusCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 
 import uk.ac.tees.cis2003.froyo.FileViewer.Screen_FileViewer;
 import uk.ac.tees.cis2003.froyo.GUI.NumberedTextView;
@@ -47,6 +41,7 @@ import uk.ac.tees.cis2003.froyo.GitTools.GitBranchCreateTask;
 import uk.ac.tees.cis2003.froyo.GitTools.GitPullTask;
 import uk.ac.tees.cis2003.froyo.GitTools.GitPushTask;
 import uk.ac.tees.cis2003.froyo.Projects.Project;
+import uk.ac.tees.cis2003.froyo.Utils.FileUtils;
 
 public class Screen_IDE extends AppCompatActivity {
 
@@ -104,7 +99,7 @@ public class Screen_IDE extends AppCompatActivity {
             File file = new File(fileName);
             txtCode.setFileEdited(file);
             try{
-                txtCode.setText(loadFile(file));
+                txtCode.setText(FileUtils.loadFromFile(file));
                 txtCode.clearUndoHistory();
             }
             catch(Exception e){
@@ -184,7 +179,8 @@ public class Screen_IDE extends AppCompatActivity {
                 File file = new File(fileName);
                 txtCode.setFileEdited(file);
                 try{
-                    txtCode.setText(loadFile(file));
+                    txtCode.setText(FileUtils.loadFromFile(file));
+                    txtCode.clearUndoHistory();
                 }
                 catch(Exception e){
                     Log.e("IDE", "Unable to read file", e);
@@ -203,7 +199,8 @@ public class Screen_IDE extends AppCompatActivity {
                 File file = new File(fileName);
                 txtCode.setFileEdited(file);
                 try{
-                    txtCode.setText(loadFile(file));
+                    txtCode.setText(FileUtils.loadFromFile(file));
+                    txtCode.clearUndoHistory();
                 }
                 catch(Exception e){
                     Log.e("IDE", "Unable to read file", e);
@@ -287,7 +284,8 @@ public class Screen_IDE extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             try {
-                                                ((NumberedTextView)Screen_IDE.this.findViewById(R.id.screen_ide_code)).setText(loadFile(new File(fileName)));
+                                                ((NumberedTextView)Screen_IDE.this.findViewById(R.id.screen_ide_code)).setText(FileUtils.loadFromFile(new File(fileName)));
+                                                ((NumberedTextView)Screen_IDE.this.findViewById(R.id.screen_ide_code)).clearUndoHistory();
                                                 saveAvailable = false;
                                             } catch (IOException e) {
                                                 Log.e("IDE", "Unable to read file", e);
@@ -306,7 +304,8 @@ public class Screen_IDE extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             try {
-                                                ((NumberedTextView)Screen_IDE.this.findViewById(R.id.screen_ide_code)).setText(loadFile(new File(fileName)));
+                                                ((NumberedTextView)Screen_IDE.this.findViewById(R.id.screen_ide_code)).setText(FileUtils.loadFromFile(new File(fileName)));
+                                                ((NumberedTextView)Screen_IDE.this.findViewById(R.id.screen_ide_code)).clearUndoHistory();
                                                 saveAvailable = false;
                                             } catch (IOException e) {
                                                 Log.e("IDE", "Unable to read file", e);
@@ -325,7 +324,8 @@ public class Screen_IDE extends AppCompatActivity {
                         @Override
                         public void run() {
                             try {
-                                ((NumberedTextView)Screen_IDE.this.findViewById(R.id.screen_ide_code)).setText(loadFile(new File(fileName)));
+                                ((NumberedTextView)Screen_IDE.this.findViewById(R.id.screen_ide_code)).setText(FileUtils.loadFromFile(new File(fileName)));
+                                ((NumberedTextView)Screen_IDE.this.findViewById(R.id.screen_ide_code)).clearUndoHistory();
                                 saveAvailable = false;
                             } catch (IOException e) {
                                 Log.e("IDE", "Unable to read file", e);
@@ -450,7 +450,7 @@ public class Screen_IDE extends AppCompatActivity {
                     fileName = new File(Project.openedProject.getRoot(), input.getText().toString()).getAbsolutePath();
 
                     try {
-                        saveActivity(((NumberedTextView) findViewById(R.id.screen_ide_code)).getText().toString(), fileName);
+                        FileUtils.saveToFile(fileName, ((NumberedTextView) findViewById(R.id.screen_ide_code)).getText().toString());
                         saveAvailable = false;
                         invalidateOptionsMenu();
                     } catch (Exception e) {
@@ -468,7 +468,7 @@ public class Screen_IDE extends AppCompatActivity {
             setFileNameDialog.show();
         }else{
             try {
-                saveActivity(((NumberedTextView) findViewById(R.id.screen_ide_code)).getText().toString(), fileName);
+                FileUtils.saveToFile(fileName, ((NumberedTextView) findViewById(R.id.screen_ide_code)).getText().toString());
                 saveAvailable = false;
                 invalidateOptionsMenu();
             } catch (Exception e) {
@@ -476,43 +476,6 @@ public class Screen_IDE extends AppCompatActivity {
                 Toast.makeText(Screen_IDE.this, getResources().getString(R.string.ide_message_file_save_error), Toast.LENGTH_LONG).show();
             }
         }
-    }
-
-    private String loadFile(File file) throws IOException {
-        InputStream input = new FileInputStream(file);
-
-        InputStreamReader inp = new InputStreamReader(input);
-        BufferedReader reader = new BufferedReader(inp);
-        String receiveString;
-        StringBuilder str = new StringBuilder();
-
-        while( (receiveString = reader.readLine()) != null){
-            str.append(receiveString).append("\n");
-        }
-
-        String ret = str.toString();
-
-
-        input.close();
-        inp.close();
-        reader.close();
-        return ret;
-    }
-
-    //Saves files to specified directory
-    public void saveActivity(String data, String fileName) throws Exception{
-
-        File file = new File(fileName);
-        if(!file.getParentFile().exists()){
-            file.getParentFile().mkdirs();
-        }
-        FileOutputStream output = new FileOutputStream(file);
-        OutputStreamWriter out = new OutputStreamWriter(output);
-        out.write(data);
-        out.flush();
-        out.close();
-        output.flush();
-        output.close();
     }
 
     //Custom Tab Shenanigans
