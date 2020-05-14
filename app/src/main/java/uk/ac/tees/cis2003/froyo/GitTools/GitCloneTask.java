@@ -16,6 +16,7 @@ import java.io.File;
 import java.net.URL;
 
 import uk.ac.tees.cis2003.froyo.R;
+import uk.ac.tees.cis2003.froyo.Utils.FileUtils;
 
 public class GitCloneTask extends AsyncTask<Void, Integer, GitTaskStatus> {
 
@@ -39,16 +40,16 @@ public class GitCloneTask extends AsyncTask<Void, Integer, GitTaskStatus> {
             clone.call();
         }catch(TransportException e) {
             Log.w("git", "Repository requires authentication", e);
-            purge(downloadDirectory);
+            FileUtils.purge(downloadDirectory);
             return GitTaskStatus.GENERIC_REQUIRES_AUTHENTICATION;
         } catch(InvalidRemoteException e){
             Log.e("git", "Remote repository not found", e);
-            purge(downloadDirectory);
+            FileUtils.purge(downloadDirectory);
             return GitTaskStatus.CLONE_REMOTE_REPOSITORY_NOT_FOUND;
         } catch (GitAPIException e) {
             //an error occured while processing
             Log.e("git", "Could not clone git repository", e);
-            purge(downloadDirectory);
+            FileUtils.purge(downloadDirectory);
             return GitTaskStatus.GENERIC_FAILURE;
         }
         return GitTaskStatus.GENERIC_SUCCESS;
@@ -71,14 +72,5 @@ public class GitCloneTask extends AsyncTask<Void, Integer, GitTaskStatus> {
         }else if(status.equals(GitTaskStatus.GENERIC_SUCCESS)){
             Toast.makeText(context, R.string.git_clone_message_success, Toast.LENGTH_LONG).show();
         }
-    }
-
-    private void purge(File file){
-        if(file.isDirectory()){
-            for(File child : file.listFiles()){
-                purge(child);
-            }
-        }
-        file.delete();
     }
 }

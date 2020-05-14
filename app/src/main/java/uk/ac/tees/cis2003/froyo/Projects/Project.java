@@ -12,6 +12,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import uk.ac.tees.cis2003.froyo.Utils.FileUtils;
+
 public class Project {
 
     public static Project openedProject;
@@ -119,16 +121,7 @@ public class Project {
                 openedProject = null;
             }
         }
-        purge(root);
-    }
-
-    private void purge(File file){
-        if(file.isDirectory()){
-            for(File child : file.listFiles()){
-                purge(child);
-            }
-        }
-        file.delete();
+        FileUtils.purge(root);
     }
 
     public void gitInit(){

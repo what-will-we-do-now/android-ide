@@ -57,4 +57,17 @@ public class FileUtils {
         out.flush();
         out.close();
     }
+
+    /**
+     * This function deletes a file or a directory recursively.
+     * @param file the file / directory to be deleted.
+     */
+    public static void purge(File file){
+        if(file.isDirectory()){
+            for(File child : file.listFiles()){
+                purge(child);
+            }
+        }
+        file.delete();
+    }
 }

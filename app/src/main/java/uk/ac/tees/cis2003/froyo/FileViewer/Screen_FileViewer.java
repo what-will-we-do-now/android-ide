@@ -31,7 +31,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import uk.ac.tees.cis2003.froyo.GUI.MapAdapter;
 import uk.ac.tees.cis2003.froyo.Projects.Project;
@@ -193,7 +192,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             for (int position = 0; position < filesList.size(); position++){
                                 if(selection[position]){
-                                    deleteFileOrFolder(filesList.get(position));
+                                    FileUtils.purge(filesList.get(position));
                                     selection[position] = false;
                                     selectedItemIndex = position;
                                 }
@@ -305,7 +304,7 @@ public class Screen_FileViewer extends AppCompatActivity {
                         }
 
                         if (isCurrentCopiedCut){
-                            deleteFileOrFolder(copiedFile);
+                            FileUtils.purge(copiedFile);
                         }
 
                         findViewById(R.id.screen_file_viewer_button_paste).setVisibility(View.GONE);
@@ -432,29 +431,6 @@ public class Screen_FileViewer extends AppCompatActivity {
 
             default:
                 return super.onOptionsItemSelected(item);
-        }
-    }
-
-
-
-    private void deleteFileOrFolder (File fileOrFolder){
-        if (fileOrFolder.isDirectory()){
-            if (Objects.requireNonNull(fileOrFolder.list()).length == 0){
-                fileOrFolder.delete();
-            }
-            else{
-                String[] files = fileOrFolder.list();
-                for (String temp: Objects.requireNonNull(files)) {
-                    File fileToDelete = new File(fileOrFolder, temp);
-                    deleteFileOrFolder(fileToDelete);
-                }
-                if (Objects.requireNonNull(fileOrFolder.list()).length ==0){
-                    fileOrFolder.delete();
-                }
-            }
-        }
-        else {
-            fileOrFolder.delete();
         }
     }
 
