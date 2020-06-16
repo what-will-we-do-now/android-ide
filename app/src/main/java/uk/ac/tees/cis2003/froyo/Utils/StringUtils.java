@@ -40,6 +40,9 @@ public class StringUtils {
      * @return number of lines in the text
      */
     public static int numberOfLines(String text){
+        if(text == null){
+            return 0;
+        }
         return text.split("\n").length + (text.endsWith("\n") ? 1 : 0);
     }
 
