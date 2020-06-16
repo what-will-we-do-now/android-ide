@@ -12,7 +12,7 @@ public class StringUtils {
      * This function is based on https://stackoverflow.com/a/12089970/5008816
      * @param v1 the first string to be compared
      * @param v2 the second string to be compared
-     * @return -1 if difference was not found, index of the first difference otherwise.
+     * @return -1 if difference was not found, 0 based index of the first difference otherwise.
      */
     public static int indexOfDifference(String v1, String v2){
         if(v1 == null || v2 == null){
